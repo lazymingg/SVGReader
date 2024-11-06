@@ -39,8 +39,14 @@ void MyFigure::Text::draw()
     // Convert text content to wide string
     string text = attributes.getText();
     std::wstring wideText(text.begin(), text.end());
-    
+
     // Adjust the Y coordinate to move the text up
-    PointF pointF(point.getX(), point.getY() * 14 / 15); // Adjust the value as needed
-    graphics.DrawString(wideText.c_str(), -1, &fontDraw, pointF, &brush);
+    PointF pointF(point.getX(), point.getY()); // Adjust the value as needed
+
+    // Create a StringFormat object and set the vertical alignment to bottom
+    StringFormat format;
+    format.SetLineAlignment(StringAlignmentFar); // Align text to the bottom
+
+    // Draw the text with the specified format
+    graphics.DrawString(wideText.c_str(), -1, &fontDraw, pointF, &format, &brush);
 }

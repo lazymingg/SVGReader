@@ -7,20 +7,20 @@
 #include <gdiplus.h>
 #include <objidl.h>
 
-#pragma comment (lib,"Gdiplus.lib")
+#pragma comment(lib, "Gdiplus.lib")
 
 using namespace std;
 using namespace rapidxml;
 
-
 class Figure
 {
 protected:
-    xml_node<>* shapeNode;
-	SVGAttributes attributes;// no default constructor must be initilized
+    xml_node<> *shapeNode;
+    SVGAttributes attributes; // no default constructor must be initilized
     Gdiplus::Graphics &graphics;
+
 public:
-    Figure(xml_node<>* shapeNode, Gdiplus::Graphics &graphics);
+    Figure(xml_node<> *shapeNode, Gdiplus::Graphics &graphics);
     virtual void draw() = 0;
 };
 

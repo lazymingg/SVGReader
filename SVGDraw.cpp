@@ -14,6 +14,7 @@ SVGDraw::~SVGDraw()
 
 void SVGDraw::loadSVGFile(const std::string &filename)
 {
+    // bool isHead = false;
     SVGParser parser(filename);
     xml_node<> *rootNode = parser.getRootNode();
 
