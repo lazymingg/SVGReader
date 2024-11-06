@@ -5,39 +5,49 @@ SVGAttributes::SVGAttributes(xml_node<> *shapeNode) : fill("none"),
 													  stroke("none"),
 													  strokeWidth(1.0f),
 													  opacity(1.0f),
-													  fillOpacity(0.0f),
+													  fillOpacity(1.0f),
 													  strokeOpacity(0.0f),
 													  strokeLinecap("butt"),
 													  strokeLinejoin("miter"),
 													  strokeDasharray(""),
 													  transform(""),
-													  text("")
+													  text(""),
+													  fillColor(Gdiplus::Color(0, 0, 0, 0)),
+													  strokeColor(Gdiplus::Color(0, 0, 0, 0))
 {
 	xml_attribute<> *attribute = shapeNode->first_attribute();
+
+// default if not define stroke we will not draw stroke
+// default if not define fill browser will fill with black color
+// default fill opacity is 1
+// default stroke opacity is 0
+// default stroke width is 1
+// default opacity is 1
+// default stroke linecap is butt
+// default stroke linejoin is miter
+// default stroke dasharray is empty
+// default transform is empty
+// default text is empty
 
 	while (attribute != NULL)
 	{
 		std::string name = attribute->name();
 		std::string value = attribute->value();
 
-		if (name == "fill")
+		
+		if (name == "stroke-opacity")
 		{
-			setFillColor(value);
-			setFill(value);
-		}
-		else if (name == "stroke")
-		{
-			setStrokeColor(value);
-			setStroke(value);
+			setStrokeOpacity(stof(value));
 		}
 		else if (name == "stroke-width")
 			setStrokeWidth(stof(value));
 		else if (name == "opacity")
 			setOpacity(stof(value));
+		// default fill opacity is 1
 		else if (name == "fill-opacity")
+		{
 			setFillOpacity(stof(value));
-		else if (name == "stroke-opacity")
-			setStrokeOpacity(stof(value));
+		}
 		else if (name == "stroke-linecap")
 			setStrokeLinecap(value);
 		else if (name == "stroke-linejoin")
@@ -46,6 +56,38 @@ SVGAttributes::SVGAttributes(xml_node<> *shapeNode) : fill("none"),
 			setStrokeDasharray(value);
 		else if (name == "transform")
 			setTransform(value);
+		attribute = attribute->next_attribute();
+	}
+	//loop through all the attributes again to determine is fill or stroke need to be drawn
+	attribute = shapeNode->first_attribute();
+	while (attribute != NULL)
+	{
+		std::cout << "flag" << std::endl;
+		std::string name = attribute->name();
+		std::string value = attribute->value();
+		//if no stroke we will not draw stroke default stroke opacity is 0
+		if (name == "stroke")
+		{
+			if (value != "none")
+			{
+				setStrokeColor(value);
+				setStroke(value);
+				if (getStrokeOpacity() == 0)
+				{
+					std::cout << "draw stroke with opacity 0" << std::endl;
+					setStrokeOpacity(1.0f);
+				}
+			}
+		}
+		else if (name == "fill")
+		{
+			setFillColor(value);
+			setFill(value);
+			if (value == "none")
+			{
+				setFillOpacity(0.0f);
+			}
+		}
 		attribute = attribute->next_attribute();
 	}
 

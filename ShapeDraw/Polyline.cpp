@@ -31,8 +31,8 @@ void MyFigure::Polyline::draw()
 {
     // draw polygon here
     // draw fill polygon first
-    if (attributes.getFill() != "none" || attributes.getFillOpacity() != 0)
-    {
+    // if (attributes.getFill() != "none" || attributes.getFillOpacity() != 0)
+    // {
         Color fillColor = attributes.getFillColor();
         // adjust opacity
         int opacity = attributes.getFillOpacity() * 255;
@@ -55,20 +55,20 @@ void MyFigure::Polyline::draw()
 
         // free memory
         delete[] pointArray;
-    }
+    // }
 
     // draw stroke
-    if (attributes.getStroke() != "none")
-    {
+    // if (attributes.getStroke() != "none")
+    // {
         Color strokeColor = attributes.getStrokeColor();
         // adjust opacity
-        int opacity = attributes.getStrokeOpacity() * 255;
+        opacity = attributes.getStrokeOpacity() * 255;
         strokeColor = Color(opacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
         Pen pen(strokeColor, attributes.getStrokeWidth());
 
         // create point array
-        int numPoints = points.size();
-        Point* pointArray = new Point[numPoints];
+        numPoints = points.size();
+        pointArray = new Point[numPoints];
         for (int i = 0; i < numPoints; i++)
         {
             pointArray[i].X = points[i].getX();
@@ -81,5 +81,5 @@ void MyFigure::Polyline::draw()
 
         // free memory
         delete[] pointArray;
-    }
+    // }
 }

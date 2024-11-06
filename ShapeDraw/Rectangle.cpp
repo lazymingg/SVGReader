@@ -30,8 +30,8 @@ void MyFigure::Rectangle::draw()
 {
 	// Draw the Rectangle
 	// Fill rectangle first
-	if (attributes.getFill() != "none")
-	{
+	// if (attributes.getFill() != "none")
+	// {
 		Color fillColor = attributes.getFillColor();
 		// ajust opacity
 		int opacity = attributes.getFillOpacity() * 255;
@@ -40,18 +40,18 @@ void MyFigure::Rectangle::draw()
 		// print color
 
 		graphics.FillRectangle(&brush, point.getX(), point.getY(), width, height);
-	}
+	// }
 
 	// draw stroke
-	if (attributes.getStroke() != "none")
-	{
+	// if (attributes.getStroke() != "none")
+	// {
 		Color strokeColor = attributes.getStrokeColor();
 		// ajust opacity
-		int opacity = attributes.getStrokeOpacity() * 255;
+		opacity = attributes.getStrokeOpacity() * 255;
 		strokeColor = Color(opacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
 		Pen pen(strokeColor, attributes.getStrokeWidth());
 		// print color
-		graphics.SetSmoothingMode(SmoothingMode::SmoothingModeAntiAlias);
+		graphics.SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeAntiAlias);
 		graphics.DrawRectangle(&pen, point.getX(), point.getY(), width, height);
-	}
+	// }
 }

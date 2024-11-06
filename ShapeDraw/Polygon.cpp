@@ -31,36 +31,32 @@ void MyFigure::Polygon::printInfomation()
 }
 void MyFigure::Polygon::draw()
 {
-	// draw polygon here
-	// draw fill polygon first
-	if (attributes.getFill() != "none")
-	{
-		Color fillColor = attributes.getFillColor();
-        //ajust opacity
-		int opacity = attributes.getFillOpacity() * 255;
-		fillColor = Color(opacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
-		SolidBrush brush(fillColor);
-		//print color
+// draw polygon here
+// draw fill polygon first
+	
+	Color fillColor = attributes.getFillColor();
+	//ajust opacity
+	int opacity = attributes.getFillOpacity() * 255;
+	fillColor = Color(opacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
+	SolidBrush brush(fillColor);
+	//print color
 
-		Point* pointArray = new Point[points.size()];
-		for (int i = 0; i < points.size(); i++)
-		{
-			pointArray[i].X = points[i].getX();
-			pointArray[i].Y = points[i].getY();
-		}
-		graphics.FillPolygon(&brush, pointArray, (int)points.size());
-		delete[] pointArray;
-	}
-	//draw stroke
-	if (attributes.getStroke() != "none")
+	Point* pointArray = new Point[points.size()];
+	for (int i = 0; i < points.size(); i++)
 	{
-		Color strokeColor = attributes.getStrokeColor();
-		//ajust opacity
-		int opacity = attributes.getStrokeOpacity() * 255;
-		strokeColor = Color(opacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
-		Pen pen(strokeColor, attributes.getStrokeWidth());
-		//print color
-		graphics.SetSmoothingMode(SmoothingMode::SmoothingModeAntiAlias);
-		graphics.DrawPolygon(&pen, (Point*)&points[0], points.size());
+		pointArray[i].X = points[i].getX();
+		pointArray[i].Y = points[i].getY();
 	}
+	graphics.FillPolygon(&brush, pointArray, (int)points.size());
+	delete[] pointArray;
+
+//draw stroke
+	Color strokeColor = attributes.getStrokeColor();
+	//ajust opacity
+	opacity = attributes.getStrokeOpacity() * 255;
+	strokeColor = Color(opacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
+	Pen pen(strokeColor, attributes.getStrokeWidth());
+	//print color
+	graphics.SetSmoothingMode(SmoothingMode::SmoothingModeAntiAlias);
+	graphics.DrawPolygon(&pen, (Point*)&points[0], points.size());
 }
