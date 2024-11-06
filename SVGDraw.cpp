@@ -14,6 +14,7 @@ SVGDraw::~SVGDraw()
 
 void SVGDraw::loadSVGFile(const std::string &filename)
 {
+    bool isHead = false;
     SVGParser parser(filename);
     xml_node<> *rootNode = parser.getRootNode();
 
@@ -23,7 +24,10 @@ void SVGDraw::loadSVGFile(const std::string &filename)
 
         if (shape == "text")
         {
-            figures.push_back(new MyFigure::Text(node, graphics));
+            if (!isHead)
+                isHead = true;
+            else
+                figures.push_back(new MyFigure::Text(node, graphics));
         }
         else if (shape == "rect")
         {
