@@ -8,7 +8,6 @@ using namespace Gdiplus;
 
 #pragma comment(lib, "Gdiplus.lib")
 
-// hello ming
 VOID OnPaint(HDC hdc)
 {
     Graphics graphics(hdc);
