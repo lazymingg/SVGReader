@@ -22,6 +22,7 @@ protected:
 public:
     Figure(xml_node<> *shapeNode, Gdiplus::Graphics &graphics);
     virtual void draw() = 0;
+    virtual void applyTransform() = 0;
 };
 
 #endif

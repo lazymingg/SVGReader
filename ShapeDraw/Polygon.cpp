@@ -1,4 +1,5 @@
 ﻿#include "../ShapeHeader/Polygon.h"
+#include "Polygon.h"
 
 using namespace Gdiplus;
 using namespace std;
@@ -59,4 +60,10 @@ void MyFigure::Polygon::draw()
 	//print color
 	graphics.SetSmoothingMode(SmoothingMode::SmoothingModeAntiAlias);
 	graphics.DrawPolygon(&pen, (Point*)&points[0], points.size());
+}
+
+void MyFigure::Polygon::applyTransform()
+{
+	Matrix polygonMatrix;
+	
 }
