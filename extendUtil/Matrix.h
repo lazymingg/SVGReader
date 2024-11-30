@@ -1,52 +1,27 @@
+#ifndef MATRIX_H
+#define MATRIX_H
+
 #include <iostream>
 #include <vector>
-using namespace std;
+#include <stdexcept>
 
 class Matrix {
 private:
-    vector<vector<double>> data;
+    std::vector<std::vector<double>> data;
     int rows, cols;
 
 public:
     // Constructor
-    Matrix(int rows, int cols) : rows(rows), cols(cols) {
-        data.resize(rows, vector<double>(cols, 0));
-    }
+    Matrix(int rows, int cols);
 
     // Nhập ma trận
-    void input() {
-        cout << "Enter elements of the matrix (" << rows << "x" << cols << "):\n";
-        for (int i = 0; i < rows; ++i) {
-            for (int j = 0; j < cols; ++j) {
-                cin >> data[i][j];
-            }
-        }
-    }
+    void input();
 
     // Xuất ma trận
-    void print() const {
-        for (int i = 0; i < rows; ++i) {
-            for (int j = 0; j < cols; ++j) {
-                cout << data[i][j] << " ";
-            }
-            cout << endl;
-        }
-    }
+    void print() const;
 
     // Phép nhân ma trận
-    Matrix operator*(const Matrix& other) const {
-        if (cols != other.rows) {
-            throw invalid_argument("Matrix dimensions do not allow multiplication");
-        }
-
-        Matrix result(rows, other.cols);
-        for (int i = 0; i < rows; ++i) {
-            for (int j = 0; j < other.cols; ++j) {
-                for (int k = 0; k < cols; ++k) {
-                    result.data[i][j] += data[i][k] * other.data[k][j];
-                }
-            }
-        }
-        return result;
-    }
+    Matrix operator*(const Matrix& other) const;
 };
+
+#endif // MATRIX_H
