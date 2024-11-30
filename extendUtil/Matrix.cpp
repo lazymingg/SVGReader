@@ -2,44 +2,73 @@
 
 using namespace std;
 
-// Constructor
-Matrix::Matrix(int rows, int cols) : rows(rows), cols(cols) {
-    data.resize(rows, vector<double>(cols, 0));
+MyMatrix::Matrix::Matrix(int rows, int cols)
+{
+    this->rows = rows;
+    this->cols = cols;
+    matrix.resize(rows);
+    for (int i = 0; i < rows; i++)
+    {
+        matrix[i].resize(cols);
+    }
 }
 
-// Nhập ma trận
-void Matrix::input() {
-    cout << "Enter elements of the matrix (" << rows << "x" << cols << "):\n";
-    for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < cols; ++j) {
-            cin >> data[i][j];
+MyMatrix::Matrix::Matrix(vector<vector<int>> matrix)
+{
+    this->rows = matrix.size();
+    this->cols = matrix[0].size();
+    this->matrix = matrix;
+}
+
+MyMatrix::Matrix::Matrix(const Matrix &matrix)
+{
+    this->rows = matrix.rows;
+    this->cols = matrix.cols;
+    this->matrix = matrix.matrix;
+}
+
+void MyMatrix::Matrix::input()
+{
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < cols; j++)
+        {
+            cin >> matrix[i][j];
         }
     }
 }
 
-// Xuất ma trận
-void Matrix::print() const {
-    for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < cols; ++j) {
-            cout << data[i][j] << " ";
+void MyMatrix::Matrix::print() const
+{
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < cols; j++)
+        {
+            cout << matrix[i][j] << " ";
         }
         cout << endl;
     }
 }
 
-// Phép nhân ma trận
-Matrix Matrix::operator*(const Matrix& other) const {
-    if (cols != other.rows) {
-        throw invalid_argument("Matrix dimensions do not allow multiplication");
+MyMatrix::Matrix MyMatrix::Matrix::operator*(const Matrix &other) const
+{
+    if (cols != other.rows)
+    {
+        throw invalid_argument("Invalid matrix size");
     }
 
     Matrix result(rows, other.cols);
-    for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < other.cols; ++j) {
-            for (int k = 0; k < cols; ++k) {
-                result.data[i][j] += data[i][k] * other.data[k][j];
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < other.cols; j++)
+        {
+            result.matrix[i][j] = 0;
+            for (int k = 0; k < cols; k++)
+            {
+                result.matrix[i][j] += matrix[i][k] * other.matrix[k][j];
             }
         }
     }
+
     return result;
 }

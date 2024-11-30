@@ -6,6 +6,7 @@
 #include <windows.h>
 #include <gdiplus.h>
 #include <objidl.h>
+#include "../Transform/Transform.h"
 
 #pragma comment(lib, "Gdiplus.lib")
 
@@ -18,7 +19,7 @@ protected:
     xml_node<> *shapeNode;
     SVGAttributes attributes; // no default constructor must be initilized
     Gdiplus::Graphics &graphics;
-
+    Transform transform;
 public:
     Figure(xml_node<> *shapeNode, Gdiplus::Graphics &graphics);
     virtual void draw() = 0;
