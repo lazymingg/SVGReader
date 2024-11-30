@@ -3,21 +3,20 @@
 
 #include "ShapeHeader/Shape.h"
 #include "SVGParser.h"
-#include "SVGAttributes.h"
 #include <iostream>
 #include <Windows.h>
 #include <gdiplus.h>
 #include <objidl.h>
 #include <vector>
 
-class SVGDraw
+class FigureDraw
 {
 private:
     Graphics &graphics;
     vector<Figure *> figures;
 public:
-    SVGDraw(Graphics &graphics);
-    ~SVGDraw();
+    FigureDraw(Graphics &graphics);
+    ~FigureDraw();
     void loadSVGFile(const string& filename);
     void draw();
 };

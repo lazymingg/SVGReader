@@ -2,7 +2,7 @@
 #include <objidl.h>
 #include <gdiplus.h>
 #include <iostream>
-#include "SVGDraw.h"
+#include "FigureDraw.h"
 
 using namespace Gdiplus;
 
@@ -11,9 +11,9 @@ using namespace Gdiplus;
 VOID OnPaint(HDC hdc)
 {
     Graphics graphics(hdc);
-    SVGDraw svgDraw(graphics);
-    svgDraw.loadSVGFile("sample.svg");
-    svgDraw.draw();
+    FigureDraw FigureDraw(graphics);
+    FigureDraw.loadSVGFile("sample.svg");
+    FigureDraw.draw();
 }
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
