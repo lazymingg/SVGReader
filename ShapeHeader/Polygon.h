@@ -5,6 +5,7 @@
 #include <vector>
 #include <sstream>
 #include "Point.h"
+#include "../extendUtil/Matrix.h"
 
 using namespace Gdiplus;
 using namespace std;
@@ -22,6 +23,7 @@ namespace MyFigure
 		//to string
 		void printInfomation();
 		void draw() override;
+		void applyTransform() override;
 	};
 }
 

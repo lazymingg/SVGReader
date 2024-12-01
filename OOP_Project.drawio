@@ -1,0 +1,253 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0" version="24.8.4">
+  <diagram name="Class Diagram" id="P1AetLGwE0EaMBlv26rs">
+    <mxGraphModel dx="748" dy="-245" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="vSbzCpQTUygZ5dlEIyy8-52" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="1540" width="1500" height="1380" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-5" value="                     &amp;lt;&amp;lt;concrete&amp;gt;&amp;gt;       Point" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1290" y="2280" width="210" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-6" value="&lt;div&gt;- x: int&lt;/div&gt;&lt;div&gt;- y: int&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="tgiKolL8vVsNQKiTnMbF-5" vertex="1">
+          <mxGeometry y="26" width="210" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-7" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="tgiKolL8vVsNQKiTnMbF-5" vertex="1">
+          <mxGeometry y="60" width="210" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-8" value="&amp;lt;&amp;lt;constructor&amp;gt;&amp;gt; + &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;Point&lt;/span&gt;()&lt;br/&gt;&amp;lt;&amp;lt;constructor&amp;gt;&amp;gt; + &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;Point&lt;/span&gt;(&lt;span class=&quot;hljs-attr&quot;&gt;x&lt;/span&gt;: &lt;span class=&quot;hljs-keyword&quot;&gt;int&lt;/span&gt;, &lt;span class=&quot;hljs-attr&quot;&gt;y&lt;/span&gt;: &lt;span class=&quot;hljs-keyword&quot;&gt;int&lt;/span&gt;)&lt;br/&gt;&amp;lt;&amp;lt;destructor&amp;gt;&amp;gt;  + ~&lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;Point&lt;/span&gt;()&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;setX&lt;/span&gt;(&lt;span class=&quot;hljs-attr&quot;&gt;x&lt;/span&gt;: &lt;span class=&quot;hljs-keyword&quot;&gt;int&lt;/span&gt;) : &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt;&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;setY&lt;/span&gt;(&lt;span class=&quot;hljs-attr&quot;&gt;y&lt;/span&gt;: &lt;span class=&quot;hljs-keyword&quot;&gt;int&lt;/span&gt;) : &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt;&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;getX&lt;/span&gt;() : &lt;span class=&quot;hljs-keyword&quot;&gt;int&lt;/span&gt;&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;getY&lt;/span&gt;() : &lt;span class=&quot;hljs-keyword&quot;&gt;int&lt;/span&gt;&lt;br/&gt;+ &lt;span class=&quot;hljs-keyword&quot;&gt;print&lt;/span&gt;() : &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="tgiKolL8vVsNQKiTnMbF-5" vertex="1">
+          <mxGeometry y="68" width="210" height="132" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-22" value="                     &amp;lt;&amp;lt;concrete&amp;gt;&amp;gt;      SVGParser&lt;div&gt;&lt;br/&gt;&lt;/div&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="115" y="2700" width="310" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-23" value="&lt;span class=&quot;hljs-deletion&quot;&gt;- doc: xml_document&amp;lt;&amp;gt;&lt;/span&gt;&lt;br/&gt;&lt;span class=&quot;hljs-deletion&quot;&gt;- root_node: xml_node&amp;lt;&amp;gt;*&lt;/span&gt;&lt;br/&gt;&lt;span class=&quot;hljs-deletion&quot;&gt;- buffer: char*&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="tgiKolL8vVsNQKiTnMbF-22" vertex="1">
+          <mxGeometry y="26" width="310" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-24" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="tgiKolL8vVsNQKiTnMbF-22" vertex="1">
+          <mxGeometry y="80" width="310" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-25" value="&amp;lt;&amp;lt;constructor&amp;gt;&amp;gt; + SVGParser(filename: string)&lt;br/&gt;&amp;lt;&amp;lt;destructor&amp;gt;&amp;gt; + ~SVGParser()&lt;br/&gt;&lt;span class=&quot;hljs-addition&quot;&gt;+ getRootNodeName(nodeName: string) : xml_node&amp;lt;&amp;gt;*&lt;/span&gt;&lt;br/&gt;&lt;span class=&quot;hljs-addition&quot;&gt;+ getRootNode() : xml_node&amp;lt;&amp;gt;*&lt;/span&gt;&lt;br/&gt;&lt;span class=&quot;hljs-addition&quot;&gt;+ print() : void&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="tgiKolL8vVsNQKiTnMbF-22" vertex="1">
+          <mxGeometry y="88" width="310" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-27" value="&amp;lt;&lt;span class=&quot;xml&quot;&gt;&amp;lt;&lt;span class=&quot;hljs-name&quot;&gt;concrete&lt;/span&gt;&amp;gt;&lt;/span&gt;&amp;gt;       Text&amp;nbsp;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="680" y="2780" width="430" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-28" value="&lt;span class=&quot;hljs-bullet&quot;&gt;-&lt;/span&gt; point: MyPoint::Point&lt;br/&gt;&lt;span class=&quot;hljs-section&quot;&gt;- font: int&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="tgiKolL8vVsNQKiTnMbF-27" vertex="1">
+          <mxGeometry y="26" width="430" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-29" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="tgiKolL8vVsNQKiTnMbF-27" vertex="1">
+          <mxGeometry y="60" width="430" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-30" value="&amp;lt;&lt;span class=&quot;xml&quot;&gt;&amp;lt;&lt;span class=&quot;hljs-name&quot;&gt;constructor&lt;/span&gt;&amp;gt;&lt;/span&gt;&amp;gt; + Text(rootNode: xml&lt;span class=&quot;hljs-emphasis&quot;&gt;_node&amp;lt;&amp;gt;*, graphics: Gdiplus::Graphics&amp;amp;)&lt;br/&gt;+ printInformation() : void&lt;br/&gt;&amp;lt;&lt;span class=&quot;xml&quot;&gt;&lt;span class=&quot;hljs-tag&quot;&gt;&amp;lt;&lt;span class=&quot;hljs-name&quot;&gt;override&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&amp;gt; + draw() : void&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="tgiKolL8vVsNQKiTnMbF-27" vertex="1">
+          <mxGeometry y="68" width="430" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="vSbzCpQTUygZ5dlEIyy8-5" value="&amp;lt;&lt;span class=&quot;xml&quot;&gt;&amp;lt;&lt;span class=&quot;hljs-name&quot;&gt;concrete&lt;/span&gt;&amp;gt;&lt;/span&gt;&amp;gt;      SVGDraw&amp;nbsp;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="125" y="2490" width="290" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="vSbzCpQTUygZ5dlEIyy8-6" value="&lt;span class=&quot;hljs-bullet&quot;&gt;-&lt;/span&gt; graphics: Graphics&amp;amp;&lt;br/&gt;&lt;span class=&quot;hljs-section&quot;&gt;- figures: vector&lt;span class=&quot;xml&quot;&gt;&amp;lt;Figure*&amp;gt;&lt;/span&gt;&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="vSbzCpQTUygZ5dlEIyy8-5">
+          <mxGeometry y="26" width="290" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="vSbzCpQTUygZ5dlEIyy8-7" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="vSbzCpQTUygZ5dlEIyy8-5">
+          <mxGeometry y="60" width="290" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="vSbzCpQTUygZ5dlEIyy8-8" value="&amp;lt;&lt;span class=&quot;xml&quot;&gt;&amp;lt;&lt;span class=&quot;hljs-name&quot;&gt;constructor&lt;/span&gt;&amp;gt;&lt;/span&gt;&amp;gt; + SVGDraw(graphics: Graphics&amp;amp;)&lt;br/&gt;&amp;lt;&lt;span class=&quot;xml&quot;&gt;&amp;lt;&lt;span class=&quot;hljs-name&quot;&gt;destructor&lt;/span&gt;&amp;gt;&lt;/span&gt;&amp;gt; + ~SVGDraw()&lt;br/&gt;&lt;span class=&quot;hljs-bullet&quot;&gt;+&lt;/span&gt; loadSVGFile(filename: string) : void&lt;br/&gt;&lt;span class=&quot;hljs-bullet&quot;&gt;+&lt;/span&gt; draw() : void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="vSbzCpQTUygZ5dlEIyy8-5">
+          <mxGeometry y="68" width="290" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-9" value="&amp;lt;&lt;span class=&quot;xml&quot;&gt;&amp;lt;&lt;span class=&quot;hljs-name&quot;&gt;concrete&lt;/span&gt;&amp;gt;&lt;/span&gt;&amp;gt;      Polygon&amp;nbsp;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="670" y="2300" width="450" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-10" value="- points: vector&lt;span class=&quot;xml&quot;&gt;&amp;lt;MyPoint::Point&amp;gt;&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="tgiKolL8vVsNQKiTnMbF-9" vertex="1">
+          <mxGeometry y="26" width="450" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-11" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="tgiKolL8vVsNQKiTnMbF-9" vertex="1">
+          <mxGeometry y="50" width="450" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-12" value="&amp;lt;&lt;span class=&quot;xml&quot;&gt;&amp;lt;&lt;span class=&quot;hljs-name&quot;&gt;constructor&lt;/span&gt;&amp;gt;&lt;/span&gt;&amp;gt; + Polygon(rootNode: xml&lt;span class=&quot;hljs-emphasis&quot;&gt;_node&amp;lt;&amp;gt;*, graphics: Gdiplus::Graphics)&lt;br/&gt;+ printInfomation(): void&lt;br/&gt;+ draw(): void&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="tgiKolL8vVsNQKiTnMbF-9" vertex="1">
+          <mxGeometry y="58" width="450" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-44" value="&amp;lt;&lt;span class=&quot;xml&quot;&gt;&amp;lt;&lt;span class=&quot;hljs-name&quot;&gt;concrete&lt;/span&gt;&amp;gt;&lt;/span&gt;&amp;gt;       Line&amp;nbsp;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="675" y="2140" width="440" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-45" value="&lt;span class=&quot;hljs-bullet&quot;&gt;-&lt;/span&gt; start: MyPoint::Point&lt;br/&gt;&lt;span class=&quot;hljs-section&quot;&gt;- end: MyPoint::Point&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="tgiKolL8vVsNQKiTnMbF-44" vertex="1">
+          <mxGeometry y="26" width="440" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-46" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="tgiKolL8vVsNQKiTnMbF-44" vertex="1">
+          <mxGeometry y="60" width="440" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-47" value="&amp;lt;&lt;span class=&quot;xml&quot;&gt;&amp;lt;&lt;span class=&quot;hljs-name&quot;&gt;constructor&lt;/span&gt;&amp;gt;&lt;/span&gt;&amp;gt; + Line(rootNode: xml&lt;span class=&quot;hljs-emphasis&quot;&gt;_node&amp;lt;&amp;gt;*, graphics: Gdiplus::Graphics&amp;amp;)&lt;br/&gt;+ printInformation() : void&lt;br/&gt;&amp;lt;&lt;span class=&quot;xml&quot;&gt;&lt;span class=&quot;hljs-tag&quot;&gt;&amp;lt;&lt;span class=&quot;hljs-name&quot;&gt;override&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&amp;gt; + draw() : void&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="tgiKolL8vVsNQKiTnMbF-44" vertex="1">
+          <mxGeometry y="68" width="440" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-48" value="&lt;div&gt;                               &amp;lt;&amp;lt;concrete&amp;gt;&amp;gt;       Rectangle&lt;br/&gt;&lt;/div&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="660" y="2600" width="470" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-49" value="- point: MyPoint::Point&lt;br/&gt;- height: &lt;span class=&quot;hljs-type&quot;&gt;int&lt;/span&gt;&lt;br/&gt;- width: &lt;span class=&quot;hljs-type&quot;&gt;int&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="tgiKolL8vVsNQKiTnMbF-48" vertex="1">
+          <mxGeometry y="26" width="470" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-50" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="tgiKolL8vVsNQKiTnMbF-48" vertex="1">
+          <mxGeometry y="80" width="470" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-51" value="&amp;lt;&amp;lt;constructor&amp;gt;&amp;gt; + &lt;span class=&quot;hljs-built_in&quot;&gt;Rectangle&lt;/span&gt;(rootNode: xml_node&amp;lt;&amp;gt;*, graphics: Gdiplus::Graphics&amp;amp;)&lt;br/&gt;+ &lt;span class=&quot;hljs-built_in&quot;&gt;printInformation&lt;/span&gt;() : &lt;span class=&quot;hljs-type&quot;&gt;void&lt;/span&gt;&lt;br/&gt;&amp;lt;&amp;lt;&lt;span class=&quot;hljs-keyword&quot;&gt;override&lt;/span&gt;&amp;gt;&amp;gt; + &lt;span class=&quot;hljs-built_in&quot;&gt;draw&lt;/span&gt;() : &lt;span class=&quot;hljs-type&quot;&gt;void&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="tgiKolL8vVsNQKiTnMbF-48" vertex="1">
+          <mxGeometry y="88" width="470" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-40" value="&amp;lt;&lt;span class=&quot;xml&quot;&gt;&amp;lt;&lt;span class=&quot;hljs-name&quot;&gt;concrete&lt;/span&gt;&amp;gt;&lt;/span&gt;&amp;gt;       Polyline&amp;nbsp;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="670" y="2450" width="450" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-41" value="- points: vector&lt;span class=&quot;xml&quot;&gt;&amp;lt;MyPoint::Point&amp;gt;&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="tgiKolL8vVsNQKiTnMbF-40" vertex="1">
+          <mxGeometry y="26" width="450" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-42" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="tgiKolL8vVsNQKiTnMbF-40" vertex="1">
+          <mxGeometry y="50" width="450" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-43" value="&amp;lt;&lt;span class=&quot;xml&quot;&gt;&amp;lt;&lt;span class=&quot;hljs-name&quot;&gt;constructor&lt;/span&gt;&amp;gt;&lt;/span&gt;&amp;gt; + Polyline(rootNode: xml&lt;span class=&quot;hljs-emphasis&quot;&gt;_node&amp;lt;&amp;gt;*, graphics: Gdiplus::Graphics&amp;amp;)&lt;br/&gt;+ printInformation() : void&lt;br/&gt;&amp;lt;&lt;span class=&quot;xml&quot;&gt;&lt;span class=&quot;hljs-tag&quot;&gt;&amp;lt;&lt;span class=&quot;hljs-name&quot;&gt;override&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&amp;gt; + draw() : void&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="tgiKolL8vVsNQKiTnMbF-40" vertex="1">
+          <mxGeometry y="58" width="450" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-1" value="&amp;lt;&lt;span class=&quot;xml&quot;&gt;&amp;lt;&lt;span class=&quot;hljs-name&quot;&gt;concrete&lt;/span&gt;&amp;gt;&lt;/span&gt;&amp;gt;       Ellipse&amp;nbsp;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="670" y="1960" width="450" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-2" value="# center: MyPoint::Point&lt;br&gt;# rx: INT&lt;br&gt;&lt;span class=&quot;hljs-section&quot;&gt;# ry: INT&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="tgiKolL8vVsNQKiTnMbF-1" vertex="1">
+          <mxGeometry y="26" width="450" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="tgiKolL8vVsNQKiTnMbF-1" vertex="1">
+          <mxGeometry y="80" width="450" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-4" value="&amp;lt;&lt;span class=&quot;xml&quot;&gt;&amp;lt;&lt;span class=&quot;hljs-name&quot;&gt;constructor&lt;/span&gt;&amp;gt;&lt;/span&gt;&amp;gt; + Ellipse(rootNode: xml&lt;span class=&quot;hljs-emphasis&quot;&gt;_node&amp;lt;&amp;gt;*, graphics: Gdiplus::Graphics&amp;amp;)&lt;br/&gt;+ drawEllipse(graphics: Graphics) : void&lt;br/&gt;&amp;lt;&lt;span class=&quot;xml&quot;&gt;&lt;span class=&quot;hljs-tag&quot;&gt;&amp;lt;&lt;span class=&quot;hljs-name&quot;&gt;override&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&amp;gt; + draw() : void&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="tgiKolL8vVsNQKiTnMbF-1" vertex="1">
+          <mxGeometry y="88" width="450" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-32" value="&lt;div&gt;&amp;lt;&lt;span class=&quot;xml&quot;&gt;&amp;lt;&lt;span class=&quot;hljs-name&quot;&gt;concrete&lt;/span&gt;&amp;gt;&lt;/span&gt;&amp;gt;       Circle&amp;nbsp;&lt;/div&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="675" y="1770" width="440" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-33" value="- r: INT&lt;div&gt;&lt;br/&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="tgiKolL8vVsNQKiTnMbF-32" vertex="1">
+          <mxGeometry y="26" width="440" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-34" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="tgiKolL8vVsNQKiTnMbF-32" vertex="1">
+          <mxGeometry y="50" width="440" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-35" value="&amp;lt;&lt;span class=&quot;xml&quot;&gt;&amp;lt;&lt;span class=&quot;hljs-name&quot;&gt;constructor&lt;/span&gt;&amp;gt;&lt;/span&gt;&amp;gt; + Circle(rootNode: xml&lt;span class=&quot;hljs-emphasis&quot;&gt;_node&amp;lt;&amp;gt;*, graphics: Gdiplus::Graphics&amp;amp;)&lt;br/&gt;&amp;lt;&lt;span class=&quot;xml&quot;&gt;&lt;span class=&quot;hljs-tag&quot;&gt;&amp;lt;&lt;span class=&quot;hljs-name&quot;&gt;override&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&amp;gt; + draw() : void&lt;br/&gt;+ checksth() : void&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="tgiKolL8vVsNQKiTnMbF-32" vertex="1">
+          <mxGeometry y="58" width="440" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="vSbzCpQTUygZ5dlEIyy8-17" value="Extends" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;entryX=1;entryY=0.446;entryDx=0;entryDy=0;exitX=0;exitY=0.191;exitDx=0;exitDy=0;exitPerimeter=0;entryPerimeter=0;" edge="1" parent="1" source="tgiKolL8vVsNQKiTnMbF-10" target="vSbzCpQTUygZ5dlEIyy8-2">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="660" y="2333" as="sourcePoint" />
+            <mxPoint x="895" y="1889" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vSbzCpQTUygZ5dlEIyy8-18" value="" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" target="tgiKolL8vVsNQKiTnMbF-2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="610" y="2330" as="sourcePoint" />
+            <mxPoint x="580" y="2250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vSbzCpQTUygZ5dlEIyy8-20" value="" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="tgiKolL8vVsNQKiTnMbF-45">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="610" y="2183" as="sourcePoint" />
+            <mxPoint x="640" y="2130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vSbzCpQTUygZ5dlEIyy8-21" value="" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" target="tgiKolL8vVsNQKiTnMbF-28">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="610" y="2330" as="sourcePoint" />
+            <mxPoint x="650" y="2580" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vSbzCpQTUygZ5dlEIyy8-23" value="" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="tgiKolL8vVsNQKiTnMbF-41">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="610" y="2488" as="sourcePoint" />
+            <mxPoint x="665" y="2490" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vSbzCpQTUygZ5dlEIyy8-24" value="" style="endArrow=none;html=1;rounded=0;entryX=0.001;entryY=0.465;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="tgiKolL8vVsNQKiTnMbF-49">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="610" y="2651" as="sourcePoint" />
+            <mxPoint x="680" y="2498" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vSbzCpQTUygZ5dlEIyy8-35" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.498;exitY=0.996;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="vSbzCpQTUygZ5dlEIyy8-4" target="vSbzCpQTUygZ5dlEIyy8-5">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="270" y="2410" as="sourcePoint" />
+            <mxPoint x="270" y="2490" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-17" value="&amp;lt;&amp;lt;concrete&amp;gt;&amp;gt;          SVGAttributes&lt;div&gt;&lt;br/&gt;&lt;/div&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="100" y="1560" width="340" height="640" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-18" value="- fill: &lt;span class=&quot;hljs-built_in&quot;&gt;std&lt;/span&gt;::&lt;span class=&quot;hljs-built_in&quot;&gt;string&lt;/span&gt;&lt;br/&gt;- stroke: &lt;span class=&quot;hljs-built_in&quot;&gt;std&lt;/span&gt;::&lt;span class=&quot;hljs-built_in&quot;&gt;string&lt;/span&gt;&lt;br/&gt;- strokeWidth: &lt;span class=&quot;hljs-type&quot;&gt;float&lt;/span&gt;&lt;br/&gt;- opacity: &lt;span class=&quot;hljs-type&quot;&gt;float&lt;/span&gt;&lt;br/&gt;- fillOpacity: &lt;span class=&quot;hljs-type&quot;&gt;float&lt;/span&gt;&lt;br/&gt;- strokeOpacity: &lt;span class=&quot;hljs-type&quot;&gt;float&lt;/span&gt;&lt;br/&gt;- strokeLinecap: &lt;span class=&quot;hljs-built_in&quot;&gt;std&lt;/span&gt;::&lt;span class=&quot;hljs-built_in&quot;&gt;string&lt;/span&gt;&lt;br/&gt;- strokeLinejoin: &lt;span class=&quot;hljs-built_in&quot;&gt;std&lt;/span&gt;::&lt;span class=&quot;hljs-built_in&quot;&gt;string&lt;/span&gt;&lt;br/&gt;- strokeDasharray: &lt;span class=&quot;hljs-built_in&quot;&gt;std&lt;/span&gt;::&lt;span class=&quot;hljs-built_in&quot;&gt;string&lt;/span&gt;&lt;br/&gt;- transform: &lt;span class=&quot;hljs-built_in&quot;&gt;std&lt;/span&gt;::&lt;span class=&quot;hljs-built_in&quot;&gt;string&lt;/span&gt;&lt;br/&gt;- fillColor: Gdiplus::Color&lt;br/&gt;- strokeColor: Gdiplus::Color&lt;br/&gt;- text: &lt;span class=&quot;hljs-built_in&quot;&gt;std&lt;/span&gt;::&lt;span class=&quot;hljs-built_in&quot;&gt;string&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="tgiKolL8vVsNQKiTnMbF-17" vertex="1">
+          <mxGeometry y="26" width="340" height="194" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-19" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="tgiKolL8vVsNQKiTnMbF-17" vertex="1">
+          <mxGeometry y="220" width="340" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="tgiKolL8vVsNQKiTnMbF-20" value="&lt;div&gt;&amp;lt;&amp;lt;constructor&amp;gt;&amp;gt; + &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;SVGAttributes&lt;/span&gt;(&lt;span class=&quot;hljs-attr&quot;&gt;shapeNode&lt;/span&gt;: xml_node&amp;lt;&amp;gt;*)&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;setFill&lt;/span&gt;(&lt;span class=&quot;hljs-attr&quot;&gt;color&lt;/span&gt;: std::&lt;span class=&quot;hljs-variable constant_&quot;&gt;string&lt;/span&gt;) : &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt;&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;getFill&lt;/span&gt;() &lt;span class=&quot;hljs-keyword&quot;&gt;const&lt;/span&gt; : std::&lt;span class=&quot;hljs-variable constant_&quot;&gt;string&lt;/span&gt;&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;setStroke&lt;/span&gt;(&lt;span class=&quot;hljs-attr&quot;&gt;color&lt;/span&gt;: std::&lt;span class=&quot;hljs-variable constant_&quot;&gt;string&lt;/span&gt;) : &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt;&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;getStroke&lt;/span&gt;() &lt;span class=&quot;hljs-keyword&quot;&gt;const&lt;/span&gt; : std::&lt;span class=&quot;hljs-variable constant_&quot;&gt;string&lt;/span&gt;&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;setStrokeWidth&lt;/span&gt;(&lt;span class=&quot;hljs-attr&quot;&gt;width&lt;/span&gt;: &lt;span class=&quot;hljs-keyword&quot;&gt;float&lt;/span&gt;) : &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt;&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;getStrokeWidth&lt;/span&gt;() &lt;span class=&quot;hljs-keyword&quot;&gt;const&lt;/span&gt; : &lt;span class=&quot;hljs-keyword&quot;&gt;float&lt;/span&gt;&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;setOpacity&lt;/span&gt;(&lt;span class=&quot;hljs-attr&quot;&gt;value&lt;/span&gt;: &lt;span class=&quot;hljs-keyword&quot;&gt;float&lt;/span&gt;) : &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt;&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;getOpacity&lt;/span&gt;() &lt;span class=&quot;hljs-keyword&quot;&gt;const&lt;/span&gt; : &lt;span class=&quot;hljs-keyword&quot;&gt;float&lt;/span&gt;&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;setFillOpacity&lt;/span&gt;(&lt;span class=&quot;hljs-attr&quot;&gt;value&lt;/span&gt;: &lt;span class=&quot;hljs-keyword&quot;&gt;float&lt;/span&gt;) : &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt;&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;getFillOpacity&lt;/span&gt;() &lt;span class=&quot;hljs-keyword&quot;&gt;const&lt;/span&gt; : &lt;span class=&quot;hljs-keyword&quot;&gt;float&lt;/span&gt;&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;setStrokeOpacity&lt;/span&gt;(&lt;span class=&quot;hljs-attr&quot;&gt;value&lt;/span&gt;: &lt;span class=&quot;hljs-keyword&quot;&gt;float&lt;/span&gt;) : &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt;&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;getStrokeOpacity&lt;/span&gt;() &lt;span class=&quot;hljs-keyword&quot;&gt;const&lt;/span&gt; : &lt;span class=&quot;hljs-keyword&quot;&gt;float&lt;/span&gt;&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;setStrokeLinecap&lt;/span&gt;(&lt;span class=&quot;hljs-attr&quot;&gt;cap&lt;/span&gt;: std::&lt;span class=&quot;hljs-variable constant_&quot;&gt;string&lt;/span&gt;) : &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt;&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;getStrokeLinecap&lt;/span&gt;() &lt;span class=&quot;hljs-keyword&quot;&gt;const&lt;/span&gt; : std::&lt;span class=&quot;hljs-variable constant_&quot;&gt;string&lt;/span&gt;&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;setStrokeLinejoin&lt;/span&gt;(&lt;span class=&quot;hljs-attr&quot;&gt;join&lt;/span&gt;: std::&lt;span class=&quot;hljs-variable constant_&quot;&gt;string&lt;/span&gt;) : &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt;&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;getStrokeLinejoin&lt;/span&gt;() &lt;span class=&quot;hljs-keyword&quot;&gt;const&lt;/span&gt; : std::&lt;span class=&quot;hljs-variable constant_&quot;&gt;string&lt;/span&gt;&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;setStrokeDasharray&lt;/span&gt;(&lt;span class=&quot;hljs-attr&quot;&gt;dash&lt;/span&gt;: std::&lt;span class=&quot;hljs-variable constant_&quot;&gt;string&lt;/span&gt;) : &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt;&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;getStrokeDasharray&lt;/span&gt;() &lt;span class=&quot;hljs-keyword&quot;&gt;const&lt;/span&gt; : std::&lt;span class=&quot;hljs-variable constant_&quot;&gt;string&lt;/span&gt;&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;setTransform&lt;/span&gt;(&lt;span class=&quot;hljs-attr&quot;&gt;trans&lt;/span&gt;: std::&lt;span class=&quot;hljs-variable constant_&quot;&gt;string&lt;/span&gt;) : &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt;&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;getTransform&lt;/span&gt;() &lt;span class=&quot;hljs-keyword&quot;&gt;const&lt;/span&gt; : std::&lt;span class=&quot;hljs-variable constant_&quot;&gt;string&lt;/span&gt;&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;printAttributes&lt;/span&gt;() &lt;span class=&quot;hljs-keyword&quot;&gt;const&lt;/span&gt; : &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt;&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;setFillColor&lt;/span&gt;(&lt;span class=&quot;hljs-attr&quot;&gt;str&lt;/span&gt;: std::&lt;span class=&quot;hljs-variable constant_&quot;&gt;string&lt;/span&gt;) : &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt;&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;getFillColor&lt;/span&gt;() &lt;span class=&quot;hljs-keyword&quot;&gt;const&lt;/span&gt; : &lt;span class=&quot;hljs-title class_&quot;&gt;Gdiplus&lt;/span&gt;::&lt;span class=&quot;hljs-variable constant_&quot;&gt;Color&lt;/span&gt;&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;setStrokeColor&lt;/span&gt;(&lt;span class=&quot;hljs-attr&quot;&gt;str&lt;/span&gt;: std::&lt;span class=&quot;hljs-variable constant_&quot;&gt;string&lt;/span&gt;) : &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt;&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;getStrokeColor&lt;/span&gt;() &lt;span class=&quot;hljs-keyword&quot;&gt;const&lt;/span&gt; : &lt;span class=&quot;hljs-title class_&quot;&gt;Gdiplus&lt;/span&gt;::&lt;span class=&quot;hljs-variable constant_&quot;&gt;Color&lt;/span&gt;&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;setText&lt;/span&gt;(&lt;span class=&quot;hljs-attr&quot;&gt;tex&lt;/span&gt;: std::&lt;span class=&quot;hljs-variable constant_&quot;&gt;string&lt;/span&gt;) : &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt;&lt;br/&gt;+ &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;getText&lt;/span&gt;() &lt;span class=&quot;hljs-keyword&quot;&gt;const&lt;/span&gt; : std::&lt;span class=&quot;hljs-variable constant_&quot;&gt;string&lt;/span&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="tgiKolL8vVsNQKiTnMbF-17" vertex="1">
+          <mxGeometry y="228" width="340" height="412" as="geometry" />
+        </mxCell>
+        <mxCell id="vSbzCpQTUygZ5dlEIyy8-1" value="&amp;lt;&amp;lt;&lt;span class=&quot;hljs-keyword&quot;&gt;abstract&lt;/span&gt;&amp;gt;&amp;gt;          Figure&amp;nbsp;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="2280" width="460" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="vSbzCpQTUygZ5dlEIyy8-2" value="# shapeNode: xml_node&amp;lt;&amp;gt;*&lt;br&gt;# attributes: SVGAttributes&lt;br&gt;# graphics: &lt;span class=&quot;hljs-title class_&quot;&gt;Gdiplus&lt;/span&gt;::&lt;span class=&quot;hljs-variable constant_&quot;&gt;Graphics&lt;/span&gt;&amp;amp;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="vSbzCpQTUygZ5dlEIyy8-1">
+          <mxGeometry y="26" width="460" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="vSbzCpQTUygZ5dlEIyy8-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="vSbzCpQTUygZ5dlEIyy8-1">
+          <mxGeometry y="80" width="460" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="vSbzCpQTUygZ5dlEIyy8-4" value="&amp;lt;&amp;lt;constructor&amp;gt;&amp;gt; + &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;Figure&lt;/span&gt;(&lt;span class=&quot;hljs-attr&quot;&gt;shapeNode&lt;/span&gt;: xml_node&amp;lt;&amp;gt;*, &lt;span class=&quot;hljs-attr&quot;&gt;graphics&lt;/span&gt;: &lt;span class=&quot;hljs-title class_&quot;&gt;Gdiplus&lt;/span&gt;::&lt;span class=&quot;hljs-variable constant_&quot;&gt;Graphics&lt;/span&gt;&amp;amp;)&lt;br/&gt;&amp;lt;&amp;lt;pure virtual&amp;gt;&amp;gt; + &lt;span class=&quot;hljs-title function_ invoke__&quot;&gt;draw&lt;/span&gt;() : &lt;span class=&quot;hljs-keyword&quot;&gt;void&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="vSbzCpQTUygZ5dlEIyy8-1">
+          <mxGeometry y="88" width="460" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="vSbzCpQTUygZ5dlEIyy8-9" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=0.999;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="tgiKolL8vVsNQKiTnMbF-20" target="vSbzCpQTUygZ5dlEIyy8-1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="270" y="2199" as="sourcePoint" />
+            <mxPoint x="340" y="2240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vSbzCpQTUygZ5dlEIyy8-43" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=-0.002;exitY=0.932;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="tgiKolL8vVsNQKiTnMbF-6" target="tgiKolL8vVsNQKiTnMbF-10">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1150" y="2550" as="sourcePoint" />
+            <mxPoint x="1310" y="2550" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vSbzCpQTUygZ5dlEIyy8-46" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="tgiKolL8vVsNQKiTnMbF-45">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1180" y="2183" as="sourcePoint" />
+            <mxPoint x="1130" y="2189" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vSbzCpQTUygZ5dlEIyy8-47" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" target="tgiKolL8vVsNQKiTnMbF-28">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1180" y="2340" as="sourcePoint" />
+            <mxPoint x="1130" y="2348" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vSbzCpQTUygZ5dlEIyy8-48" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="tgiKolL8vVsNQKiTnMbF-41">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1180" y="2488" as="sourcePoint" />
+            <mxPoint x="1140" y="2358" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vSbzCpQTUygZ5dlEIyy8-49" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="tgiKolL8vVsNQKiTnMbF-49">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1180" y="2653" as="sourcePoint" />
+            <mxPoint x="1130" y="2498" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vSbzCpQTUygZ5dlEIyy8-50" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" target="tgiKolL8vVsNQKiTnMbF-2">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1180" y="2340" as="sourcePoint" />
+            <mxPoint x="1150" y="2010" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vSbzCpQTUygZ5dlEIyy8-12" value="Extends" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;exitX=0.501;exitY=0.975;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitPerimeter=0;" edge="1" parent="1" source="tgiKolL8vVsNQKiTnMbF-35" target="tgiKolL8vVsNQKiTnMbF-1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="880" y="2000" as="sourcePoint" />
+            <mxPoint x="720" y="2000" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vSbzCpQTUygZ5dlEIyy8-51" value="Use" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" target="tgiKolL8vVsNQKiTnMbF-22">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="269" y="2630" as="sourcePoint" />
+            <mxPoint x="460" y="2840" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
