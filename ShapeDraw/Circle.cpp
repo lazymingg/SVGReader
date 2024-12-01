@@ -25,3 +25,12 @@ void MyFigure::Circle::draw()
     // Gọi hàm vẽ ellipse từ lớp cha
     drawEllipse(graphics); // Gọi phương thức drawEllipse từ Ellipse
 }
+
+void MyFigure::Circle::checksth()
+{
+    cout << "check sth" << endl;
+}
+void MyFigure::Circle::applyTransform()
+{
+    cout << "Apply transform for Circle" << endl;
+}

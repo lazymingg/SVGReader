@@ -63,36 +63,39 @@ void MyFigure::Polygon::draw()
 
 void MyFigure::Polygon::applyTransform()
 {
-	vector<vector<int>> matrixData;
+	// vector<vector<int>> matrixData;
 	
-	// x is the first line of the matrix
-	vector<int> x;
-	for (int i = 0; i < points.size(); i++)
-	{
-		x.push_back(points[i].getX());
-	}
-	matrixData.push_back(x);
+	// // x is the first line of the matrix
+	// vector<int> x;
+	// for (int i = 0; i < points.size(); i++)
+	// {
+	// 	x.push_back(points[i].getX());
+	// }
+	// matrixData.push_back(x);
 
-	// y is the second line of the matrix
-	vector<int> y;
-	for (int i = 0; i < points.size(); i++)
-	{
-		y.push_back(points[i].getY());
-	}
-	matrixData.push_back(y);
+	// // y is the second line of the matrix
+	// vector<int> y;
+	// for (int i = 0; i < points.size(); i++)
+	// {
+	// 	y.push_back(points[i].getY());
+	// }
+	// matrixData.push_back(y);
 
-	// the last line of the matrix 0 0 1
+	// // the last line of the matrix 0 0 1
 
-	vector<int> z;
-	for (int i = 0; i < points.size(); i++)
-	{
-		z.push_back(1);
-	}
+	// vector<int> z;
+	// for (int i = 0; i < points.size(); i++)
+	// {
+	// 	z.push_back(1);
+	// }
 
-	matrixData.push_back(z);
+	// matrixData.push_back(z);
 
-	MyMatrix::Matrix polygonMatrix(matrixData);
+	// MyMatrix::Matrix polygonMatrix(matrixData);
 
-	// apply transform
-	transform.transform(polygonMatrix);
+	// // apply transform
+	// transform.transform(polygonMatrix);
+
+	cout << "Apply transform for Polygon" << endl;
 }
+

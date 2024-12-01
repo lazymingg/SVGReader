@@ -35,3 +35,8 @@ void MyFigure::Ellipse::draw()
     std::cout << "rx = " << rx << ", ry = " << ry << "\n\n";
     drawEllipse(graphics);
 }
+
+void MyFigure::Ellipse::applyTransform() 
+{
+   cout << "Apply transform for Ellipse" << endl;
+}

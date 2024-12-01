@@ -50,3 +50,8 @@ void MyFigure::Text::draw()
     // Draw the text with the specified format
     graphics.DrawString(wideText.c_str(), -1, &fontDraw, pointF, &format, &brush);
 }
+
+void MyFigure::Text::applyTransform()
+{
+    cout << "Apply transform for Text" << endl;
+}

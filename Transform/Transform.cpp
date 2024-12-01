@@ -1,5 +1,10 @@
 #include "Transform.h"
 
+Transform::Transform()
+{
+    this->stragetry = nullptr;
+}
+
 Transform::Transform(string str)
 {
     size_t openBracket = str.find("(");

@@ -9,7 +9,7 @@ class TransformStragetry
     private:
 
     public:
-        virtual void transform(Matrix &Matrix) = 0;
+        virtual void transform(MyMatrix::Matrix &Matrix) = 0;
 };
 
 class Translate : public TransformStragetry
@@ -18,7 +18,7 @@ class Translate : public TransformStragetry
         int dx, dy;
     public:
         Translate(double dx, double dy) : dx(dx), dy(dy) {}
-        void transform(Matrix &matrix) override
+        void transform(MyMatrix::Matrix &matrix) override
         {
             // tao ma tran bien doi
             // nhan ma tran bien doi voi ma tran cua hinh
@@ -32,7 +32,7 @@ class Scale : public TransformStragetry
         int sx, sy;
     public:
         Scale(int sx, int sy) : sx(sx), sy(sy) {}
-        void transform(Matrix &matrix) override
+        void transform(MyMatrix::Matrix &matrix) override
         {
             // tao ma tran bien doi
             // nhan ma tran bien doi voi ma tran cua hinh
@@ -46,7 +46,7 @@ class Rotate : public TransformStragetry
         int angle;
     public:
         Rotate(int angle) : angle(angle) {}
-        void transform(Matrix &matrix) override
+        void transform(MyMatrix::Matrix &matrix) override
         {
             // tao ma tran bien doi
             // nhan ma tran bien doi voi ma tran cua hinh

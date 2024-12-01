@@ -83,3 +83,8 @@ void MyFigure::Polyline::draw()
         delete[] pointArray;
     // }
 }
+
+void MyFigure::Polyline::applyTransform()
+{
+    cout << "Apply transform for Polyline" << endl;
+}

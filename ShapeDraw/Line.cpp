@@ -40,3 +40,8 @@ void MyFigure::Line::draw()
 
     graphics.DrawLine(&pen, start.getX(), start.getY(), end.getX(), end.getY());
 }
+
+void MyFigure::Line::applyTransform()
+{
+    cout << "Apply transform for Line" << endl;
+}

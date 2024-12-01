@@ -14,6 +14,7 @@ class Transform
     private:
         TransformStragetry *stragetry;        
     public:
+        Transform();
         Transform(string str);
         /**
          * @brief Transform the tag using mutiple matrix 
