@@ -1,6 +1,11 @@
 #include "Transform.h"
 
-Transform::Transform(string str)
+Transform::Transform()
+{
+
+}
+
+void Transform::setTransform(string str)
 {
     size_t openBracket = str.find("(");
     size_t closeBracket = str.find(")");

@@ -72,3 +72,30 @@ MyMatrix::Matrix MyMatrix::Matrix::operator*(const Matrix &other) const
 
     return result;
 }
+
+int MyMatrix::Matrix::getRows() const
+{
+    return this->rows;
+}
+
+int MyMatrix::Matrix::getCols() const
+{
+    return this->cols;
+}
+
+void MyMatrix::Matrix::setMatrix(std::vector<std::vector<int>> matrix)
+{
+    for (int i = 0; i < this->rows; i++)
+        for (int j = 0; j < this->cols; j++)
+            this->matrix[i][j] = matrix[i][j];
+}
+
+void MyMatrix::Matrix::setRows(int rows)
+{
+    this->rows = rows;
+}
+
+void MyMatrix::Matrix::setCols(int cols)
+{
+    this->cols = cols;
+}

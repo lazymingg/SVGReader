@@ -9,6 +9,8 @@
                 "-g",
                 "*.cpp",
                 "ShapeDraw/*.cpp",
+                "extendUtil/*.cpp",
+                "Transform/*.cpp",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe",
                 "-lgdiplus",

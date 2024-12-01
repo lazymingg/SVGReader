@@ -11,23 +11,17 @@ using namespace std;
 
 class Transform
 {
-    private:
-        TransformStragetry *stragetry;        
-    public:
-        Transform(string str);
-        /**
-         * @brief Transform the tag using mutiple matrix 
-         * 
-         * @param matrix the matrix to transform
-         * 
-         * @return void
-         * 
-         */
-        void transform(MyMatrix::Matrix &matrix);
-        ~Transform()
-        {
-            delete stragetry;
-        }
+private:
+    TransformStragetry *stragetry;
+
+public:
+    Transform();
+    void setTransform(string str);
+    void transform(MyMatrix::Matrix &matrix);
+    ~Transform()
+    {
+        delete stragetry;
+    }
 };
 
 #endif
