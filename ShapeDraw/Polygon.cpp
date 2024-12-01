@@ -95,4 +95,5 @@ void MyFigure::Polygon::applyTransform()
 
 	// apply transform
 	transform.transform(polygonMatrix);
+
 }

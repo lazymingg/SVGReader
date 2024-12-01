@@ -39,6 +39,8 @@ public:
     void setMatrix(std::vector<std::vector<int>> matrix);
     void setRows(int rows);
     void setCols(int cols);
+    int getElement(int posX, int posY);
+    int setElement(int posX, int posY, int value);
 
 
 };

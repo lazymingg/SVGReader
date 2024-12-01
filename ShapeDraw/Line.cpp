@@ -1,4 +1,5 @@
 #include "../ShapeHeader/Line.h"
+
 using namespace Gdiplus;
 using namespace std;
 using namespace rapidxml;
@@ -39,4 +40,8 @@ void MyFigure::Line::draw()
     graphics.SetSmoothingMode(SmoothingMode::SmoothingModeAntiAlias);
 
     graphics.DrawLine(&pen, start.getX(), start.getY(), end.getX(), end.getY());
+}
+void MyFigure::Line::applyTransform()
+{
+    cout << "Draw";
 }

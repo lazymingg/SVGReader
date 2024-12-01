@@ -99,3 +99,13 @@ void MyMatrix::Matrix::setCols(int cols)
 {
     this->cols = cols;
 }
+
+int MyMatrix::Matrix::getElement(int posX, int posY)
+{
+    return this->matrix[posX][posY];
+}
+
+int MyMatrix::Matrix::setElement(int posX, int posY, int value)
+{
+    this->matrix[posX][posY] = value;
+}
