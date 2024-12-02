@@ -41,14 +41,7 @@ void MyFigure::Line::draw()
 
     graphics.DrawLine(&pen, start.getX(), start.getY(), end.getX(), end.getY());
 }
-<<<<<<< HEAD
-
-void MyFigure::Line::applyTransform()
-{
-    cout << "Apply transform for Line" << endl;
-=======
 void MyFigure::Line::applyTransform()
 {
     cout << "Draw";
->>>>>>> AnhTris
 }

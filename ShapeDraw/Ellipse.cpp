@@ -36,14 +36,7 @@ void MyFigure::Ellipse::draw()
     std::cout << "rx = " << rx << ", ry = " << ry << "\n\n";
     drawEllipse(graphics);
 }
-<<<<<<< HEAD
-
-void MyFigure::Ellipse::applyTransform() 
-{
-   cout << "Apply transform for Ellipse" << endl;
-=======
 void MyFigure::Ellipse::applyTransform()
 {
     cout << "Draw";
->>>>>>> AnhTris
 }

@@ -1,17 +1,10 @@
 #include "Transform.h"
 
-<<<<<<< HEAD
-Transform::Transform()
-{
+Transform::Transform() {
     this->stragetry = nullptr;
 }
 
-Transform::Transform(string str)
-=======
-Transform::Transform() {}
-
 void Transform::setTransform(string str)
->>>>>>> AnhTris
 {
     size_t openBracket = str.find("(");
     size_t closeBracket = str.find(")");

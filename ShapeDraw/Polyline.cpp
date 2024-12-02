@@ -84,14 +84,7 @@ void MyFigure::Polyline::draw()
         delete[] pointArray;
     // }
 }
-<<<<<<< HEAD
-
-void MyFigure::Polyline::applyTransform()
-{
-    cout << "Apply transform for Polyline" << endl;
-=======
 void MyFigure::Polyline::applyTransform()
 {
     cout << "Draw";
->>>>>>> AnhTris
 }

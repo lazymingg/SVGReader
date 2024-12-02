@@ -7,32 +7,13 @@
 
 class TransformStragetry
 {
-<<<<<<< HEAD
-    private:
-
-    public:
-        virtual void transform(MyMatrix::Matrix &Matrix) = 0;
-=======
 protected:
 public:
     virtual void transform(MyMatrix::Matrix &Matrix) = 0;
->>>>>>> AnhTris
 };
 
 class Translate : public TransformStragetry
 {
-<<<<<<< HEAD
-    private:
-        int dx, dy;
-    public:
-        Translate(double dx, double dy) : dx(dx), dy(dy) {}
-        void transform(MyMatrix::Matrix &matrix) override
-        {
-            // tao ma tran bien doi
-            // nhan ma tran bien doi voi ma tran cua hinh
-            std::cout << "Translate: " << dx << " " << dy << std::endl;
-        }
-=======
 private:
     int dx, dy;
 
@@ -67,23 +48,10 @@ public:
         // nhan ma tran bien doi voi ma tran cua hinh
         std::cout << "Translate: " << dx << " " << dy << std::endl;
     }
->>>>>>> AnhTris
 };
 
 class Scale : public TransformStragetry
 {
-<<<<<<< HEAD
-    private:
-        int sx, sy;
-    public:
-        Scale(int sx, int sy) : sx(sx), sy(sy) {}
-        void transform(MyMatrix::Matrix &matrix) override
-        {
-            // tao ma tran bien doi
-            // nhan ma tran bien doi voi ma tran cua hinh
-            std::cout << "Scale: " << sx << " " << sy << std::endl;
-        }
-=======
 private:
     int sx, sy;
 
@@ -117,23 +85,10 @@ public:
         // nhan ma tran bien doi voi ma tran cua hinh
         std::cout << "Scale: " << sx << " " << sy << std::endl;
     }
->>>>>>> AnhTris
 };
 
 class Rotate : public TransformStragetry
 {
-<<<<<<< HEAD
-    private:
-        int angle;
-    public:
-        Rotate(int angle) : angle(angle) {}
-        void transform(MyMatrix::Matrix &matrix) override
-        {
-            // tao ma tran bien doi
-            // nhan ma tran bien doi voi ma tran cua hinh
-            std::cout << "Rotate: " << angle << std::endl;
-        }
-=======
 private:
     int angle;
 
@@ -175,7 +130,6 @@ public:
         // nhan ma tran bien doi voi ma tran cua hinh
         std::cout << "Rotate: " << angle << std::endl;
     }
->>>>>>> AnhTris
 };
 
 #endif

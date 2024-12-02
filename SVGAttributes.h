@@ -58,8 +58,8 @@ public:
     void setStrokeDasharray(const std::string &dash);
     std::string getStrokeDasharray() const;
 
-    void setTransform(const std::string &trans);
-    std::string getTransform() const;
+    // void setTransform(const std::string &trans);
+    // std::string getTransform() const;
 
     // Print attributes
     void printAttributes() const;

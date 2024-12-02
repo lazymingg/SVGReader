@@ -89,27 +89,14 @@ void MyFigure::Polygon::applyTransform()
 	// 	z.push_back(1);
 	// }
 
-<<<<<<< HEAD
 	// matrixData.push_back(z);
+	
 
 	// MyMatrix::Matrix polygonMatrix(matrixData);
+	// polygonMatrix.print();
 
 	// // apply transform
 	// transform.transform(polygonMatrix);
-
-	cout << "Apply transform for Polygon" << endl;
-}
-
-=======
-	matrixData.push_back(z);
-	
-
-	MyMatrix::Matrix polygonMatrix(matrixData);
-	polygonMatrix.print();
-
-	// apply transform
-	transform.transform(polygonMatrix);
-	polygonMatrix.print();
+	// polygonMatrix.print();
 
 }
->>>>>>> AnhTris
