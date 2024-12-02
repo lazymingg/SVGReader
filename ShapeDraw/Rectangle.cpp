@@ -1,4 +1,5 @@
 #include "../ShapeHeader/Rectangle.h"
+
 using namespace Gdiplus;
 using namespace std;
 using namespace rapidxml;
@@ -54,4 +55,8 @@ void MyFigure::Rectangle::draw()
 		graphics.SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeAntiAlias);
 		graphics.DrawRectangle(&pen, point.getX(), point.getY(), width, height);
 	// }
+}
+void MyFigure::Rectangle::applyTransform()
+{
+	cout << "Draw";
 }

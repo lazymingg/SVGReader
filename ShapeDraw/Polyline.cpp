@@ -1,4 +1,5 @@
 #include "../ShapeHeader/Polyline.h"
+
 using namespace Gdiplus;
 using namespace std;
 using namespace rapidxml;
@@ -82,4 +83,8 @@ void MyFigure::Polyline::draw()
         // free memory
         delete[] pointArray;
     // }
+}
+void MyFigure::Polyline::applyTransform()
+{
+    cout << "Draw";
 }

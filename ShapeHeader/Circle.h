@@ -23,6 +23,8 @@ namespace MyFigure
         //void drawCircle(Graphics& graphics);
         void draw() override;
         void checksth();
+        void applyTransform() override;
+        
     };
 }
 

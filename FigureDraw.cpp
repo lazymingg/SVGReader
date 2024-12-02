@@ -1,9 +1,9 @@
-#include "SVGDraw.h"
+#include "FigureDraw.h"
 #include <iostream>
 
-SVGDraw::SVGDraw(Graphics &graphics) : graphics(graphics) {}
+FigureDraw::FigureDraw(Graphics &graphics) : graphics(graphics) {}
 
-SVGDraw::~SVGDraw()
+FigureDraw::~FigureDraw()
 {
     for (Figure *figure : figures)
     {
@@ -12,10 +12,11 @@ SVGDraw::~SVGDraw()
     figures.clear();
 }
 
-void SVGDraw::loadSVGFile(const std::string &filename)
+void FigureDraw::loadSVGFile(const std::string &filename)
 {
     // bool isHead = false;
     SVGParser parser(filename);
+    parser.print();
     xml_node<> *rootNode = parser.getRootNode();
 
     for (xml_node<> *node = rootNode->first_node(); node; node = node->next_sibling())
@@ -53,10 +54,11 @@ void SVGDraw::loadSVGFile(const std::string &filename)
     }
 }
 
-void SVGDraw::draw()
+void FigureDraw::draw()
 {
     for (Figure *figure : figures)
     {
         figure->draw();
+        figure->applyTransform();
     }
 }

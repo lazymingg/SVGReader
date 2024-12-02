@@ -20,6 +20,7 @@ namespace MyFigure
 		Ellipse(xml_node<>* rootNode, Gdiplus::Graphics& graphics);
 		void drawEllipse(Graphics& graphics);
 		void draw() override;
+		void applyTransform() override;
 	};
 }
 
