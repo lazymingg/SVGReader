@@ -38,5 +38,13 @@ void MyFigure::Ellipse::draw()
 }
 void MyFigure::Ellipse::applyTransform()
 {
-    cout << "Draw";
+    MyMatrix::Matrix ellipseMatrix({{rx, 0, center.getX()}, {0, ry, center.getY()}, {0, 0, 1}});
+    
+    transform.transform(ellipseMatrix);
+
+    //Get new data
+    rx = ellipseMatrix.getElement(0, 0);
+    ry = ellipseMatrix.getElement(1, 1);
+    center.setX(ellipseMatrix.getElement(0, 2));
+    center.setY(ellipseMatrix.getElement(1, 2));
 }

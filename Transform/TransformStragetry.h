@@ -40,10 +40,14 @@ public:
         z.push_back(0);
         z.push_back(0);
         z.push_back(1);
-        matrixData.push_back(y);
+        matrixData.push_back(z);
 
         MyMatrix::Matrix translateMatrix(matrixData);
+        translateMatrix.print();
+        matrix.print();
         matrix = translateMatrix * matrix;
+        matrix.print();
+
 
         // nhan ma tran bien doi voi ma tran cua hinh
         std::cout << "Translate: " << dx << " " << dy << std::endl;
@@ -78,7 +82,7 @@ public:
         z.push_back(0);
         z.push_back(0);
         z.push_back(1);
-        matrixData.push_back(y);
+        matrixData.push_back(z);
 
         MyMatrix::Matrix scaleMatrix(matrixData);
         matrix = scaleMatrix * matrix;
@@ -116,7 +120,7 @@ public:
         z.push_back(0);
         z.push_back(0);
         z.push_back(100);
-        matrixData.push_back(y);
+        matrixData.push_back(z);
 
         MyMatrix::Matrix rotateMatrix(matrixData);
         matrix = rotateMatrix * matrix;

@@ -40,6 +40,7 @@ void MyMatrix::Matrix::input()
 
 void MyMatrix::Matrix::print() const
 {
+    cout << "\n\n\n";
     for (int i = 0; i < rows; i++)
     {
         for (int j = 0; j < cols; j++)
@@ -62,11 +63,12 @@ MyMatrix::Matrix MyMatrix::Matrix::operator*(const Matrix &other) const
     {
         for (int j = 0; j < other.cols; j++)
         {
-            result.matrix[i][j] = 0;
+            int sum = 0;
             for (int k = 0; k < cols; k++)
             {
-                result.matrix[i][j] += matrix[i][k] * other.matrix[k][j];
+            sum += matrix[i][k] * other.matrix[k][j];
             }
+            result.setElement(i, j, sum);
         }
     }
 

@@ -1,4 +1,5 @@
 ﻿#include "../ShapeHeader/Polygon.h"
+#include "Polygon.h"
 
 using namespace Gdiplus;
 using namespace std;
@@ -81,7 +82,7 @@ void MyFigure::Polygon::applyTransform()
 	}
 	matrixData.push_back(y);
 
-	// the last line of the matrix 0 0 1
+	// the last line of the matrix 1
 
 	vector<int> z;
 	for (int i = 0; i < points.size(); i++)
@@ -93,10 +94,15 @@ void MyFigure::Polygon::applyTransform()
 	
 
 	MyMatrix::Matrix polygonMatrix(matrixData);
-	polygonMatrix.print();
 
 	// apply transform
 	transform.transform(polygonMatrix);
-	polygonMatrix.print();
 
+	//get the points after transform
+	int numCol = polygonMatrix.getCols();
+	for (int i = 0; i < numCol; i++)
+	{
+		points[i].setX(polygonMatrix.getElement(0, i));
+		points[i].setY(polygonMatrix.getElement(1, i));
+	}
 }
