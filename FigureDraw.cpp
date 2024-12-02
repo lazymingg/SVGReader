@@ -16,6 +16,7 @@ void FigureDraw::loadSVGFile(const std::string &filename)
 {
     // bool isHead = false;
     SVGParser parser(filename);
+    parser.print();
     xml_node<> *rootNode = parser.getRootNode();
 
     for (xml_node<> *node = rootNode->first_node(); node; node = node->next_sibling())
@@ -58,5 +59,6 @@ void FigureDraw::draw()
     for (Figure *figure : figures)
     {
         figure->draw();
+        figure->applyTransform();
     }
 }

@@ -1,5 +1,6 @@
 ﻿#include "../ShapeHeader/Circle.h"
 
+
 MyFigure::Circle::Circle(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Ellipse(rootNode, graphics)
 {
 
@@ -25,6 +26,7 @@ void MyFigure::Circle::draw()
     // Gọi hàm vẽ ellipse từ lớp cha
     drawEllipse(graphics); // Gọi phương thức drawEllipse từ Ellipse
 }
+<<<<<<< HEAD
 
 void MyFigure::Circle::checksth()
 {
@@ -33,4 +35,9 @@ void MyFigure::Circle::checksth()
 void MyFigure::Circle::applyTransform()
 {
     cout << "Apply transform for Circle" << endl;
+=======
+void MyFigure::Circle::applyTransform()
+{
+    cout << "Transform";
+>>>>>>> AnhTris
 }

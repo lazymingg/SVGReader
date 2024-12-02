@@ -29,6 +29,6 @@ class Transform
         {
             delete stragetry;
         }
-};
+
 
 #endif

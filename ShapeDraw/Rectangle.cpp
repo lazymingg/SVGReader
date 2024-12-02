@@ -1,4 +1,5 @@
 #include "../ShapeHeader/Rectangle.h"
+
 using namespace Gdiplus;
 using namespace std;
 using namespace rapidxml;
@@ -55,8 +56,14 @@ void MyFigure::Rectangle::draw()
 		graphics.DrawRectangle(&pen, point.getX(), point.getY(), width, height);
 	// }
 }
+<<<<<<< HEAD
 
 void MyFigure::Rectangle::applyTransform()
 {
 	cout << "Apply transform for Rectangle" << endl;
+=======
+void MyFigure::Rectangle::applyTransform()
+{
+	cout << "Draw";
+>>>>>>> AnhTris
 }

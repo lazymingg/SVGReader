@@ -1,4 +1,5 @@
 #include "../ShapeHeader/Polyline.h"
+
 using namespace Gdiplus;
 using namespace std;
 using namespace rapidxml;
@@ -83,8 +84,14 @@ void MyFigure::Polyline::draw()
         delete[] pointArray;
     // }
 }
+<<<<<<< HEAD
 
 void MyFigure::Polyline::applyTransform()
 {
     cout << "Apply transform for Polyline" << endl;
+=======
+void MyFigure::Polyline::applyTransform()
+{
+    cout << "Draw";
+>>>>>>> AnhTris
 }

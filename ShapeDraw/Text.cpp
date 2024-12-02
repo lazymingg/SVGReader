@@ -1,4 +1,5 @@
 #include "../ShapeHeader/Text.h"
+
 using namespace Gdiplus;
 using namespace std;
 using namespace rapidxml;
@@ -50,8 +51,14 @@ void MyFigure::Text::draw()
     // Draw the text with the specified format
     graphics.DrawString(wideText.c_str(), -1, &fontDraw, pointF, &format, &brush);
 }
+<<<<<<< HEAD
 
 void MyFigure::Text::applyTransform()
 {
     cout << "Apply transform for Text" << endl;
+=======
+void MyFigure::Text::applyTransform()
+{
+    cout << "Draw";
+>>>>>>> AnhTris
 }
