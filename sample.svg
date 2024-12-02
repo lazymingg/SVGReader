@@ -2,4 +2,5 @@
 <svg xmlns="http://www.w3.org/2000/svg">
   <polygon fill="rgb(153, 204, 255)" fill-opacity="0.5" stroke-width="10" stroke="rgb(255, 0, 102)" stroke-opacity="0.7" points="850,75 958,137 958,262 850,325 742,262 742,137"/>
   <polygon fill="rgb(153, 204, 255)" fill-opacity="0.5" stroke-width="10" stroke="rgb(255, 0, 102)" stroke-opacity="0.7" points="850,75 958,137 958,262 850,325 742,262 742,137" transform="translate(-20,-20)"/>
+  <path fill="none" stroke="rgb(255,0,0)" stroke-width="5" d="M100,200C100,100 250,100 250,200 C  250,300 400,300 400,200" />
 </svg>
