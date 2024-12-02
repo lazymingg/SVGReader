@@ -90,10 +90,13 @@ void MyFigure::Polygon::applyTransform()
 	}
 
 	matrixData.push_back(z);
+	
 
 	MyMatrix::Matrix polygonMatrix(matrixData);
+	polygonMatrix.print();
 
 	// apply transform
 	transform.transform(polygonMatrix);
+	polygonMatrix.print();
 
 }

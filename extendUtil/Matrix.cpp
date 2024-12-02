@@ -105,7 +105,7 @@ int MyMatrix::Matrix::getElement(int posX, int posY)
     return this->matrix[posX][posY];
 }
 
-int MyMatrix::Matrix::setElement(int posX, int posY, int value)
+void MyMatrix::Matrix::setElement(int posX, int posY, int value)
 {
     this->matrix[posX][posY] = value;
 }

@@ -40,7 +40,7 @@ public:
     void setRows(int rows);
     void setCols(int cols);
     int getElement(int posX, int posY);
-    int setElement(int posX, int posY, int value);
+    void setElement(int posX, int posY, int value);
 
 
 };

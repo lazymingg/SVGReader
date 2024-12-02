@@ -25,14 +25,14 @@ public:
         vector<vector<int>> matrixData;
 
         vector<int> x;
-        x.push_back(0);
+        x.push_back(1);
         x.push_back(0);
         x.push_back(dx);
         matrixData.push_back(x);
 
         vector<int> y;
         y.push_back(0);
-        y.push_back(0);
+        y.push_back(1);
         y.push_back(dy);
         matrixData.push_back(y);
 
@@ -69,8 +69,8 @@ public:
         matrixData.push_back(x);
 
         vector<int> y;
-        y.push_back(sy);
         y.push_back(0);
+        y.push_back(sy);
         y.push_back(0);
         matrixData.push_back(y);
 
