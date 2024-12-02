@@ -10,13 +10,10 @@ SVGAttributes::SVGAttributes(xml_node<> *shapeNode) : fill("none"),
 													  strokeLinecap("butt"),
 													  strokeLinejoin("miter"),
 													  strokeDasharray(""),
-													  transform(""),
 													  text(""),
 													  fillColor(Gdiplus::Color(0, 0, 0, 0)),
 													  strokeColor(Gdiplus::Color(0, 0, 0, 0))
 {
-	xml_attribute<> *attribute = shapeNode->first_attribute();
-
 // default if not define stroke we will not draw stroke
 // default if not define fill browser will fill with black color
 // default fill opacity is 1
@@ -29,35 +26,48 @@ SVGAttributes::SVGAttributes(xml_node<> *shapeNode) : fill("none"),
 // default transform is empty
 // default text is empty
 
+	xml_attribute<> *attribute = shapeNode->first_attribute();
 	while (attribute != NULL)
 	{
 		std::string name = attribute->name();
 		std::string value = attribute->value();
 
-		
 		if (name == "stroke-opacity")
 		{
 			setStrokeOpacity(stof(value));
 		}
 		else if (name == "stroke-width")
+		{
 			setStrokeWidth(stof(value));
+		}
 		else if (name == "opacity")
+		{
 			setOpacity(stof(value));
-		// default fill opacity is 1
+		}
 		else if (name == "fill-opacity")
 		{
 			setFillOpacity(stof(value));
 		}
 		else if (name == "stroke-linecap")
+		{
 			setStrokeLinecap(value);
+		}
 		else if (name == "stroke-linejoin")
+		{
 			setStrokeLinejoin(value);
-		else if (name == "stroke-dasharray")
-			setStrokeDasharray(value);
+		}
 		else if (name == "transform")
-			setTransform(value);
+		{
+			cout << "test" << endl;
+			transform = Transform(value);
+		}
+		else if (name == "stroke-dasharray")
+		{
+			setStrokeDasharray(value);
+		}
 		attribute = attribute->next_attribute();
 	}
+
 	//loop through all the attributes again to determine is fill or stroke need to be drawn
 	attribute = shapeNode->first_attribute();
 	while (attribute != NULL)
@@ -126,8 +136,10 @@ std::string SVGAttributes::getStrokeLinejoin() const { return strokeLinejoin; }
 void SVGAttributes::setStrokeDasharray(const std::string &dash) { strokeDasharray = dash; }
 std::string SVGAttributes::getStrokeDasharray() const { return strokeDasharray; }
 
-void SVGAttributes::setTransform(const std::string &trans) { transform = trans; }
-std::string SVGAttributes::getTransform() const { return transform; }
+Transform SVGAttributes::getTransform()
+{
+	return transform;
+}
 
 void SVGAttributes::setText(std::string tex) { text = tex; };
 std::string SVGAttributes::getText() const { return text; };
@@ -144,7 +156,6 @@ void SVGAttributes::printAttributes() const
 			  << "Stroke Linecap: " << strokeLinecap << "\n"
 			  << "Stroke Linejoin: " << strokeLinejoin << "\n"
 			  << "Stroke Dasharray: " << strokeDasharray << "\n"
-			  << "Transform: " << transform << "\n"
 			  << "Text: " << text << "\n";
 }
 

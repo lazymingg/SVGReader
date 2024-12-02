@@ -19,7 +19,6 @@ protected:
     xml_node<> *shapeNode;
     SVGAttributes attributes; // no default constructor must be initilized
     Gdiplus::Graphics &graphics;
-    Transform transform;
 public:
     Figure(xml_node<> *shapeNode, Gdiplus::Graphics &graphics);
     virtual void draw() = 0;

@@ -1,5 +1,6 @@
 #include "../shapeheader/Ellipse.h"
 
+
 MyFigure::Ellipse::Ellipse(xml_node<>* rootNode, Gdiplus::Graphics& graphics) : Figure(rootNode, graphics)
 {
 
@@ -35,8 +36,7 @@ void MyFigure::Ellipse::draw()
     std::cout << "rx = " << rx << ", ry = " << ry << "\n\n";
     drawEllipse(graphics);
 }
-
-void MyFigure::Ellipse::applyTransform() 
+void MyFigure::Ellipse::applyTransform()
 {
-   cout << "Apply transform for Ellipse" << endl;
+    cout << "Draw";
 }

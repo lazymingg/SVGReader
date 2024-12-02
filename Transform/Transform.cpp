@@ -2,7 +2,7 @@
 
 Transform::Transform()
 {
-    this->stragetry = nullptr;
+    stragetry = new Translate("translate(0,0)");
 }
 
 Transform::Transform(string str)
@@ -13,26 +13,21 @@ Transform::Transform(string str)
 
     if (transform == "translate")
     {
-        size_t comma = str.find(",");
-        int dx = stoi(str.substr(openBracket + 1, comma - openBracket - 1));
-        int dy = stoi(str.substr(comma + 1, closeBracket - comma - 1));
-        stragetry = new Translate(dx, dy);
+        cout << "Translate" << endl;
+        stragetry = new Translate(str);
     }
     else if (transform == "scale")
     {
-        size_t comma = str.find(",");
-        int sx = stoi(str.substr(openBracket + 1, comma - openBracket - 1));
-        int sy = stoi(str.substr(comma + 1, closeBracket - comma - 1));
-        stragetry = new Scale(sx, sy);
+        stragetry = new Scale(str);
     }
     else if (transform == "rotate")
     {
-        int angle = stoi(str.substr(openBracket + 1, closeBracket - openBracket - 1));
-        stragetry = new Rotate(angle);
+        stragetry = new Rotate(str);
     }
     else
     {
-        cout << "Invalid transform" << endl;
+        // no transform here default translate with 0,0
+        stragetry = new Translate("translate(0,0)");
     }
 }
 
