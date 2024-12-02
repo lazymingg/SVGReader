@@ -6,6 +6,7 @@
 #include <Windows.h>
 #include <gdiplus.h>
 #include "extendLib/rapid_xml/rapidxml.hpp"
+#include "Transform/Transform.h"
 
 using namespace rapidxml;
 class SVGAttributes
@@ -20,7 +21,7 @@ private:
     std::string strokeLinecap;   // Kiểu kết thúc viền
     std::string strokeLinejoin;  // Kiểu nối viền
     std::string strokeDasharray; // Mẫu nét đứt
-    std::string transform;       // Biến đổi hình dạng
+    Transform *transform;
     Gdiplus::Color fillColor;    // Màu lấp đầy dạng Color
     Gdiplus::Color strokeColor;  // Màu viền dạng Color
     std::string text;            // Chữ của định dạng text

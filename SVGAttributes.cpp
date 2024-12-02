@@ -10,7 +10,7 @@ SVGAttributes::SVGAttributes(xml_node<> *shapeNode) : fill("none"),
 													  strokeLinecap("butt"),
 													  strokeLinejoin("miter"),
 													  strokeDasharray(""),
-													  transform(""),
+													  transform(nullptr),
 													  text(""),
 													  fillColor(Gdiplus::Color(0, 0, 0, 0)),
 													  strokeColor(Gdiplus::Color(0, 0, 0, 0))
@@ -52,10 +52,12 @@ SVGAttributes::SVGAttributes(xml_node<> *shapeNode) : fill("none"),
 			setStrokeLinecap(value);
 		else if (name == "stroke-linejoin")
 			setStrokeLinejoin(value);
+		else if (name == "transfrom")
+		{
+			this->transform = new Transform(value);
+		}
 		else if (name == "stroke-dasharray")
 			setStrokeDasharray(value);
-		else if (name == "transform")
-			setTransform(value);
 		attribute = attribute->next_attribute();
 	}
 	//loop through all the attributes again to determine is fill or stroke need to be drawn
@@ -126,8 +128,8 @@ std::string SVGAttributes::getStrokeLinejoin() const { return strokeLinejoin; }
 void SVGAttributes::setStrokeDasharray(const std::string &dash) { strokeDasharray = dash; }
 std::string SVGAttributes::getStrokeDasharray() const { return strokeDasharray; }
 
-void SVGAttributes::setTransform(const std::string &trans) { transform = trans; }
-std::string SVGAttributes::getTransform() const { return transform; }
+// void SVGAttributes::setTransform(const std::string &trans) { transform = trans; }
+// std::string SVGAttributes::getTransform() const { return transform; }
 
 void SVGAttributes::setText(std::string tex) { text = tex; };
 std::string SVGAttributes::getText() const { return text; };
