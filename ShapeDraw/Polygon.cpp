@@ -33,7 +33,8 @@ void MyFigure::Polygon::draw()
 {
 // draw polygon here
 // draw fill polygon first
-	
+	applyTransform();
+
 	Color fillColor = attributes.getFillColor();
 	//ajust opacity
 	int opacity = attributes.getFillOpacity() * 255;
@@ -63,40 +64,48 @@ void MyFigure::Polygon::draw()
 
 void MyFigure::Polygon::applyTransform()
 {
-	// vector<vector<int>> matrixData;
+	vector<vector<int>> matrixData;
 	
-	// // x is the first line of the matrix
-	// vector<int> x;
-	// for (int i = 0; i < points.size(); i++)
-	// {
-	// 	x.push_back(points[i].getX());
-	// }
-	// matrixData.push_back(x);
+	// x is the first line of the matrix
+	vector<int> x;
+	for (int i = 0; i < points.size(); i++)
+	{
+		x.push_back(points[i].getX());
+	}
+	matrixData.push_back(x);
 
-	// // y is the second line of the matrix
-	// vector<int> y;
-	// for (int i = 0; i < points.size(); i++)
-	// {
-	// 	y.push_back(points[i].getY());
-	// }
-	// matrixData.push_back(y);
+	// y is the second line of the matrix
+	vector<int> y;
+	for (int i = 0; i < points.size(); i++)
+	{
+		y.push_back(points[i].getY());
+	}
+	matrixData.push_back(y);
 
-	// // the last line of the matrix 0 0 1
+	// the last line of the matrix 0 0 1
 
-	// vector<int> z;
-	// for (int i = 0; i < points.size(); i++)
-	// {
-	// 	z.push_back(1);
-	// }
+	vector<int> z;
+	for (int i = 0; i < points.size(); i++)
+	{
+		z.push_back(1);
+	}
 
-	// matrixData.push_back(z);
+	matrixData.push_back(z);
 	
 
-	// MyMatrix::Matrix polygonMatrix(matrixData);
-	// polygonMatrix.print();
+	MyMatrix::Matrix polygonMatrix(matrixData);
+	cout << "Polygon matrix before multi" << endl;
+	polygonMatrix.print();
 
-	// // apply transform
-	// transform.transform(polygonMatrix);
-	// polygonMatrix.print();
+	// apply transform
+	this->attributes.getTransform().transform(polygonMatrix);
+	cout << "Polygon matrix after multi" << endl;
+	polygonMatrix.print();
+
+	for (int i = 0; i < points.size(); i++)
+	{
+		points[i].setX(polygonMatrix.getMatrix()[0][i]);
+		points[i].setY(polygonMatrix.getMatrix()[1][i]);
+	}
 
 }

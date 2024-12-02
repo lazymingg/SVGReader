@@ -4,7 +4,7 @@
 #include <iostream>
 #include "../extendUtil/Matrix.h"
 #include <cmath>
-
+#define M_PI 3.14159265358979323846
 class TransformStragetry
 {
 protected:
@@ -12,13 +12,22 @@ public:
     virtual void transform(MyMatrix::Matrix &Matrix) = 0;
 };
 
+
 class Translate : public TransformStragetry
 {
 private:
     int dx, dy;
 
 public:
-    Translate(double dx, double dy) : dx(dx), dy(dy) {}
+    Translate(string str)
+    {
+        size_t openBracket = str.find("(");
+        size_t closeBracket = str.find(")");
+        size_t comma = str.find(",");
+        dx = stoi(str.substr(openBracket + 1, comma - openBracket - 1));
+        dy = stoi(str.substr(comma + 1, closeBracket - comma - 1));
+    }
+
     void transform(MyMatrix::Matrix &matrix) override
     {
         // tao ma tran bien doi
@@ -40,7 +49,7 @@ public:
         z.push_back(0);
         z.push_back(0);
         z.push_back(1);
-        matrixData.push_back(y);
+        matrixData.push_back(z);
 
         MyMatrix::Matrix translateMatrix(matrixData);
         matrix = translateMatrix * matrix;
@@ -56,7 +65,14 @@ private:
     int sx, sy;
 
 public:
-    Scale(int sx, int sy) : sx(sx), sy(sy) {}
+    Scale(string str)
+    {
+        size_t openBracket = str.find("(");
+        size_t closeBracket = str.find(")");
+        size_t comma = str.find(",");
+        sx = stoi(str.substr(openBracket + 1, comma - openBracket - 1));
+        sy = stoi(str.substr(comma + 1, closeBracket - comma - 1));
+    }
     void transform(MyMatrix::Matrix &matrix) override
     {
         // tao ma tran bien doi
@@ -78,7 +94,7 @@ public:
         z.push_back(0);
         z.push_back(0);
         z.push_back(1);
-        matrixData.push_back(y);
+        matrixData.push_back(z);
 
         MyMatrix::Matrix scaleMatrix(matrixData);
         matrix = scaleMatrix * matrix;
@@ -93,7 +109,12 @@ private:
     int angle;
 
 public:
-    Rotate(int angle) : angle(angle) {}
+    Rotate(string str)
+    {
+        size_t openBracket = str.find("(");
+        size_t closeBracket = str.find(")");
+        angle = stoi(str.substr(openBracket + 1, closeBracket - openBracket - 1));
+    }
     void transform(MyMatrix::Matrix &matrix) override
     {
         // tao ma tran bien doi
@@ -116,17 +137,19 @@ public:
         z.push_back(0);
         z.push_back(0);
         z.push_back(100);
-        matrixData.push_back(y);
+        matrixData.push_back(z);
 
         MyMatrix::Matrix rotateMatrix(matrixData);
         matrix = rotateMatrix * matrix;
         for (int i = 0; i < 3; i++)
+        {
             for (int j = 0; j < 3; j++)
-                {
-                    int temp = matrix.getElement(i, j);
-                    temp /= 100;
-                    matrix.setElement(i, j, temp);
-                }
+            {
+                int temp = matrix.getElement(i, j);
+                temp /= 100;
+                matrix.setElement(i, j, temp);
+            }
+        }
         // nhan ma tran bien doi voi ma tran cua hinh
         std::cout << "Rotate: " << angle << std::endl;
     }

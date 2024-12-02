@@ -90,6 +90,11 @@ void MyMatrix::Matrix::setMatrix(std::vector<std::vector<int>> matrix)
             this->matrix[i][j] = matrix[i][j];
 }
 
+std::vector<std::vector<int>> MyMatrix::Matrix::getMatrix() const
+{
+    return this->matrix;
+}
+
 void MyMatrix::Matrix::setRows(int rows)
 {
     this->rows = rows;

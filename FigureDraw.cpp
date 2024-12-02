@@ -59,6 +59,5 @@ void FigureDraw::draw()
     for (Figure *figure : figures)
     {
         figure->draw();
-        figure->applyTransform();
     }
 }

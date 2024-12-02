@@ -21,7 +21,7 @@ private:
     std::string strokeLinecap;   // Kiểu kết thúc viền
     std::string strokeLinejoin;  // Kiểu nối viền
     std::string strokeDasharray; // Mẫu nét đứt
-    Transform *transform;
+    Transform transform;
     Gdiplus::Color fillColor;    // Màu lấp đầy dạng Color
     Gdiplus::Color strokeColor;  // Màu viền dạng Color
     std::string text;            // Chữ của định dạng text
@@ -58,8 +58,7 @@ public:
     void setStrokeDasharray(const std::string &dash);
     std::string getStrokeDasharray() const;
 
-    // void setTransform(const std::string &trans);
-    // std::string getTransform() const;
+    Transform getTransform();
 
     // Print attributes
     void printAttributes() const;
