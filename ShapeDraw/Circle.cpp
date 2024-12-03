@@ -30,7 +30,7 @@ void MyFigure::Circle::applyTransform()
 {
     MyMatrix::Matrix circleMatrix({{rx, 0, center.getX()}, {0, ry, center.getY()}, {0, 0, 1}});
     
-    transform.transform(circleMatrix);
+    this->attributes.getTransform().transform(circleMatrix);
 
     //Get new data
     rx = circleMatrix.getElement(0, 0);
