@@ -114,16 +114,6 @@ void MyFigure::Path::draw()
         return;
     }
 
-    std::cout << "Path Points:" << std::endl;
-
-    for (int i = 0; i < pointCount; ++i)
-    {
-        // In thông tin điểm và loại đường
-        std::cout << "Point " << i + 1 << ": ("
-                  << points[i].X << ", "
-                  << points[i].Y << ')' << std::endl;
-    }
-
     applyTransform();
 
     SolidBrush fillBrush(attributes.getFillColor());
