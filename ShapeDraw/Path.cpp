@@ -24,8 +24,9 @@ int extractNumber(const std::string &data, int &i)
 
 MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure(rootNode, graphics)
 {
-    if (!rootNode) return;
-    
+    if (!rootNode)
+        return;
+
     std::string data = rootNode->first_attribute("d")->value();
 
     if (data == "none")
@@ -55,7 +56,7 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
             {
                 int x = extractNumber(data, i);
                 int y = extractNumber(data, i);
-                path.AddLine(currentPoint.getX(), currentPoint.getY(),x ,y);
+                path.AddLine(currentPoint.getX(), currentPoint.getY(), x, y);
                 currentPoint = MyPoint::Point(x, y);
             }
             else if (command == 'H')
@@ -97,12 +98,15 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
                 ++i;
         }
     }
+
+    pointCount = path.GetPointCount();
+    Gdiplus::Point *points = new Gdiplus::Point[pointCount];
+    path.GetPathPoints(points, pointCount);
 }
 
 void MyFigure::Path::draw()
 {
     std::cout << "Path: ";
-    int pointCount = path.GetPointCount();
 
     if (pointCount == 0)
     {
@@ -110,16 +114,13 @@ void MyFigure::Path::draw()
         return;
     }
 
-    Gdiplus::Point* points = new Gdiplus::Point[pointCount];
-    path.GetPathPoints(points, pointCount);
-
     std::cout << "Path Points:" << std::endl;
 
     for (int i = 0; i < pointCount; ++i)
     {
         // In thông tin điểm và loại đường
-        std::cout << "Point " << i + 1 << ": (" 
-                  << points[i].X << ", " 
+        std::cout << "Point " << i + 1 << ": ("
+                  << points[i].X << ", "
                   << points[i].Y << ')' << std::endl;
     }
 
@@ -130,4 +131,49 @@ void MyFigure::Path::draw()
 
 void MyFigure::Path::applyTransform()
 {
+    vector<vector<int>> matrixData;
+	
+	// x is the first line of the matrix
+	vector<int> x;
+	for (int i = 0; i < pointCount; i++)
+	{
+		x.push_back(points[i].X);
+	}
+	matrixData.push_back(x);
+
+	// y is the second line of the matrix
+	vector<int> y;
+	for (int i = 0; i < pointCount; i++)
+	{
+		y.push_back(points[i].Y);
+	}
+	matrixData.push_back(y);
+
+	// the last line of the matrix 1
+
+	vector<int> z;
+	for (int i = 0; i < pointCount; i++)
+	{
+		z.push_back(1);
+	}
+
+	matrixData.push_back(z);
+	
+
+	MyMatrix::Matrix pathMatrix(matrixData);
+
+	cout << "Polygon matrix before multi" << endl;
+	pathMatrix.print();
+
+	// apply transform
+	this->attributes.getTransform().transform(pathMatrix);
+	cout << "Polygon matrix after multi" << endl;
+	pathMatrix.print();
+
+	for (int i = 0; i < pointCount; i++)
+	{
+		points[i].X = (pathMatrix.getMatrix()[0][i]);
+		points[i].Y = (pathMatrix.getMatrix()[1][i]);
+	}
+
 }

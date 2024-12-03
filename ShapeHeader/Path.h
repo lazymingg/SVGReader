@@ -15,6 +15,8 @@ namespace MyFigure
     {
     private:
         Gdiplus::GraphicsPath path;
+        Gdiplus::Point* points;
+        int pointCount;
     public:
         friend bool isDigit(const char &c);
         friend bool isAlpha(const char &c);
