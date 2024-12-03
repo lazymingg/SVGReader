@@ -1,5 +1,4 @@
 ﻿#include "../ShapeHeader/Polygon.h"
-#include "Polygon.h"
 
 using namespace Gdiplus;
 using namespace std;

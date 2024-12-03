@@ -29,6 +29,7 @@ void MyFigure::Rectangle::printInfomation()
 
 void MyFigure::Rectangle::draw()
 {
+	applyTransform();
 	// Draw the Rectangle
 	// Fill rectangle first
 	// if (attributes.getFill() != "none")

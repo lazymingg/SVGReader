@@ -28,6 +28,7 @@ void MyFigure::Line::printInfomation()
 
 void MyFigure::Line::draw()
 {
+    applyTransform();
     // Draw the line
 
     // Get fill color and adjust opacity

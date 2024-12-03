@@ -145,9 +145,9 @@ public:
 
         MyMatrix::Matrix rotateMatrix(matrixData);
         matrix = rotateMatrix * matrix;
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < matrix.getRows(); i++)
         {
-            for (int j = 0; j < 3; j++)
+            for (int j = 0; j < matrix.getCols(); j++)
             {
                 int temp = matrix.getElement(i, j);
                 temp /= 100;
