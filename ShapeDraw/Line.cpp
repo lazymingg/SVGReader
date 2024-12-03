@@ -28,6 +28,7 @@ void MyFigure::Line::printInfomation()
 
 void MyFigure::Line::draw()
 {
+    applyTransform();
     // Draw the line
 
     // Get fill color and adjust opacity
@@ -43,5 +44,10 @@ void MyFigure::Line::draw()
 }
 void MyFigure::Line::applyTransform()
 {
-    cout << "Draw";
+    MyMatrix::Matrix lineMatrix ({{start.getX(), end.getX()}, {start.getY(), end.getY()}, {1, 1}});
+    this->attributes.getTransform().transform(lineMatrix);
+    start.setX(lineMatrix.getElement(0, 0));
+    start.setY(lineMatrix.getElement(1, 0));
+    end.setX(lineMatrix.getElement(0, 1));
+    end.setY(lineMatrix.getElement(1, 1));
 }

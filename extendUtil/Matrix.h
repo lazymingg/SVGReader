@@ -31,7 +31,7 @@ public:
 
     // Phép nhân ma trận
     Matrix operator*(const Matrix& other) const;
-
+    
     //getter setter
     int getRows() const;
     int getCols() const;

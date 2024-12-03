@@ -82,7 +82,7 @@ void MyFigure::Polygon::applyTransform()
 	}
 	matrixData.push_back(y);
 
-	// the last line of the matrix 0 0 1
+	// the last line of the matrix 1
 
 	vector<int> z;
 	for (int i = 0; i < points.size(); i++)
@@ -94,6 +94,7 @@ void MyFigure::Polygon::applyTransform()
 	
 
 	MyMatrix::Matrix polygonMatrix(matrixData);
+
 	cout << "Polygon matrix before multi" << endl;
 	polygonMatrix.print();
 
@@ -107,5 +108,4 @@ void MyFigure::Polygon::applyTransform()
 		points[i].setX(polygonMatrix.getMatrix()[0][i]);
 		points[i].setY(polygonMatrix.getMatrix()[1][i]);
 	}
-
 }

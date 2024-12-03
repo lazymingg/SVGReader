@@ -25,6 +25,7 @@ void MyFigure::Text::printInfomation()
 
 void MyFigure::Text::draw()
 {
+    applyTransform();
     // Draw the text
 
     // Get fill color and adjust opacity
@@ -53,5 +54,11 @@ void MyFigure::Text::draw()
 }
 void MyFigure::Text::applyTransform()
 {
-    cout << "Draw";
+    MyMatrix::Matrix textMatrix({{point.getX()}, {point.getY()}, {1}});
+
+    this->attributes.getTransform().transform(textMatrix);
+
+    // Get new data
+    point.setX(textMatrix.getElement(0, 0));
+    point.setY(textMatrix.getElement(0, 1));
 }
