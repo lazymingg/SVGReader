@@ -9,9 +9,8 @@ class TransformStragetry
 {
 protected:
 public:
-    virtual void transform(MyMatrix::Matrix &Matrix) = 0;
+    virtual MyMatrix::Matrix doTransform(MyMatrix::Matrix Matrix) = 0;
 };
-
 
 class Translate : public TransformStragetry
 {
@@ -28,7 +27,7 @@ public:
         dy = stoi(str.substr(comma + 1, closeBracket - comma - 1));
     }
 
-    void transform(MyMatrix::Matrix &matrix) override
+    MyMatrix::Matrix doTransform(MyMatrix::Matrix matrix) override
     {
         // tao ma tran bien doi
         vector<vector<int>> matrixData;
@@ -52,14 +51,8 @@ public:
         matrixData.push_back(z);
 
         MyMatrix::Matrix translateMatrix(matrixData);
-        translateMatrix.print();
-        matrix.print();
-        matrix = translateMatrix * matrix;
-        matrix.print();
 
-
-        // nhan ma tran bien doi voi ma tran cua hinh
-        std::cout << "Translate: " << dx << " " << dy << std::endl;
+        return matrix = translateMatrix * matrix;
     }
 };
 
@@ -77,7 +70,7 @@ public:
         sx = stoi(str.substr(openBracket + 1, comma - openBracket - 1));
         sy = stoi(str.substr(comma + 1, closeBracket - comma - 1));
     }
-    void transform(MyMatrix::Matrix &matrix) override
+    MyMatrix::Matrix doTransform(MyMatrix::Matrix matrix) override
     {
         // tao ma tran bien doi
         vector<vector<int>> matrixData;
@@ -101,9 +94,7 @@ public:
         matrixData.push_back(z);
 
         MyMatrix::Matrix scaleMatrix(matrixData);
-        matrix = scaleMatrix * matrix;
-        // nhan ma tran bien doi voi ma tran cua hinh
-        std::cout << "Scale: " << sx << " " << sy << std::endl;
+        return scaleMatrix * matrix;
     }
 };
 
@@ -119,7 +110,7 @@ public:
         size_t closeBracket = str.find(")");
         angle = stoi(str.substr(openBracket + 1, closeBracket - openBracket - 1));
     }
-    void transform(MyMatrix::Matrix &matrix) override
+    MyMatrix::Matrix doTransform(MyMatrix::Matrix matrix) override
     {
         // tao ma tran bien doi
         vector<vector<int>> matrixData;
@@ -154,8 +145,8 @@ public:
                 matrix.setElement(i, j, temp);
             }
         }
-        // nhan ma tran bien doi voi ma tran cua hinh
-        std::cout << "Rotate: " << angle << std::endl;
+        
+        return matrix;
     }
 };
 

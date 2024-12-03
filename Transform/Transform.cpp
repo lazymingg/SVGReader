@@ -2,10 +2,45 @@
 
 Transform::Transform()
 {
-    stragetry = new Translate("translate(0,0)");
+    stragetry.push_back(new Translate("translate(0,0)"));
 }
 
 Transform::Transform(string str)
+{
+    vector<string> tokens;
+    int len = str.length();
+
+    string get = "";
+
+    for (int i = 0; i <= len; i++)
+    {
+        if ((str[i] == ' ' && str[i - 1] == ')') || i == len)
+        {
+            tokens.push_back(get);
+            get = "";
+        }
+        else
+            get += str[i];
+    }
+
+    for (int i = 0; i < tokens.size(); i++)
+        this->setTransform(tokens[i]);
+
+    len = tokens.size();
+    for (int i = 0; i < len; i++)
+        tokens.pop_back();
+}
+
+MyMatrix::Matrix Transform::doTransform(MyMatrix::Matrix matrix)
+{
+    cout << stragetry.size();
+
+   for (int i = 0; i < stragetry.size(); i++)
+       matrix = stragetry[i]->doTransform(matrix);
+    return matrix;
+}
+
+void Transform::setTransform(string str)
 {
     size_t openBracket = str.find("(");
     size_t closeBracket = str.find(")");
@@ -14,24 +49,24 @@ Transform::Transform(string str)
     if (transform == "translate")
     {
         cout << "Translate" << endl;
-        stragetry = new Translate(str);
+        stragetry.push_back(new Translate(str));
     }
     else if (transform == "scale")
     {
-        stragetry = new Scale(str);
+        stragetry.push_back(new Scale(str));
     }
     else if (transform == "rotate")
     {
-        stragetry = new Rotate(str);
-    }
-    else
-    {
-        // no transform here default translate with 0,0
-        stragetry = new Translate("translate(0,0)");
+        stragetry.push_back(new Rotate(str));
     }
 }
 
-void Transform::transform(MyMatrix::Matrix &matrix)
+Transform::~Transform()
 {
-    stragetry->transform(matrix);
+    int len = stragetry.size();
+    for (int i = len - 1; i >= 0; i--)
+    {
+        delete stragetry[i];
+        stragetry.pop_back();
+    }
 }

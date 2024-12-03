@@ -41,7 +41,7 @@ void MyFigure::Ellipse::applyTransform()
 {
     MyMatrix::Matrix ellipseMatrix({{rx, 0, center.getX()}, {0, ry, center.getY()}, {0, 0, 1}});
     
-    this->attributes.getTransform().transform(ellipseMatrix);
+    ellipseMatrix = this->attributes.getTransform().doTransform(ellipseMatrix);
 
     //Get new data
     rx = ellipseMatrix.getElement(0, 0);

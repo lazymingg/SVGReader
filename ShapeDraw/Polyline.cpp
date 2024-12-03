@@ -118,7 +118,7 @@ void MyFigure::Polyline::applyTransform()
     MyMatrix::Matrix polylineMatrix(matrixData);
 
     // apply transform
-    this->attributes.getTransform().transform(polylineMatrix);
+    polylineMatrix = this->attributes.getTransform().doTransform(polylineMatrix);
 
     // get the points after transform
     int numCol = polylineMatrix.getCols();

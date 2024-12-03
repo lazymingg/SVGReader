@@ -58,7 +58,6 @@ SVGAttributes::SVGAttributes(xml_node<> *shapeNode) : fill("none"),
 		}
 		else if (name == "transform")
 		{
-			cout << "test" << endl;
 			transform = Transform(value);
 		}
 		else if (name == "stroke-dasharray")

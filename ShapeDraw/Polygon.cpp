@@ -99,7 +99,7 @@ void MyFigure::Polygon::applyTransform()
 	polygonMatrix.print();
 
 	// apply transform
-	this->attributes.getTransform().transform(polygonMatrix);
+	polygonMatrix = this->attributes.getTransform().doTransform(polygonMatrix);
 	cout << "Polygon matrix after multi" << endl;
 	polygonMatrix.print();
 

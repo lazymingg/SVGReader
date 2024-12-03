@@ -9,27 +9,16 @@
 
 using namespace std;
 
-class Transform
+class Transform : public TransformStragetry
 {
     private:
-        TransformStragetry *stragetry;        
+        vector <TransformStragetry*> stragetry;        
     public:
         Transform();
         Transform(string str);
-        /**
-         * @brief Transform the tag using mutiple matrix 
-         * 
-         * @param matrix the matrix to transform
-         * 
-         * @return void
-         * 
-         */
-        void transform(MyMatrix::Matrix &matrix);
-        // void setTransform(string str);
-        ~Transform()
-        {
-            // delete stragetry;
-        }
+        MyMatrix::Matrix doTransform(MyMatrix::Matrix matrix) override;
+        void setTransform(string str);
+        ~Transform();
 };
 
 #endif

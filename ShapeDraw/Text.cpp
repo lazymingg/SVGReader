@@ -56,7 +56,7 @@ void MyFigure::Text::applyTransform()
 {
     MyMatrix::Matrix textMatrix({{point.getX()}, {point.getY()}, {1}});
 
-    this->attributes.getTransform().transform(textMatrix);
+    textMatrix =  this->attributes.getTransform().doTransform(textMatrix);
 
     // Get new data
     point.setX(textMatrix.getElement(0, 0));

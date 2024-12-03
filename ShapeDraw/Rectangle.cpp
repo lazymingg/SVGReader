@@ -61,7 +61,7 @@ void MyFigure::Rectangle::applyTransform()
 {
 	MyMatrix::Matrix rectMatrix({{width, 0, point.getX()}, {0, height, point.getY()}, {0, 0, 1}});
 
-	this->attributes.getTransform().transform(rectMatrix);
+	rectMatrix = this->attributes.getTransform().doTransform(rectMatrix);
 
 	// Get new data
 	width = rectMatrix.getElement(0, 0);

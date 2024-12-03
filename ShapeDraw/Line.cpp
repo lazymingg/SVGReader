@@ -45,7 +45,7 @@ void MyFigure::Line::draw()
 void MyFigure::Line::applyTransform()
 {
     MyMatrix::Matrix lineMatrix ({{start.getX(), end.getX()}, {start.getY(), end.getY()}, {1, 1}});
-    this->attributes.getTransform().transform(lineMatrix);
+    lineMatrix = this->attributes.getTransform().doTransform(lineMatrix);
     start.setX(lineMatrix.getElement(0, 0));
     start.setY(lineMatrix.getElement(1, 0));
     end.setX(lineMatrix.getElement(0, 1));
