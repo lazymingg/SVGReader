@@ -10,6 +10,8 @@ class TransformStragetry
 protected:
 public:
     virtual void transform(MyMatrix::Matrix &Matrix) = 0;
+    //clone method
+    virtual TransformStragetry *clone() = 0;
 };
 
 
@@ -61,6 +63,11 @@ public:
         // nhan ma tran bien doi voi ma tran cua hinh
         std::cout << "Translate: " << dx << " " << dy << std::endl;
     }
+
+    TransformStragetry *clone() override
+    {
+        return new Translate(*this);
+    }
 };
 
 class Scale : public TransformStragetry
@@ -104,6 +111,11 @@ public:
         matrix = scaleMatrix * matrix;
         // nhan ma tran bien doi voi ma tran cua hinh
         std::cout << "Scale: " << sx << " " << sy << std::endl;
+    }
+
+    TransformStragetry *clone() override
+    {
+        return new Scale(*this);
     }
 };
 
@@ -156,6 +168,11 @@ public:
         }
         // nhan ma tran bien doi voi ma tran cua hinh
         std::cout << "Rotate: " << angle << std::endl;
+    }
+
+    TransformStragetry *clone() override
+    {
+        return new Rotate(*this);
     }
 };
 

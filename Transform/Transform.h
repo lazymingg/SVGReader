@@ -26,10 +26,8 @@ class Transform
          */
         void transform(MyMatrix::Matrix &matrix);
         //void setTransform(string str);
-        ~Transform()
-        {
-            // delete stragetry;
-        }
+        void addStragetry(Transform transform);
+        ~Transform();
 };
 
 #endif

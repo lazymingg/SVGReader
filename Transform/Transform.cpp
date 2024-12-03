@@ -50,3 +50,20 @@ void Transform::transform(MyMatrix::Matrix &matrix)
         stragetry->transform(matrix);
     }
 }
+
+void Transform::addStragetry(Transform transform)
+{
+    for (auto &stragetry : transform.stragetry)
+    {
+        this->stragetry.push_back(stragetry->clone());
+    }
+}
+
+Transform::~Transform()
+{
+    // for (auto &stragetry : stragetry)
+    // {
+    //     delete stragetry;
+    // }
+    // stragetry.clear();
+}

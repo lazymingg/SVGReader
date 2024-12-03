@@ -58,7 +58,6 @@ SVGAttributes::SVGAttributes(xml_node<> *shapeNode) : fill("none"),
 		}
 		else if (name == "transform")
 		{
-			cout << "test" << endl;
 			transform = Transform(value);
 		}
 		else if (name == "stroke-dasharray")
@@ -72,7 +71,6 @@ SVGAttributes::SVGAttributes(xml_node<> *shapeNode) : fill("none"),
 	attribute = shapeNode->first_attribute();
 	while (attribute != NULL)
 	{
-		std::cout << "flag" << std::endl;
 		std::string name = attribute->name();
 		std::string value = attribute->value();
 		//if no stroke we will not draw stroke default stroke opacity is 0
@@ -84,7 +82,6 @@ SVGAttributes::SVGAttributes(xml_node<> *shapeNode) : fill("none"),
 				setStroke(value);
 				if (getStrokeOpacity() == 0)
 				{
-					std::cout << "draw stroke with opacity 0" << std::endl;
 					setStrokeOpacity(1.0f);
 				}
 			}
@@ -142,7 +139,60 @@ Transform SVGAttributes::getTransform()
 }
 
 void SVGAttributes::setText(std::string tex) { text = tex; };
-std::string SVGAttributes::getText() const { return text; };
+std::string SVGAttributes::getText() const { return text; }
+
+void SVGAttributes::mergeAttributes(SVGAttributes &attr)
+{
+	if (this->fill == "none")
+	{
+		this->fill = attr.fill;
+	}
+	if (this->stroke == "none")
+	{
+		this->stroke = attr.stroke;
+	}
+	if (this->strokeWidth == 1.0f)
+	{
+		this->strokeWidth = attr.strokeWidth;
+	}
+	if (this->opacity == 1.0f)
+	{
+		this->opacity = attr.opacity;
+	}
+	if (this->fillOpacity == 1.0f)
+	{
+		this->fillOpacity = attr.fillOpacity;
+	}
+	if (this->strokeOpacity == 0.0f)
+	{
+		this->strokeOpacity = attr.strokeOpacity;
+	}
+	if (this->strokeLinecap == "butt")
+	{
+		this->strokeLinecap = attr.strokeLinecap;
+	}
+	if (this->strokeLinejoin == "miter")
+	{
+		this->strokeLinejoin = attr.strokeLinejoin;
+	}
+	if (this->strokeDasharray == "")
+	{
+		this->strokeDasharray = attr.strokeDasharray;
+	}
+	if (this->text == "")
+	{
+		this->text = attr.text;
+	}
+	if (this->fillColor.GetValue() == 0)
+	{
+		this->fillColor = attr.fillColor;
+	}
+	if (this->strokeColor.GetValue() == 0)
+	{
+		this->strokeColor = attr.strokeColor;
+	}
+	this->transform.addStragetry(attr.transform);
+};
 
 // Print attributes
 void SVGAttributes::printAttributes() const
