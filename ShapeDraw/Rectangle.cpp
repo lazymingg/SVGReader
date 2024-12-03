@@ -58,5 +58,13 @@ void MyFigure::Rectangle::draw()
 }
 void MyFigure::Rectangle::applyTransform()
 {
-	cout << "Draw";
+	MyMatrix::Matrix rectMatrix({{width, 0, point.getX()}, {0, height, point.getY()}, {0, 0, 1}});
+    
+    transform.transform(rectMatrix);
+
+    //Get new data
+    width = rectMatrix.getElement(0, 0);
+    height = rectMatrix.getElement(1, 1);
+    point.setX(rectMatrix.getElement(0, 2));
+    point.setY(rectMatrix.getElement(1, 2));
 }

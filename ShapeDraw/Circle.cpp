@@ -28,5 +28,13 @@ void MyFigure::Circle::draw()
 }
 void MyFigure::Circle::applyTransform()
 {
-    cout << "Transform";
+    MyMatrix::Matrix circleMatrix({{rx, 0, center.getX()}, {0, ry, center.getY()}, {0, 0, 1}});
+    
+    transform.transform(circleMatrix);
+
+    //Get new data
+    rx = circleMatrix.getElement(0, 0);
+    ry = circleMatrix.getElement(1, 1);
+    center.setX(circleMatrix.getElement(0, 2));
+    center.setY(circleMatrix.getElement(1, 2));
 }
