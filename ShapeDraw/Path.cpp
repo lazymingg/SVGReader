@@ -124,6 +124,8 @@ void MyFigure::Path::draw()
                   << points[i].Y << ')' << std::endl;
     }
 
+    applyTransform();
+
     SolidBrush fillBrush(attributes.getFillColor());
     Pen strokePen(attributes.getStrokeColor(), attributes.getStrokeWidth());
     graphics.DrawPath(&strokePen, &path);
