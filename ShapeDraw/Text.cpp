@@ -24,8 +24,6 @@ void MyFigure::Text::printInfomation()
 
 void MyFigure::Text::draw()
 {
-    //applyTransform();
-
     // Get fill color and adjust opacity
     Color fillColor = attributes.getFillColor();
     int opacity = static_cast<int>(attributes.getFillOpacity() * 255);
@@ -58,8 +56,83 @@ void MyFigure::Text::draw()
     textToPath.StartFigure();
     textToPath.AddString(wideText.c_str(), wideText.length(), &fontFamily, 0, font, pointF, &format);
 
+    int pointCount = textToPath.GetPointCount();
+    if (pointCount == 0)
+        return;
+
+    Gdiplus::Point* points = new Gdiplus::Point[pointCount];
+    textToPath.GetPathPoints(points, pointCount);
+
+    BYTE* pathTypes = new BYTE[pointCount];
+    textToPath.GetPathTypes(pathTypes, pointCount);
+
+    vector<vector<int>> matrixData;
+
+    // x is the first line of the matrix
+    vector<int> x;
+    for (int i = 0; i < pointCount; i++)
+        x.push_back(points[i].X);
+    matrixData.push_back(x);
+
+    // y is the second line of the matrix
+    vector<int> y;
+    for (int i = 0; i < pointCount; i++)
+        y.push_back(points[i].Y);
+    matrixData.push_back(y);
+
+    // the last line of the matrix 1
+    vector<int> z(pointCount, 1);
+    matrixData.push_back(z);
+
+    MyMatrix::Matrix pathMatrix(matrixData);
+
+    cout << "Path matrix before multiplying";
+    pathMatrix.print();
+
+    // apply transform
+    this->attributes.getTransform().transform(pathMatrix);
+    cout << "Path matrix after multiplying";
+    pathMatrix.print();
+
+    textToPath.Reset();
+    MyPoint::Point currentPoint, startPoint;
+    for (int i = 0; i < pointCount; i++)
+    {
+        switch (pathTypes[i] & PathPointTypePathTypeMask)
+        {
+        case Gdiplus::PathPointTypeStart:
+            currentPoint = MyPoint::Point(pathMatrix.getMatrix()[0][i], pathMatrix.getMatrix()[1][i]);
+            startPoint = currentPoint;
+            break;
+        case Gdiplus::PathPointTypeLine:
+            textToPath.AddLine(currentPoint.getX(), currentPoint.getY(), pathMatrix.getMatrix()[0][i], pathMatrix.getMatrix()[1][i]);
+            currentPoint = MyPoint::Point(pathMatrix.getMatrix()[0][i], pathMatrix.getMatrix()[1][i]);
+            break;
+        case Gdiplus::PathPointTypeBezier:
+            textToPath.AddBezier(currentPoint.getX(), currentPoint.getY(),
+                                 pathMatrix.getMatrix()[0][i], pathMatrix.getMatrix()[1][i],
+                                 pathMatrix.getMatrix()[0][i + 1], pathMatrix.getMatrix()[1][i + 1],
+                                 pathMatrix.getMatrix()[0][i + 2], pathMatrix.getMatrix()[1][i + 2]);
+            currentPoint = MyPoint::Point(pathMatrix.getMatrix()[0][i + 2], pathMatrix.getMatrix()[1][i + 2]);
+            i += 2;
+            break;
+        default:
+            std::cout << "Unknown Type";
+            break;
+        }
+
+        if (pathTypes[i] & Gdiplus::PathPointTypeCloseSubpath)
+        {
+            textToPath.CloseFigure();
+            currentPoint = startPoint;
+        }
+    }
+
     graphics.FillPath(&brush, &textToPath);
     graphics.DrawPath(&pen, &textToPath);
+
+    delete[] points;
+    delete[] pathTypes;
 }
 
 void MyFigure::Text::applyTransform()
