@@ -25,7 +25,7 @@ void MyFigure::Text::printInfomation()
 
 void MyFigure::Text::draw()
 {
-    applyTransform();
+    //applyTransform();
     // Draw the text
 
     // Get fill color and adjust opacity
