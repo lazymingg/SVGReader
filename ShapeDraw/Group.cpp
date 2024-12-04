@@ -1,6 +1,6 @@
-#include "Group.h"
+#include "../ShapeHeader/Group.h"
 
-Group::Group(xml_node<> *root_node, Gdiplus::Graphics &graphics) : Figure(root_node, graphics)
+MyFigure::Group::Group(xml_node<> *root_node, Gdiplus::Graphics &graphics) : Figure(root_node, graphics)
 {
     this->shapeNode = root_node;
     for (xml_node<> *node = root_node->first_node(); node; node = node->next_sibling())
@@ -46,13 +46,12 @@ Group::Group(xml_node<> *root_node, Gdiplus::Graphics &graphics) : Figure(root_n
     }
 }
 
-
-void Group::addChild(Figure *child)
+void MyFigure::Group::addChild(Figure *child)
 {
     children.push_back(child);
 }
 
-void Group::draw()
+void MyFigure::Group::draw()
 {
     for (auto &child : children)
     {
@@ -64,7 +63,12 @@ void Group::draw()
     }
 }
 
-Group::~Group()
+void MyFigure::Group::applyTransform()
+{
+
+}
+
+MyFigure::Group::~Group()
 {
     for (auto &child : children)
     {
