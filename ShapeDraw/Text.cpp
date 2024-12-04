@@ -1,4 +1,4 @@
-#include "../ShapeHeader/Text.h"
+#include "../ShapeHeader/Text.h" // Adjust the path as needed
 
 using namespace Gdiplus;
 using namespace std;
@@ -6,7 +6,6 @@ using namespace rapidxml;
 
 MyFigure::Text::Text(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure(rootNode, graphics)
 {
-
     string getX = rootNode->first_attribute("x")->value();
     string getY = rootNode->first_attribute("y")->value();
     string getFont = rootNode->first_attribute("font-size")->value();
@@ -26,11 +25,10 @@ void MyFigure::Text::printInfomation()
 void MyFigure::Text::draw()
 {
     //applyTransform();
-    // Draw the text
 
     // Get fill color and adjust opacity
     Color fillColor = attributes.getFillColor();
-    int opacity = attributes.getFillOpacity() * 255;
+    int opacity = static_cast<int>(attributes.getFillOpacity() * 255);
     fillColor = Color(opacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
     SolidBrush brush(fillColor);
 
@@ -49,9 +47,21 @@ void MyFigure::Text::draw()
     StringFormat format;
     format.SetLineAlignment(StringAlignmentFar); // Align text to the bottom
 
+    Color strokeColor = attributes.getStrokeColor();
+    // Adjust opacity
+    opacity = static_cast<int>(attributes.getStrokeOpacity() * 255);
+    strokeColor = Color(opacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
+    Pen pen(strokeColor, attributes.getStrokeWidth());
+
     // Draw the text with the specified format
-    graphics.DrawString(wideText.c_str(), -1, &fontDraw, pointF, &format, &brush);
+    Gdiplus::GraphicsPath textToPath;
+    textToPath.StartFigure();
+    textToPath.AddString(wideText.c_str(), wideText.length(), &fontFamily, 0, font, pointF, &format);
+
+    graphics.FillPath(&brush, &textToPath);
+    graphics.DrawPath(&pen, &textToPath);
 }
+
 void MyFigure::Text::applyTransform()
 {
     MyMatrix::Matrix textMatrix({{point.getX()}, {point.getY()}, {1}});
