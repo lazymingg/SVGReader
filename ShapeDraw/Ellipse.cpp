@@ -38,7 +38,7 @@ void MyFigure::Ellipse::draw()
 }
 void MyFigure::Ellipse::applyTransform()
 {
-    MyMatrix::Matrix ellipseMatrix({{rx, 0, center.getX()}, {0, ry, center.getY()}, {0, 0, 1}});
+    MyMatrix::Matrix ellipseMatrix({{(double) rx, 0, (double) center.getX()}, {0, (double) ry, (double) center.getY()}, {0, 0, 1}});
     
     this->attributes.getTransform().transform(ellipseMatrix);
 

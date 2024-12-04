@@ -59,7 +59,7 @@ void MyFigure::Rectangle::draw()
 }
 void MyFigure::Rectangle::applyTransform()
 {
-	MyMatrix::Matrix rectMatrix({{width, 0, point.getX()}, {0, height, point.getY()}, {0, 0, 1}});
+	MyMatrix::Matrix rectMatrix({{(double) width, 0, (double) point.getX()}, {0, (double) height, (double) point.getY()}, {0, 0, 1}});
 
 	this->attributes.getTransform().transform(rectMatrix);
 

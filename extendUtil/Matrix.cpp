@@ -13,7 +13,7 @@ MyMatrix::Matrix::Matrix(int rows, int cols)
     }
 }
 
-MyMatrix::Matrix::Matrix(vector<vector<int>> matrix)
+MyMatrix::Matrix::Matrix(vector<vector<double>> matrix)
 {
     this->rows = matrix.size();
     this->cols = matrix[0].size();
@@ -92,7 +92,7 @@ void MyMatrix::Matrix::setMatrix(std::vector<std::vector<int>> matrix)
             this->matrix[i][j] = matrix[i][j];
 }
 
-std::vector<std::vector<int>> MyMatrix::Matrix::getMatrix() const
+std::vector<std::vector<double>> MyMatrix::Matrix::getMatrix() const
 {
     return this->matrix;
 }
@@ -107,12 +107,12 @@ void MyMatrix::Matrix::setCols(int cols)
     this->cols = cols;
 }
 
-int MyMatrix::Matrix::getElement(int posX, int posY)
+double MyMatrix::Matrix::getElement(int posX, int posY)
 {
     return this->matrix[posX][posY];
 }
 
-void MyMatrix::Matrix::setElement(int posX, int posY, int value)
+void MyMatrix::Matrix::setElement(int posX, int posY, double value)
 {
     this->matrix[posX][posY] = value;
 }

@@ -170,23 +170,23 @@ void MyFigure::Path::applyTransform()
     BYTE *pathTypes = new BYTE[pointCount];
     path.GetPathTypes(pathTypes, pointCount);
 
-    vector<vector<int>> matrixData;
+    vector<vector<double>> matrixData;
 	
 	// x is the first line of the matrix
-	vector<int> x;
+	vector<double> x;
 	for (int i = 0; i < pointCount; i++)
 		x.push_back(points[i].X);
 	matrixData.push_back(x);
 
 	// y is the second line of the matrix
-	vector<int> y;
+	vector<double> y;
 	for (int i = 0; i < pointCount; i++)
 		y.push_back(points[i].Y);
 	matrixData.push_back(y);
 
 	// the last line of the matrix 1
 
-	vector<int> z;
+	vector<double> z;
 	for (int i = 0; i < pointCount; i++)
 	{
 		z.push_back(1);
