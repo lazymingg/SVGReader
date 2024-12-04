@@ -58,7 +58,7 @@ void Transform::transform(MyMatrix::Matrix &matrix)
         stragetry->transform(matrix);
     }
 }
-
+z
 Transform &Transform::operator=(const Transform &transform)
 {
     if (this == &transform)

@@ -12,13 +12,13 @@ namespace MyMatrix
 class Matrix {
 
 private:
-    std::vector<std::vector<int>> matrix;
+    std::vector<std::vector<double>> matrix;
     int rows, cols;
 
 public:
     // Constructor
     Matrix(int rows, int cols);
-    Matrix(vector<vector<int>> matrix);
+    Matrix(vector<vector<double>> matrix);
 
     //copy constructor
     Matrix(const Matrix &matrix);
@@ -35,14 +35,12 @@ public:
     //getter setter
     int getRows() const;
     int getCols() const;
-    std::vector<std::vector<int>> getMatrix() const;
+    std::vector<std::vector<double>> getMatrix() const;
     void setMatrix(std::vector<std::vector<int>> matrix);
     void setRows(int rows);
     void setCols(int cols);
-    int getElement(int posX, int posY);
-    void setElement(int posX, int posY, int value);
-
-
+    double getElement(int posX, int posY);
+    void setElement(int posX, int posY, double value);
 };
 }
 #endif

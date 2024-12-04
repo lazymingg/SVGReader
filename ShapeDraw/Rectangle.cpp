@@ -29,7 +29,7 @@ void MyFigure::Rectangle::printInfomation()
 
 void MyFigure::Rectangle::draw()
 {
-	applyTransform();
+	
 	// Draw the Rectangle
 	// Fill rectangle first
 	// if (attributes.getFill() != "none")
@@ -54,18 +54,30 @@ void MyFigure::Rectangle::draw()
 	Pen pen(strokeColor, attributes.getStrokeWidth());
 	// print color
 	graphics.SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeAntiAlias);
-	graphics.DrawRectangle(&pen, point.getX(), point.getY(), width, height);
+	Gdiplus::Matrix a;
+	a.Rotate(45);
+	 Gdiplus::Matrix originalMatrix;
+    graphics.GetTransform(&originalMatrix);
+    graphics.SetTransform(&a);
+
+    
+    graphics.DrawRectangle(&pen, point.getX(), point.getY(), width, height);
+    graphics.FillRectangle(&brush, point.getX(), point.getY(), width, height);
+
+    graphics.SetTransform(&originalMatrix);
+
+	//graphics.DrawRectangle(&pen, point.getX(), point.getY(), width, height);
 	// }
 }
-void MyFigure::Rectangle::applyTransform()
-{
-	MyMatrix::Matrix rectMatrix({{width, 0, point.getX()}, {0, height, point.getY()}, {0, 0, 1}});
+// void MyFigure::Rectangle::applyTransform()
+// {
+// 	MyMatrix::Matrix rectMatrix({{(double) width, 0, (double) point.getX()}, {0, (double) height, (double) point.getY()}, {0, 0, 1}});
 
-	this->attributes.getTransform().transform(rectMatrix);
+// 	this->attributes.getTransform().transform(rectMatrix);
 
-	// Get new data
-	width = rectMatrix.getElement(0, 0);
-	height = rectMatrix.getElement(1, 1);
-	point.setX(rectMatrix.getElement(0, 2));
-	point.setY(rectMatrix.getElement(1, 2));
-}
+// 	// Get new data
+// 	width = rectMatrix.getElement(0, 0);
+// 	height = rectMatrix.getElement(1, 1);
+// 	point.setX(rectMatrix.getElement(0, 2));
+// 	point.setY(rectMatrix.getElement(1, 2));
+// }

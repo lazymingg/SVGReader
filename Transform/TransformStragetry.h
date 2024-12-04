@@ -10,16 +10,15 @@ class TransformStragetry
 protected:
 public:
     virtual void transform(MyMatrix::Matrix &Matrix) = 0;
-    //clone method
+    // clone method
     virtual TransformStragetry *clone() = 0;
     virtual void print() = 0;
 };
 
-
 class Translate : public TransformStragetry
 {
 private:
-    int dx, dy;
+    double dx, dy;
 
 public:
     Translate(string str)
@@ -27,28 +26,36 @@ public:
         size_t openBracket = str.find("(");
         size_t closeBracket = str.find(")");
         size_t comma = str.find(",");
-        dx = stoi(str.substr(openBracket + 1, comma - openBracket - 1));
-        dy = stoi(str.substr(comma + 1, closeBracket - comma - 1));
+        if (comma == string::npos)
+        {
+            dx = stod(str.substr(openBracket + 1, closeBracket - openBracket - 1));
+            dy = 0;
+        }
+        else
+        {
+            dx = stod(str.substr(openBracket + 1, comma - openBracket - 1));
+            dy = stod(str.substr(comma + 1, closeBracket - comma - 1));
+        }
     }
 
     void transform(MyMatrix::Matrix &matrix) override
     {
         // tao ma tran bien doi
-        vector<vector<int>> matrixData;
+        vector<vector<double>> matrixData;
 
-        vector<int> x;
+        vector<double> x;
         x.push_back(1);
         x.push_back(0);
         x.push_back(dx);
         matrixData.push_back(x);
 
-        vector<int> y;
+        vector<double> y;
         y.push_back(0);
         y.push_back(1);
         y.push_back(dy);
         matrixData.push_back(y);
 
-        vector<int> z;
+        vector<double> z;
         z.push_back(0);
         z.push_back(0);
         z.push_back(1);
@@ -59,7 +66,6 @@ public:
         matrix.print();
         matrix = translateMatrix * matrix;
         matrix.print();
-
 
         // nhan ma tran bien doi voi ma tran cua hinh
         std::cout << "Translate: " << dx << " " << dy << std::endl;
@@ -79,7 +85,7 @@ public:
 class Scale : public TransformStragetry
 {
 private:
-    int sx, sy;
+    double sx, sy;
 
 public:
     Scale(string str)
@@ -87,27 +93,32 @@ public:
         size_t openBracket = str.find("(");
         size_t closeBracket = str.find(")");
         size_t comma = str.find(",");
-        sx = stoi(str.substr(openBracket + 1, comma - openBracket - 1));
-        sy = stoi(str.substr(comma + 1, closeBracket - comma - 1));
+        if (comma == string::npos)
+            sx = sy = stod(str.substr(openBracket + 1, closeBracket - openBracket - 1));
+        else
+        {
+            sx = stod(str.substr(openBracket + 1, comma - openBracket - 1));
+            sy = stod(str.substr(comma + 1, closeBracket - comma - 1));
+        }
     }
     void transform(MyMatrix::Matrix &matrix) override
     {
         // tao ma tran bien doi
-        vector<vector<int>> matrixData;
+        vector<vector<double>> matrixData;
 
-        vector<int> x;
+        vector<double> x;
         x.push_back(sx);
         x.push_back(0);
         x.push_back(0);
         matrixData.push_back(x);
 
-        vector<int> y;
+        vector<double> y;
         y.push_back(0);
         y.push_back(sy);
         y.push_back(0);
         matrixData.push_back(y);
 
-        vector<int> z;
+        vector<double> z;
         z.push_back(0);
         z.push_back(0);
         z.push_back(1);
@@ -133,37 +144,37 @@ public:
 class Rotate : public TransformStragetry
 {
 private:
-    int angle;
+    double angle;
 
 public:
     Rotate(string str)
     {
         size_t openBracket = str.find("(");
         size_t closeBracket = str.find(")");
-        angle = stoi(str.substr(openBracket + 1, closeBracket - openBracket - 1));
+        angle = stod(str.substr(openBracket + 1, closeBracket - openBracket - 1));
     }
     void transform(MyMatrix::Matrix &matrix) override
     {
         // tao ma tran bien doi
-        vector<vector<int>> matrixData;
+        vector<vector<double>> matrixData;
 
         double radAngle = angle * M_PI / 180;
-        vector<int> x;
-        x.push_back(cos(radAngle) * 100);
-        x.push_back(-sin(radAngle) * 100);
+        vector<double> x;
+        x.push_back(cos(radAngle));
+        x.push_back(-sin(radAngle));
         x.push_back(0);
         matrixData.push_back(x);
 
-        vector<int> y;
-        y.push_back(sin(radAngle) * 100);
-        y.push_back(cos(radAngle) * 100);
+        vector<double> y;
+        y.push_back(sin(radAngle));
+        y.push_back(cos(radAngle));
         y.push_back(0);
         matrixData.push_back(y);
 
-        vector<int> z;
+        vector<double> z;
         z.push_back(0);
         z.push_back(0);
-        z.push_back(100);
+        z.push_back(1);
         matrixData.push_back(z);
 
         MyMatrix::Matrix rotateMatrix(matrixData);

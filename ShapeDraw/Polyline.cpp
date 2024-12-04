@@ -87,27 +87,27 @@ void MyFigure::Polyline::draw()
 }
 void MyFigure::Polyline::applyTransform()
 {
-    vector<vector<int>> matrixData;
+    vector<vector<double>> matrixData;
 
     // x is the first line of the matrix
-    vector<int> x;
+    vector<double> x;
     for (int i = 0; i < points.size(); i++)
     {
-        x.push_back(points[i].getX());
+        x.push_back((double) points[i].getX());
     }
     matrixData.push_back(x);
 
     // y is the second line of the matrix
-    vector<int> y;
+    vector<double> y;
     for (int i = 0; i < points.size(); i++)
     {
-        y.push_back(points[i].getY());
+        y.push_back((double) points[i].getY());
     }
     matrixData.push_back(y);
 
     // the last line of the matrix 1
 
-    vector<int> z;
+    vector<double> z;
     for (int i = 0; i < points.size(); i++)
     {
         z.push_back(1);

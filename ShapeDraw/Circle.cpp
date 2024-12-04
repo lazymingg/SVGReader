@@ -29,7 +29,7 @@ void MyFigure::Circle::draw()
 }
 void MyFigure::Circle::applyTransform()
 {
-    MyMatrix::Matrix circleMatrix({{rx, 0, center.getX()}, {0, ry, center.getY()}, {0, 0, 1}});
+    MyMatrix::Matrix circleMatrix({{(double) rx, 0, (double) center.getX()}, {0, (double) ry, (double) center.getY()}, {0, 0, 1}});
     
     this->attributes.getTransform().transform(circleMatrix);
 
