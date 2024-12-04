@@ -62,7 +62,7 @@ void MyFigure::Text::draw()
 
 void MyFigure::Text::applyTransform()
 {
-    MyMatrix::Matrix textMatrix({{point.getX()}, {point.getY()}, {1}});
+    MyMatrix::Matrix textMatrix({{(double) point.getX()}, {(double) point.getY()}, {1}});
 
     this->attributes.getTransform().transform(textMatrix);
 

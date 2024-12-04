@@ -10,11 +10,10 @@ class TransformStragetry
 protected:
 public:
     virtual void transform(MyMatrix::Matrix &Matrix) = 0;
-    //clone method
+    // clone method
     virtual TransformStragetry *clone() = 0;
     virtual void print() = 0;
 };
-
 
 class Translate : public TransformStragetry
 {
@@ -27,8 +26,16 @@ public:
         size_t openBracket = str.find("(");
         size_t closeBracket = str.find(")");
         size_t comma = str.find(",");
-        dx = stod(str.substr(openBracket + 1, comma - openBracket - 1));
-        dy = stod(str.substr(comma + 1, closeBracket - comma - 1));
+        if (comma == string::npos)
+        {
+            dx = stod(str.substr(openBracket + 1, closeBracket - openBracket - 1));
+            dy = 0;
+        }
+        else
+        {
+            dx = stod(str.substr(openBracket + 1, comma - openBracket - 1));
+            dy = stod(str.substr(comma + 1, closeBracket - comma - 1));
+        }
     }
 
     void transform(MyMatrix::Matrix &matrix) override
@@ -60,7 +67,6 @@ public:
         matrix = translateMatrix * matrix;
         matrix.print();
 
-
         // nhan ma tran bien doi voi ma tran cua hinh
         std::cout << "Translate: " << dx << " " << dy << std::endl;
     }
@@ -87,14 +93,13 @@ public:
         size_t openBracket = str.find("(");
         size_t closeBracket = str.find(")");
         size_t comma = str.find(",");
-       if (comma == string::npos)
-            sx = sy = stoi(str.substr(openBracket + 1, closeBracket - openBracket - 1));
+        if (comma == string::npos)
+            sx = sy = stod(str.substr(openBracket + 1, closeBracket - openBracket - 1));
         else
         {
             sx = stod(str.substr(openBracket + 1, comma - openBracket - 1));
             sy = stod(str.substr(comma + 1, closeBracket - comma - 1));
         }
-
     }
     void transform(MyMatrix::Matrix &matrix) override
     {
