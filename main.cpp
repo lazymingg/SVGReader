@@ -1,8 +1,4 @@
-﻿#include <windows.h>
-#include <objidl.h>
-#include <gdiplus.h>
-#include <iostream>
-#include "FigureDraw.h"
+﻿#include "FigureDraw.h"
 
 using namespace Gdiplus;
 

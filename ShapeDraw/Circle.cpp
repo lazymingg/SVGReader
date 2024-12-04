@@ -18,6 +18,7 @@ MyFigure::Circle::Circle(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : El
 
 void MyFigure::Circle::draw()
 {
+    applyTransform();
     // Ghi đè phương thức draw để sử dụng thông tin hình tròn
     cout << "Draw Circle: center = (" << center.getX() << ", " << center.getY() << "), ";
     cout << "r = " << rx << "\n\n";
@@ -28,5 +29,13 @@ void MyFigure::Circle::draw()
 }
 void MyFigure::Circle::applyTransform()
 {
-    cout << "Transform";
+    MyMatrix::Matrix circleMatrix({{rx, 0, center.getX()}, {0, ry, center.getY()}, {0, 0, 1}});
+    
+    this->attributes.getTransform().transform(circleMatrix);
+
+    //Get new data
+    rx = circleMatrix.getElement(0, 0);
+    ry = circleMatrix.getElement(1, 1);
+    center.setX(circleMatrix.getElement(0, 2));
+    center.setY(circleMatrix.getElement(1, 2));
 }

@@ -10,6 +10,9 @@ class TransformStragetry
 protected:
 public:
     virtual void transform(MyMatrix::Matrix &Matrix) = 0;
+    //clone method
+    virtual TransformStragetry *clone() = 0;
+    virtual void print() = 0;
 };
 
 
@@ -52,9 +55,23 @@ public:
         matrixData.push_back(z);
 
         MyMatrix::Matrix translateMatrix(matrixData);
+        translateMatrix.print();
+        matrix.print();
         matrix = translateMatrix * matrix;
+        matrix.print();
+
 
         // nhan ma tran bien doi voi ma tran cua hinh
+        std::cout << "Translate: " << dx << " " << dy << std::endl;
+    }
+
+    TransformStragetry *clone() override
+    {
+        return new Translate(*this);
+    }
+
+    void print() override
+    {
         std::cout << "Translate: " << dx << " " << dy << std::endl;
     }
 };
@@ -101,6 +118,16 @@ public:
         // nhan ma tran bien doi voi ma tran cua hinh
         std::cout << "Scale: " << sx << " " << sy << std::endl;
     }
+
+    TransformStragetry *clone() override
+    {
+        return new Scale(*this);
+    }
+
+    void print() override
+    {
+        std::cout << "Scale: " << sx << " " << sy << std::endl;
+    }
 };
 
 class Rotate : public TransformStragetry
@@ -141,9 +168,9 @@ public:
 
         MyMatrix::Matrix rotateMatrix(matrixData);
         matrix = rotateMatrix * matrix;
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < matrix.getRows(); i++)
         {
-            for (int j = 0; j < 3; j++)
+            for (int j = 0; j < matrix.getCols(); j++)
             {
                 int temp = matrix.getElement(i, j);
                 temp /= 100;
@@ -151,6 +178,16 @@ public:
             }
         }
         // nhan ma tran bien doi voi ma tran cua hinh
+        std::cout << "Rotate: " << angle << std::endl;
+    }
+
+    TransformStragetry *clone() override
+    {
+        return new Rotate(*this);
+    }
+
+    void print() override
+    {
         std::cout << "Rotate: " << angle << std::endl;
     }
 };

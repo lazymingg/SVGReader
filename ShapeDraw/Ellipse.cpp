@@ -3,7 +3,6 @@
 
 MyFigure::Ellipse::Ellipse(xml_node<>* rootNode, Gdiplus::Graphics& graphics) : Figure(rootNode, graphics)
 {
-
     center.setX(stoi(rootNode->first_attribute("cx")->value()));
     center.setY(stoi(rootNode->first_attribute("cy")->value()));
 
@@ -32,11 +31,20 @@ void MyFigure::Ellipse::drawEllipse(Graphics& graphics)
 
 void MyFigure::Ellipse::draw() 
 {
+    applyTransform();
     std::cout << "Draw Ellipse: center = (" << center.getX() << ", " << center.getY() << "), ";
     std::cout << "rx = " << rx << ", ry = " << ry << "\n\n";
     drawEllipse(graphics);
 }
 void MyFigure::Ellipse::applyTransform()
 {
-    cout << "Draw";
+    MyMatrix::Matrix ellipseMatrix({{rx, 0, center.getX()}, {0, ry, center.getY()}, {0, 0, 1}});
+    
+    this->attributes.getTransform().transform(ellipseMatrix);
+
+    //Get new data
+    rx = ellipseMatrix.getElement(0, 0);
+    ry = ellipseMatrix.getElement(1, 1);
+    center.setX(ellipseMatrix.getElement(0, 2));
+    center.setY(ellipseMatrix.getElement(1, 2));
 }

@@ -51,6 +51,14 @@ void FigureDraw::loadSVGFile(const std::string &filename)
         {
             figures.push_back(new MyFigure::Circle(node, graphics));
         }
+        else if (shape == "path")
+        {
+            figures.push_back(new MyFigure::Path(node, graphics));
+        }
+        else if (shape == "g")
+        {
+            figures.push_back(new MyFigure::Group(node, graphics));
+        }
     }
 }
 
@@ -58,6 +66,7 @@ void FigureDraw::draw()
 {
     for (Figure *figure : figures)
     {
+        std::cout << "draw figure" << endl;
         figure->draw();
     }
 }
