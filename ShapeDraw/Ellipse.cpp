@@ -1,6 +1,5 @@
 #include "../shapeheader/Ellipse.h"
 
-
 MyFigure::Ellipse::Ellipse(xml_node<>* rootNode, Gdiplus::Graphics& graphics) : Figure(rootNode, graphics)
 {
     center.setX(stoi(rootNode->first_attribute("cx")->value()));
@@ -36,15 +35,7 @@ void MyFigure::Ellipse::draw()
     std::cout << "rx = " << rx << ", ry = " << ry << "\n\n";
     drawEllipse(graphics);
 }
+
 void MyFigure::Ellipse::applyTransform()
 {
-    MyMatrix::Matrix ellipseMatrix({{(double) rx, 0, (double) center.getX()}, {0, (double) ry, (double) center.getY()}, {0, 0, 1}});
-    
-    this->attributes.getTransform().transform(ellipseMatrix);
-
-    //Get new data
-    rx = ellipseMatrix.getElement(0, 0);
-    ry = ellipseMatrix.getElement(1, 1);
-    center.setX(ellipseMatrix.getElement(0, 2));
-    center.setY(ellipseMatrix.getElement(1, 2));
 }

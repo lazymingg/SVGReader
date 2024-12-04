@@ -64,48 +64,4 @@ void MyFigure::Polygon::draw()
 
 void MyFigure::Polygon::applyTransform()
 {
-	vector<vector<double>> matrixData;
-	
-	// x is the first line of the matrix
-	vector<double> x;
-	for (int i = 0; i < points.size(); i++)
-	{
-		x.push_back((double) points[i].getX());
-	}
-	matrixData.push_back(x);
-
-	// y is the second line of the matrix
-	vector<double> y;
-	for (int i = 0; i < points.size(); i++)
-	{
-		y.push_back((double) points[i].getY());
-	}
-	matrixData.push_back(y);
-
-	// the last line of the matrix 1
-
-	vector<double> z;
-	for (int i = 0; i < points.size(); i++)
-	{
-		z.push_back(1);
-	}
-
-	matrixData.push_back(z);
-	
-
-	MyMatrix::Matrix polygonMatrix(matrixData);
-
-	cout << "Polygon matrix before multi" << endl;
-	polygonMatrix.print();
-
-	// apply transform
-	this->attributes.getTransform().transform(polygonMatrix);
-	cout << "Polygon matrix after multi" << endl;
-	polygonMatrix.print();
-
-	for (int i = 0; i < points.size(); i++)
-	{
-		points[i].setX(polygonMatrix.getMatrix()[0][i]);
-		points[i].setY(polygonMatrix.getMatrix()[1][i]);
-	}
 }

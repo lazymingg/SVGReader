@@ -1,6 +1,5 @@
 ﻿#include "../ShapeHeader/Circle.h"
 
-
 MyFigure::Circle::Circle(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Ellipse(rootNode, graphics)
 {
 
@@ -27,15 +26,7 @@ void MyFigure::Circle::draw()
     // Gọi hàm vẽ ellipse từ lớp cha
     drawEllipse(graphics); // Gọi phương thức drawEllipse từ Ellipse
 }
+
 void MyFigure::Circle::applyTransform()
 {
-    MyMatrix::Matrix circleMatrix({{(double) rx, 0, (double) center.getX()}, {0, (double) ry, (double) center.getY()}, {0, 0, 1}});
-    
-    this->attributes.getTransform().transform(circleMatrix);
-
-    //Get new data
-    rx = circleMatrix.getElement(0, 0);
-    ry = circleMatrix.getElement(1, 1);
-    center.setX(circleMatrix.getElement(0, 2));
-    center.setY(circleMatrix.getElement(1, 2));
 }

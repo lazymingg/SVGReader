@@ -55,29 +55,21 @@ void MyFigure::Rectangle::draw()
 	// print color
 	graphics.SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeAntiAlias);
 	Gdiplus::Matrix a;
-	a.Rotate(45);
-	 Gdiplus::Matrix originalMatrix;
+	attributes.getTransform().transform(a);
+	
+	Gdiplus::Matrix originalMatrix;
     graphics.GetTransform(&originalMatrix);
     graphics.SetTransform(&a);
 
-    
-    graphics.DrawRectangle(&pen, point.getX(), point.getY(), width, height);
-    graphics.FillRectangle(&brush, point.getX(), point.getY(), width, height);
+	graphics.DrawRectangle(&pen, point.getX(), point.getY(), width, height);
+	graphics.FillRectangle(&brush, point.getX(), point.getY(), width, height);
 
     graphics.SetTransform(&originalMatrix);
 
 	//graphics.DrawRectangle(&pen, point.getX(), point.getY(), width, height);
 	// }
 }
-// void MyFigure::Rectangle::applyTransform()
-// {
-// 	MyMatrix::Matrix rectMatrix({{(double) width, 0, (double) point.getX()}, {0, (double) height, (double) point.getY()}, {0, 0, 1}});
 
-// 	this->attributes.getTransform().transform(rectMatrix);
-
-// 	// Get new data
-// 	width = rectMatrix.getElement(0, 0);
-// 	height = rectMatrix.getElement(1, 1);
-// 	point.setX(rectMatrix.getElement(0, 2));
-// 	point.setY(rectMatrix.getElement(1, 2));
-// }
+void MyFigure::Rectangle::applyTransform()
+{
+}

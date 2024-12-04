@@ -26,7 +26,7 @@ class Transform
          * @return void
          * 
          */
-        void transform(MyMatrix::Matrix &matrix);
+        void transform(Gdiplus::Matrix &matrix);
         Transform &operator=(const Transform &transform);
         //void setTransform(string str);
         void addStragetry(Transform transform);
