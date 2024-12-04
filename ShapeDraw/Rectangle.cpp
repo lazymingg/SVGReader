@@ -39,10 +39,7 @@ void MyFigure::Rectangle::draw()
 	int opacity = attributes.getFillOpacity() * 255;
 	fillColor = Color(opacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
 	SolidBrush brush(fillColor);
-	// print color
 
-	graphics.FillRectangle(&brush, point.getX(), point.getY(), width, height);
-	// }
 
 	// draw stroke
 	// if (attributes.getStroke() != "none")
@@ -66,8 +63,6 @@ void MyFigure::Rectangle::draw()
 
     graphics.SetTransform(&originalMatrix);
 
-	//graphics.DrawRectangle(&pen, point.getX(), point.getY(), width, height);
-	// }
 }
 
 void MyFigure::Rectangle::applyTransform()

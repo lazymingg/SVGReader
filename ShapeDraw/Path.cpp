@@ -148,8 +148,6 @@ void MyFigure::Path::draw()
         std::cout << std::endl;
     }
 
-    applyTransform();
-
     SolidBrush fillBrush(attributes.getFillColor());
     Pen strokePen(attributes.getStrokeColor(), attributes.getStrokeWidth());
     graphics.DrawPath(&strokePen, &path);

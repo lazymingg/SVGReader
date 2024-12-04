@@ -79,7 +79,15 @@ void MyFigure::Polyline::draw()
 
     // draw polyline
     graphics.SetSmoothingMode(SmoothingMode::SmoothingModeAntiAlias);
+    Gdiplus::Matrix a;
+    attributes.getTransform().transform(a);
+
+    Gdiplus::Matrix originalMatrix;
+    graphics.GetTransform(&originalMatrix);
+    graphics.SetTransform(&a);
+
     graphics.DrawLines(&pen, pointArray, numPoints);
+    graphics.SetTransform(&originalMatrix);
 
     // free memory
     delete[] pointArray;
