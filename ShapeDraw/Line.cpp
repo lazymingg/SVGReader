@@ -28,7 +28,6 @@ void MyFigure::Line::printInfomation()
 
 void MyFigure::Line::draw()
 {
-    applyTransform();
     // Draw the line
 
     // Get fill color and adjust opacity
@@ -39,8 +38,15 @@ void MyFigure::Line::draw()
     Pen pen(strokeColor, attributes.getStrokeWidth());
     // print color
     graphics.SetSmoothingMode(SmoothingMode::SmoothingModeAntiAlias);
+    Gdiplus::Matrix a;
+    attributes.getTransform().transform(a);
+
+    Gdiplus::Matrix originalMatrix;
+    graphics.GetTransform(&originalMatrix);
+    graphics.SetTransform(&a);
 
     graphics.DrawLine(&pen, start.getX(), start.getY(), end.getX(), end.getY());
+    graphics.SetTransform(&originalMatrix);
 }
 
 void MyFigure::Line::applyTransform()

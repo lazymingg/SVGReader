@@ -150,7 +150,17 @@ void MyFigure::Path::draw()
 
     SolidBrush fillBrush(attributes.getFillColor());
     Pen strokePen(attributes.getStrokeColor(), attributes.getStrokeWidth());
+    Gdiplus::Matrix a;
+    attributes.getTransform().transform(a);
+
+    Gdiplus::Matrix originalMatrix;
+    graphics.GetTransform(&originalMatrix);
+    graphics.SetTransform(&a);
+
+    graphics.FillPath(&fillBrush, &path);
+
     graphics.DrawPath(&strokePen, &path);
+    graphics.SetTransform(&originalMatrix);
 
     delete[] points;
     delete[] pathTypes;

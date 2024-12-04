@@ -57,7 +57,7 @@ void MyFigure::Group::draw()
     {
         child->getAttributes().mergeAttributes(attributes);
     }
-    applyTransform();
+
     for (auto &child : children)
     {
         child->draw();
@@ -66,8 +66,6 @@ void MyFigure::Group::draw()
 
 void MyFigure::Group::applyTransform()
 {
-    for (auto &shape : children)
-        shape->applyTransform();
 }
 
 MyFigure::Group::~Group()

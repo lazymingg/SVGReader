@@ -24,6 +24,7 @@ void MyFigure::Text::printInfomation()
 
 void MyFigure::Text::draw()
 {
+    
     // Get fill color and adjust opacity
     Color fillColor = attributes.getFillColor();
     int opacity = static_cast<int>(attributes.getFillOpacity() * 255);
@@ -53,11 +54,19 @@ void MyFigure::Text::draw()
 
     // Draw the text with the specified format
     Gdiplus::GraphicsPath textToPath;
+    Gdiplus::Matrix a;
+	attributes.getTransform().transform(a);
+
+	Gdiplus::Matrix originalMatrix;
+	graphics.GetTransform(&originalMatrix);
+	graphics.SetTransform(&a);
+    
     textToPath.StartFigure();
     textToPath.AddString(wideText.c_str(), wideText.length(), &fontFamily, 0, font, pointF, &format);
 
     graphics.FillPath(&brush, &textToPath);
     graphics.DrawPath(&pen, &textToPath);
+    graphics.SetTransform(&originalMatrix);
 }
 
 void MyFigure::Text::applyTransform()

@@ -30,7 +30,6 @@ void MyFigure::Polyline::printInfomation()
 
 void MyFigure::Polyline::draw()
 {
-    applyTransform();
     // draw polygon here
     // draw fill polygon first
     // if (attributes.getFill() != "none" || attributes.getFillOpacity() != 0)
