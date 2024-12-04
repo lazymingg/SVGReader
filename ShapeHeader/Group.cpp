@@ -46,6 +46,7 @@ Group::Group(xml_node<> *root_node, Gdiplus::Graphics &graphics) : Figure(root_n
     }
 }
 
+
 void Group::addChild(Figure *child)
 {
     children.push_back(child);

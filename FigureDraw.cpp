@@ -62,6 +62,7 @@ void FigureDraw::draw()
 {
     for (Figure *figure : figures)
     {
+        std::cout << "draw figure" << endl;
         figure->draw();
     }
 }

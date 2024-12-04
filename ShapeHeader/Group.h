@@ -11,6 +11,8 @@ private:
 public:
     // Constructor
     Group(xml_node<>* root_node, Gdiplus::Graphics& graphics);
+    //copy constructor
+    Group(const Group& group);
     void addChild(Figure* child);
 
     void draw() override;

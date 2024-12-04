@@ -16,6 +16,8 @@ class Transform
     public:
         Transform();
         Transform(string str);
+        //copy constructor
+        Transform(const Transform &transform);
         /**
          * @brief Transform the tag using mutiple matrix 
          * 
@@ -25,6 +27,7 @@ class Transform
          * 
          */
         void transform(MyMatrix::Matrix &matrix);
+        Transform &operator=(const Transform &transform);
         //void setTransform(string str);
         void addStragetry(Transform transform);
         ~Transform();

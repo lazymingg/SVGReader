@@ -43,12 +43,41 @@ Transform::Transform(string str)
     }
 }
 
+Transform::Transform(const Transform &transform)
+{
+    for (auto &a : transform.stragetry)
+    {
+        this->stragetry.push_back(a->clone());
+    }
+}
+
 void Transform::transform(MyMatrix::Matrix &matrix)
 {
     for (auto &stragetry : stragetry)
     {
         stragetry->transform(matrix);
     }
+}
+
+Transform &Transform::operator=(const Transform &transform)
+{
+    if (this == &transform)
+    {
+        return *this;
+    }
+
+    for (auto &stragetry : stragetry)
+    {
+        delete stragetry;
+    }
+    stragetry.clear();
+
+    for (auto &stragetry : transform.stragetry)
+    {
+        this->stragetry.push_back(stragetry->clone());
+    }
+
+    return *this;
 }
 
 void Transform::addStragetry(Transform transform)
@@ -61,9 +90,9 @@ void Transform::addStragetry(Transform transform)
 
 Transform::~Transform()
 {
-    // for (auto &stragetry : stragetry)
-    // {
-    //     delete stragetry;
-    // }
-    // stragetry.clear();
+    for (auto &stragetry : stragetry)
+    {
+        delete stragetry;
+    }
+    stragetry.clear();
 }

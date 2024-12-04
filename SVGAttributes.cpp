@@ -135,7 +135,7 @@ std::string SVGAttributes::getStrokeDasharray() const { return strokeDasharray; 
 
 Transform SVGAttributes::getTransform()
 {
-	return transform;
+	return this->transform;
 }
 
 void SVGAttributes::setText(std::string tex) { text = tex; };

@@ -3,7 +3,6 @@
 
 MyFigure::Ellipse::Ellipse(xml_node<>* rootNode, Gdiplus::Graphics& graphics) : Figure(rootNode, graphics)
 {
-
     center.setX(stoi(rootNode->first_attribute("cx")->value()));
     center.setY(stoi(rootNode->first_attribute("cy")->value()));
 

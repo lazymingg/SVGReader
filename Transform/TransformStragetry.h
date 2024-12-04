@@ -12,6 +12,7 @@ public:
     virtual void transform(MyMatrix::Matrix &Matrix) = 0;
     //clone method
     virtual TransformStragetry *clone() = 0;
+    virtual void print() = 0;
 };
 
 
@@ -68,6 +69,11 @@ public:
     {
         return new Translate(*this);
     }
+
+    void print() override
+    {
+        std::cout << "Translate: " << dx << " " << dy << std::endl;
+    }
 };
 
 class Scale : public TransformStragetry
@@ -116,6 +122,11 @@ public:
     TransformStragetry *clone() override
     {
         return new Scale(*this);
+    }
+
+    void print() override
+    {
+        std::cout << "Scale: " << sx << " " << sy << std::endl;
     }
 };
 
@@ -173,6 +184,11 @@ public:
     TransformStragetry *clone() override
     {
         return new Rotate(*this);
+    }
+
+    void print() override
+    {
+        std::cout << "Rotate: " << angle << std::endl;
     }
 };
 
