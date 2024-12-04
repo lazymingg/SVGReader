@@ -87,8 +87,14 @@ public:
         size_t openBracket = str.find("(");
         size_t closeBracket = str.find(")");
         size_t comma = str.find(",");
-        sx = stoi(str.substr(openBracket + 1, comma - openBracket - 1));
-        sy = stoi(str.substr(comma + 1, closeBracket - comma - 1));
+       if (comma == string::npos)
+            sx = sy = stoi(str.substr(openBracket + 1, closeBracket - openBracket - 1));
+        else
+        {
+            sx = stoi(str.substr(openBracket + 1, comma - openBracket - 1));
+            sy = stoi(str.substr(comma + 1, closeBracket - comma - 1));
+        }
+
     }
     void transform(MyMatrix::Matrix &matrix) override
     {
