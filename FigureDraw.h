@@ -20,4 +20,4 @@ public:
     void loadSVGFile(const string& filename);
     void draw();
 };
-#endif
+#endifz

@@ -51,14 +51,13 @@ Transform::Transform(const Transform &transform)
     }
 }
 
-void Transform::transform(MyMatrix::Matrix &matrix)
+void Transform::transform(Gdiplus::Matrix &matrix)
 {
     for (auto &stragetry : stragetry)
     {
         stragetry->transform(matrix);
     }
 }
-z
 Transform &Transform::operator=(const Transform &transform)
 {
     if (this == &transform)
