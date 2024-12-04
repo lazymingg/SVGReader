@@ -1,4 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg">
-  <rect x="10" y="20" height="50" width="75" fill="rgb(0,255,0)"/>
-  <rect x="20" y="30" height="50" width="75" fill="rgb(255,255,0)" transform="translate(40, 40)"/>
-</svg>
