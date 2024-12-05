@@ -26,38 +26,10 @@ private:
     double dx, dy;
 
 public:
-    Translate(string str)
-    {
-        size_t openBracket = str.find("(");
-        size_t closeBracket = str.find(")");
-        size_t comma = str.find(",");
-        if (comma == string::npos)
-        {
-            dx = stod(str.substr(openBracket + 1, closeBracket - openBracket - 1));
-            dy = 0;
-        }
-        else
-        {
-            dx = stod(str.substr(openBracket + 1, comma - openBracket - 1));
-            dy = stod(str.substr(comma + 1, closeBracket - comma - 1));
-        }
-    }
-
-    void transform(Gdiplus::Matrix &matrix) override
-    {
-        matrix.Translate(dx, dy);
-    }
-    
-
-    TransformStragetry *clone() override
-    {
-        return new Translate(*this);
-    }
-
-    void print() override
-    {
-        std::cout << "Translate: " << dx << " " << dy << std::endl;
-    }
+    Translate(string str);
+    void transform(Gdiplus::Matrix &matrix) override;
+    TransformStragetry *clone() override;
+    void print() override;
 };
 
 class Scale : public TransformStragetry
