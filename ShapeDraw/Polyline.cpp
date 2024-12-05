@@ -34,57 +34,65 @@ void MyFigure::Polyline::draw()
     // draw fill polygon first
     // if (attributes.getFill() != "none" || attributes.getFillOpacity() != 0)
     // {
-        Color fillColor = attributes.getFillColor();
-        // adjust opacity
-        int opacity = attributes.getFillOpacity() * 255;
-        fillColor = Color(opacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
-        SolidBrush brush(fillColor);
+    Color fillColor = attributes.getFillColor();
+    // adjust opacity
+    int opacity = attributes.getFillOpacity() * 255;
+    fillColor = Color(opacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
+    SolidBrush brush(fillColor);
 
-        // create point array
-        int numPoints = points.size();
+    // create point array
+    int numPoints = points.size();
 
-        //Use library POINT to draw
-        Point* pointArray = new Point[numPoints];
-        for (int i = 0; i < numPoints; i++)
-        {
-            pointArray[i].X = points[i].getX();
-            pointArray[i].Y = points[i].getY();
-        }
+    // Use library POINT to draw
+    Point *pointArray = new Point[numPoints];
+    for (int i = 0; i < numPoints; i++)
+    {
+        pointArray[i].X = points[i].getX();
+        pointArray[i].Y = points[i].getY();
+    }
 
-        // fill polygon
-        graphics.FillPolygon(&brush, pointArray, numPoints);
+    // fill polygon
+    graphics.FillPolygon(&brush, pointArray, numPoints);
 
-        // free memory
-        delete[] pointArray;
+    // free memory
+    delete[] pointArray;
     // }
 
     // draw stroke
     // if (attributes.getStroke() != "none")
     // {
-        Color strokeColor = attributes.getStrokeColor();
-        // adjust opacity
-        opacity = attributes.getStrokeOpacity() * 255;
-        strokeColor = Color(opacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
-        Pen pen(strokeColor, attributes.getStrokeWidth());
+    Color strokeColor = attributes.getStrokeColor();
+    // adjust opacity
+    opacity = attributes.getStrokeOpacity() * 255;
+    strokeColor = Color(opacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
+    Pen pen(strokeColor, attributes.getStrokeWidth());
 
-        // create point array
-        numPoints = points.size();
-        pointArray = new Point[numPoints];
-        for (int i = 0; i < numPoints; i++)
-        {
-            pointArray[i].X = points[i].getX();
-            pointArray[i].Y = points[i].getY();
-        }
+    // create point array
+    numPoints = points.size();
+    pointArray = new Point[numPoints];
+    for (int i = 0; i < numPoints; i++)
+    {
+        pointArray[i].X = points[i].getX();
+        pointArray[i].Y = points[i].getY();
+    }
 
-        // draw polyline
-        graphics.SetSmoothingMode(SmoothingMode::SmoothingModeAntiAlias);
-        graphics.DrawLines(&pen, pointArray, numPoints);
+    // draw polyline
+    graphics.SetSmoothingMode(SmoothingMode::SmoothingModeAntiAlias);
+    Gdiplus::Matrix a;
+    attributes.getTransform().transform(a);
 
-        // free memory
-        delete[] pointArray;
+    Gdiplus::Matrix originalMatrix;
+    graphics.GetTransform(&originalMatrix);
+    graphics.SetTransform(&a);
+
+    graphics.DrawLines(&pen, pointArray, numPoints);
+    graphics.SetTransform(&originalMatrix);
+
+    // free memory
+    delete[] pointArray;
     // }
 }
+
 void MyFigure::Polyline::applyTransform()
 {
-    cout << "Draw";
 }

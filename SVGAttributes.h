@@ -71,6 +71,8 @@ public:
 
     void setText(std::string tex);
     std::string getText() const;
+
+    void mergeAttributes(SVGAttributes &attr);
 };
 
 #endif // _SVGATTRIBUTES_H_

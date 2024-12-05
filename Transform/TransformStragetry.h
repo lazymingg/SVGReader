@@ -2,21 +2,28 @@
 #define _TRANSFORM_STRAGETRY_H_
 
 #include <iostream>
-#include "../extendUtil/Matrix.h"
 #include <cmath>
+#include <Windows.h>
+#include <gdiplus.h>
+#include <objidl.h>
+#include <string>
+using namespace std;
+
 #define M_PI 3.14159265358979323846
 class TransformStragetry
 {
 protected:
 public:
-    virtual void transform(MyMatrix::Matrix &Matrix) = 0;
-};
+    virtual void transform(Gdiplus::Matrix &matrix) = 0;
 
+    virtual TransformStragetry *clone() = 0;
+    virtual void print() = 0;
+};
 
 class Translate : public TransformStragetry
 {
 private:
-    int dx, dy;
+    double dx, dy;
 
 public:
     Translate(string str)
@@ -24,37 +31,31 @@ public:
         size_t openBracket = str.find("(");
         size_t closeBracket = str.find(")");
         size_t comma = str.find(",");
-        dx = stoi(str.substr(openBracket + 1, comma - openBracket - 1));
-        dy = stoi(str.substr(comma + 1, closeBracket - comma - 1));
+        if (comma == string::npos)
+        {
+            dx = stod(str.substr(openBracket + 1, closeBracket - openBracket - 1));
+            dy = 0;
+        }
+        else
+        {
+            dx = stod(str.substr(openBracket + 1, comma - openBracket - 1));
+            dy = stod(str.substr(comma + 1, closeBracket - comma - 1));
+        }
     }
 
-    void transform(MyMatrix::Matrix &matrix) override
+    void transform(Gdiplus::Matrix &matrix) override
     {
-        // tao ma tran bien doi
-        vector<vector<int>> matrixData;
+        matrix.Translate(dx, dy);
+    }
+    
 
-        vector<int> x;
-        x.push_back(1);
-        x.push_back(0);
-        x.push_back(dx);
-        matrixData.push_back(x);
+    TransformStragetry *clone() override
+    {
+        return new Translate(*this);
+    }
 
-        vector<int> y;
-        y.push_back(0);
-        y.push_back(1);
-        y.push_back(dy);
-        matrixData.push_back(y);
-
-        vector<int> z;
-        z.push_back(0);
-        z.push_back(0);
-        z.push_back(1);
-        matrixData.push_back(z);
-
-        MyMatrix::Matrix translateMatrix(matrixData);
-        matrix = translateMatrix * matrix;
-
-        // nhan ma tran bien doi voi ma tran cua hinh
+    void print() override
+    {
         std::cout << "Translate: " << dx << " " << dy << std::endl;
     }
 };
@@ -62,7 +63,7 @@ public:
 class Scale : public TransformStragetry
 {
 private:
-    int sx, sy;
+    double sx, sy;
 
 public:
     Scale(string str)
@@ -70,35 +71,26 @@ public:
         size_t openBracket = str.find("(");
         size_t closeBracket = str.find(")");
         size_t comma = str.find(",");
-        sx = stoi(str.substr(openBracket + 1, comma - openBracket - 1));
-        sy = stoi(str.substr(comma + 1, closeBracket - comma - 1));
+        if (comma == string::npos)
+            sx = sy = stod(str.substr(openBracket + 1, closeBracket - openBracket - 1));
+        else
+        {
+            sx = stod(str.substr(openBracket + 1, comma - openBracket - 1));
+            sy = stod(str.substr(comma + 1, closeBracket - comma - 1));
+        }
     }
-    void transform(MyMatrix::Matrix &matrix) override
+    void transform(Gdiplus::Matrix &matrix) override
     {
-        // tao ma tran bien doi
-        vector<vector<int>> matrixData;
+        matrix.Scale(sx, sy);
+    }
 
-        vector<int> x;
-        x.push_back(sx);
-        x.push_back(0);
-        x.push_back(0);
-        matrixData.push_back(x);
+    TransformStragetry *clone() override
+    {
+        return new Scale(*this);
+    }
 
-        vector<int> y;
-        y.push_back(0);
-        y.push_back(sy);
-        y.push_back(0);
-        matrixData.push_back(y);
-
-        vector<int> z;
-        z.push_back(0);
-        z.push_back(0);
-        z.push_back(1);
-        matrixData.push_back(z);
-
-        MyMatrix::Matrix scaleMatrix(matrixData);
-        matrix = scaleMatrix * matrix;
-        // nhan ma tran bien doi voi ma tran cua hinh
+    void print() override
+    {
         std::cout << "Scale: " << sx << " " << sy << std::endl;
     }
 };
@@ -106,51 +98,27 @@ public:
 class Rotate : public TransformStragetry
 {
 private:
-    int angle;
+    double angle;
 
 public:
     Rotate(string str)
     {
         size_t openBracket = str.find("(");
         size_t closeBracket = str.find(")");
-        angle = stoi(str.substr(openBracket + 1, closeBracket - openBracket - 1));
+        angle = stod(str.substr(openBracket + 1, closeBracket - openBracket - 1));
     }
-    void transform(MyMatrix::Matrix &matrix) override
+    void transform(Gdiplus::Matrix &matrix) override
     {
-        // tao ma tran bien doi
-        vector<vector<int>> matrixData;
+        matrix.Rotate(angle);
+    }
 
-        double radAngle = angle * M_PI / 180;
-        vector<int> x;
-        x.push_back(cos(radAngle) * 100);
-        x.push_back(-sin(radAngle) * 100);
-        x.push_back(0);
-        matrixData.push_back(x);
+    TransformStragetry *clone() override
+    {
+        return new Rotate(*this);
+    }
 
-        vector<int> y;
-        y.push_back(sin(radAngle) * 100);
-        y.push_back(cos(radAngle) * 100);
-        y.push_back(0);
-        matrixData.push_back(y);
-
-        vector<int> z;
-        z.push_back(0);
-        z.push_back(0);
-        z.push_back(100);
-        matrixData.push_back(z);
-
-        MyMatrix::Matrix rotateMatrix(matrixData);
-        matrix = rotateMatrix * matrix;
-        for (int i = 0; i < 3; i++)
-        {
-            for (int j = 0; j < 3; j++)
-            {
-                int temp = matrix.getElement(i, j);
-                temp /= 100;
-                matrix.setElement(i, j, temp);
-            }
-        }
-        // nhan ma tran bien doi voi ma tran cua hinh
+    void print() override
+    {
         std::cout << "Rotate: " << angle << std::endl;
     }
 };

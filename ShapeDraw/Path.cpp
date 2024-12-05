@@ -1,4 +1,4 @@
-#include "..\ShapeHeader\Path.h"
+#include "../ShapeHeader/Path.h"
 
 bool isDigit(const char &c)
 {
@@ -24,8 +24,9 @@ int extractNumber(const std::string &data, int &i)
 
 MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure(rootNode, graphics)
 {
-    if (!rootNode) return;
-    
+    if (!rootNode)
+        return;
+
     std::string data = rootNode->first_attribute("d")->value();
 
     if (data == "none")
@@ -36,7 +37,6 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
     int len = data.length();
     for (int i = 0; i < len; ++i)
     {
-        cout << data[i] << endl;
         if (isAlpha(data[i]))
         {
             char command = data[i++];
@@ -55,7 +55,7 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
             {
                 int x = extractNumber(data, i);
                 int y = extractNumber(data, i);
-                path.AddLine(currentPoint.getX(), currentPoint.getY(),x ,y);
+                path.AddLine(currentPoint.getX(), currentPoint.getY(), x, y);
                 currentPoint = MyPoint::Point(x, y);
             }
             else if (command == 'H')
@@ -101,8 +101,9 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
 
 void MyFigure::Path::draw()
 {
-    std::cout << "Path: ";
     int pointCount = path.GetPointCount();
+
+    std::cout << "Path: ";
 
     if (pointCount == 0)
     {
@@ -110,22 +111,59 @@ void MyFigure::Path::draw()
         return;
     }
 
-    Gdiplus::Point* points = new Gdiplus::Point[pointCount];
+    Gdiplus::Point *points = new Gdiplus::Point[pointCount];
     path.GetPathPoints(points, pointCount);
+    BYTE *pathTypes = new BYTE[pointCount];
+    path.GetPathTypes(pathTypes, pointCount);
 
-    std::cout << "Path Points:" << std::endl;
-
+    std::cout << "Path Points and Path Types:" << std::endl;
     for (int i = 0; i < pointCount; ++i)
     {
-        // In thông tin điểm và loại đường
-        std::cout << "Point " << i + 1 << ": (" 
-                  << points[i].X << ", " 
-                  << points[i].Y << ')' << std::endl;
+        std::cout << "Point " << i + 1 << ": ("
+                  << points[i].X << ", "
+                  << points[i].Y << ") - Type: ";
+
+        // Giải thích loại đường (Path Type)
+        switch (pathTypes[i] & PathPointTypePathTypeMask)
+        {
+        case Gdiplus::PathPointTypeStart:
+            std::cout << "Start Point";
+            break;
+        case Gdiplus::PathPointTypeLine:
+            std::cout << "Line Segment";
+            break;
+        case Gdiplus::PathPointTypeBezier:
+            std::cout << "Bezier Curve";
+            break;
+        default:
+            std::cout << "Unknown Type";
+            break;
+        }
+
+        if (pathTypes[i] & Gdiplus::PathPointTypeCloseSubpath)
+        {
+            std::cout << " (Closed Subpath)";
+        }
+
+        std::cout << std::endl;
     }
 
     SolidBrush fillBrush(attributes.getFillColor());
     Pen strokePen(attributes.getStrokeColor(), attributes.getStrokeWidth());
+    Gdiplus::Matrix a;
+    attributes.getTransform().transform(a);
+
+    Gdiplus::Matrix originalMatrix;
+    graphics.GetTransform(&originalMatrix);
+    graphics.SetTransform(&a);
+
+    graphics.FillPath(&fillBrush, &path);
+
     graphics.DrawPath(&strokePen, &path);
+    graphics.SetTransform(&originalMatrix);
+
+    delete[] points;
+    delete[] pathTypes;
 }
 
 void MyFigure::Path::applyTransform()

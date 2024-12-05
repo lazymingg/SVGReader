@@ -15,11 +15,13 @@ namespace MyFigure
     {
     private:
         Gdiplus::GraphicsPath path;
+
     public:
         friend bool isDigit(const char &c);
         friend bool isAlpha(const char &c);
         friend int extractNumber(const string &data, int &i);
         Path(xml_node<>* rootNode, Gdiplus::Graphics& graphics);
+        ~Path() { path.Reset(); };
         void draw() override;
         void applyTransform() override;
     };

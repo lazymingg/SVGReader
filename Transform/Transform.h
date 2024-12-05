@@ -12,10 +12,12 @@ using namespace std;
 class Transform
 {
     private:
-        TransformStragetry *stragetry;        
+        vector<TransformStragetry *>stragetry;        
     public:
         Transform();
         Transform(string str);
+        //copy constructor
+        Transform(const Transform &transform);
         /**
          * @brief Transform the tag using mutiple matrix 
          * 
@@ -24,12 +26,11 @@ class Transform
          * @return void
          * 
          */
-        void transform(MyMatrix::Matrix &matrix);
-        // void setTransform(string str);
-        ~Transform()
-        {
-            // delete stragetry;
-        }
+        void transform(Gdiplus::Matrix &matrix);
+        Transform &operator=(const Transform &transform);
+        //void setTransform(string str);
+        void addStragetry(Transform transform);
+        ~Transform();
 };
 
 #endif

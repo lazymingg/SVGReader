@@ -22,6 +22,7 @@ protected:
     Gdiplus::Graphics &graphics;
 public:
     Figure(xml_node<> *shapeNode, Gdiplus::Graphics &graphics);
+    SVGAttributes& getAttributes();
     virtual void draw() = 0;
     virtual void applyTransform() = 0;
 };
