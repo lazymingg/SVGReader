@@ -38,33 +38,10 @@ private:
     double sx, sy;
 
 public:
-    Scale(string str)
-    {
-        size_t openBracket = str.find("(");
-        size_t closeBracket = str.find(")");
-        size_t comma = str.find(",");
-        if (comma == string::npos)
-            sx = sy = stod(str.substr(openBracket + 1, closeBracket - openBracket - 1));
-        else
-        {
-            sx = stod(str.substr(openBracket + 1, comma - openBracket - 1));
-            sy = stod(str.substr(comma + 1, closeBracket - comma - 1));
-        }
-    }
-    void transform(Gdiplus::Matrix &matrix) override
-    {
-        matrix.Scale(sx, sy);
-    }
-
-    TransformStragetry *clone() override
-    {
-        return new Scale(*this);
-    }
-
-    void print() override
-    {
-        std::cout << "Scale: " << sx << " " << sy << std::endl;
-    }
+    Scale(string str);
+    void transform(Gdiplus::Matrix &matrix) override;
+    TransformStragetry *clone() override;
+    void print() override;
 };
 
 class Rotate : public TransformStragetry
@@ -73,26 +50,10 @@ private:
     double angle;
 
 public:
-    Rotate(string str)
-    {
-        size_t openBracket = str.find("(");
-        size_t closeBracket = str.find(")");
-        angle = stod(str.substr(openBracket + 1, closeBracket - openBracket - 1));
-    }
-    void transform(Gdiplus::Matrix &matrix) override
-    {
-        matrix.Rotate(angle);
-    }
-
-    TransformStragetry *clone() override
-    {
-        return new Rotate(*this);
-    }
-
-    void print() override
-    {
-        std::cout << "Rotate: " << angle << std::endl;
-    }
+    Rotate(string str);
+    void transform(Gdiplus::Matrix &matrix) override;
+    TransformStragetry *clone() override;
+    void print() override;
 };
 
 #endif
