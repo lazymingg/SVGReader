@@ -9,9 +9,9 @@ MyFigure::Text::Text(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
     string getX = rootNode->first_attribute("x")->value();
     string getY = rootNode->first_attribute("y")->value();
     string getFont = rootNode->first_attribute("font-size")->value();
-    this->point.setX(stoi(getX));
-    this->point.setY(stoi(getY));
-    this->font = stoi(getFont);
+    this->point.setX(stof(getX));
+    this->point.setY(stof(getY));
+    this->font = stof(getFont);
 }
 
 void MyFigure::Text::printInfomation()

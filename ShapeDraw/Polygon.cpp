@@ -16,7 +16,7 @@ MyFigure::Polygon::Polygon(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : 
 		string x, y;
 		getline(ssPoint, x, ',');
 		getline(ssPoint, y, ',');
-		this->points.push_back(MyPoint::Point(stoi(x), stoi(y)));
+		this->points.push_back(MyPoint::Point(stof(x), stof(y)));
 	}
 }
 

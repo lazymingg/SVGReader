@@ -19,7 +19,7 @@ float extractNumber(const std::string &data, int &i)
         ++i;
     while (i < len && isDigit(data[i]))
         numb += data[i++];
-    return !numb.empty() ? stoi(numb) : 0;
+    return !numb.empty() ? stof(numb) : 0;
 }
 
 MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure(rootNode, graphics)
