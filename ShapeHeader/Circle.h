@@ -15,7 +15,7 @@ namespace MyFigure
     class Circle : public Ellipse 
     {
     private:
-        INT r;
+        float r;
     public:
         // Constructor của Circle nhận rootNode và graphics
         Circle(xml_node<>* rootNode, Gdiplus::Graphics& graphics);

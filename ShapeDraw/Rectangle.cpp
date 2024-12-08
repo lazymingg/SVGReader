@@ -12,11 +12,11 @@ MyFigure::Rectangle::Rectangle(xml_node<> *rootNode, Gdiplus::Graphics &graphics
 	string getWidth = rootNode->first_attribute("width")->value();
 	string getHeight = rootNode->first_attribute("height")->value();
 
-	this->point.setX(stoi(getX));
-	this->point.setY(stoi(getY));
+	this->point.setX(stof(getX));
+	this->point.setY(stof(getY));
 
-	this->height = stoi(getHeight);
-	this->width = stoi(getWidth);
+	this->height = stof(getHeight);
+	this->width = stof(getWidth);
 }
 
 void MyFigure::Rectangle::printInfomation()

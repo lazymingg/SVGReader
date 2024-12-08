@@ -10,7 +10,7 @@ bool isAlpha(const char &c)
     return c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z';
 }
 
-int extractNumber(const std::string &data, int &i)
+float extractNumber(const std::string &data, int &i)
 {
     std::string numb = "";
     int len = data.length();
@@ -19,7 +19,7 @@ int extractNumber(const std::string &data, int &i)
         ++i;
     while (i < len && isDigit(data[i]))
         numb += data[i++];
-    return !numb.empty() ? stoi(numb) : 0;
+    return !numb.empty() ? stof(numb) : 0;
 }
 
 MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure(rootNode, graphics)
@@ -44,52 +44,103 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
             while (i < len && data[i] == ' ')
                 ++i;
 
-            if (command == 'M')
+            switch (command)
             {
-                int x = extractNumber(data, i);
-                int y = extractNumber(data, i);
-                currentPoint = MyPoint::Point(x, y);
-                startPoint = currentPoint;
-            }
-            else if (command == 'L')
-            {
-                int x = extractNumber(data, i);
-                int y = extractNumber(data, i);
-                path.AddLine(currentPoint.getX(), currentPoint.getY(), x, y);
-                currentPoint = MyPoint::Point(x, y);
-            }
-            else if (command == 'H')
-            {
-                int x = extractNumber(data, i);
-                path.AddLine(currentPoint.getX(), currentPoint.getY(), x, currentPoint.getY());
-                currentPoint.setX(x);
-            }
-            else if (command == 'V')
-            {
-                int y = extractNumber(data, i);
-                path.AddLine(currentPoint.getX(), currentPoint.getY(), currentPoint.getX(), y);
-                currentPoint.setY(y);
-            }
-            else if (command == 'C')
-            {
-                int x1 = extractNumber(data, i);
-                int y1 = extractNumber(data, i);
-                int x2 = extractNumber(data, i);
-                int y2 = extractNumber(data, i);
-                int x3 = extractNumber(data, i);
-                int y3 = extractNumber(data, i);
+                case 'M':
+                {
+                    float x = extractNumber(data, i);
+                    float y = extractNumber(data, i);
+                    currentPoint = MyPoint::Point(x, y);
+                    startPoint = currentPoint;
+                    break;
+                }
+            
+                case 'm':
+                {
+                    cout << "Do something\n";
+                    break;
+                }
 
-                path.AddBezier(currentPoint.getX(), currentPoint.getY(), x1, y1, x2, y2, x3, y3);
-                currentPoint = MyPoint::Point(x3, y3);
-            }
-            else if (command == 'Z')
-            {
-                path.CloseFigure();
-                currentPoint = startPoint;
-            }
-            else
-            {
-                cout << "Invalide Path's command\n";
+                case 'L':
+                {
+                    float x = extractNumber(data, i);
+                    float y = extractNumber(data, i);
+                    path.AddLine(currentPoint.getX(), currentPoint.getY(), x, y);
+                    currentPoint = MyPoint::Point(x, y);
+                    break;
+                }
+
+                case 'l':
+                {
+                    break;
+                }
+
+                case 'H':
+                {
+                    float x = extractNumber(data, i);
+                    path.AddLine(currentPoint.getX(), currentPoint.getY(), x, currentPoint.getY());
+                    currentPoint.setX(x);
+                    break;
+                }
+
+                case 'h':
+                break;
+
+                case 'V':
+                {
+                    float y = extractNumber(data, i);
+                    path.AddLine(currentPoint.getX(), currentPoint.getY(), currentPoint.getX(), y);
+                    currentPoint.setY(y);
+                    break;
+                }
+
+                case 'v':
+                break;
+
+                case 'C':
+                {
+                    float x1 = extractNumber(data, i);
+                    float y1 = extractNumber(data, i);
+                    float x2 = extractNumber(data, i);
+                    float y2 = extractNumber(data, i);
+                    float x3 = extractNumber(data, i);
+                    float y3 = extractNumber(data, i);
+
+                    path.AddBezier(currentPoint.getX(), currentPoint.getY(), x1, y1, x2, y2, x3, y3);
+                    currentPoint = MyPoint::Point(x3, y3);
+                    break;
+                }
+
+                case 'c':
+                break;
+
+                case 'Z':
+                {
+                    path.CloseFigure();
+                    currentPoint = startPoint;
+                    break;
+                }
+
+                case 'z':
+                break;
+
+                case 'A':
+                break;
+
+                case 'a':
+                break;
+
+                case 'S':
+                break;
+
+                case 's':
+                break;
+
+                default:
+                {
+                    cout << "Invalide Path's command\n";
+                    break;
+                }
             }
 
             --i;

@@ -2,13 +2,13 @@
 
 MyFigure::Ellipse::Ellipse(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure(rootNode, graphics)
 {
-    center.setX(stod(rootNode->first_attribute("cx")->value()));
-    center.setY(stod(rootNode->first_attribute("cy")->value()));
+    center.setX(stof(rootNode->first_attribute("cx")->value()));
+    center.setY(stof(rootNode->first_attribute("cy")->value()));
 
     if (rootNode->first_attribute("rx") && rootNode->first_attribute("ry"))
     {
-        rx = stod(rootNode->first_attribute("rx")->value());
-        ry = stod(rootNode->first_attribute("ry")->value());
+        rx = stof(rootNode->first_attribute("rx")->value());
+        ry = stof(rootNode->first_attribute("ry")->value());
         cout << "Ellipse rx: " << rx << ", ry: " << ry << endl;
     }
     else
