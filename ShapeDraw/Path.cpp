@@ -10,7 +10,7 @@ bool isAlpha(const char &c)
     return c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z';
 }
 
-int extractNumber(const std::string &data, int &i)
+float extractNumber(const std::string &data, int &i)
 {
     std::string numb = "";
     int len = data.length();
@@ -47,62 +47,79 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
             switch (command)
             {
                 case 'M':
-                    int x = extractNumber(data, i);
-                    int y = extractNumber(data, i);
+                {
+                    float x = extractNumber(data, i);
+                    float y = extractNumber(data, i);
                     currentPoint = MyPoint::Point(x, y);
                     startPoint = currentPoint;
-                break;
+                    break;
+                }
             
                 case 'm':
-                break;
+                {
+                    cout << "Do something\n";
+                    break;
+                }
 
                 case 'L':
-                    int x = extractNumber(data, i);
-                    int y = extractNumber(data, i);
+                {
+                    float x = extractNumber(data, i);
+                    float y = extractNumber(data, i);
                     path.AddLine(currentPoint.getX(), currentPoint.getY(), x, y);
                     currentPoint = MyPoint::Point(x, y);
-                break;
+                    break;
+                }
 
                 case 'l':
-                break;
+                {
+                    break;
+                }
 
                 case 'H':
-                    int x = extractNumber(data, i);
+                {
+                    float x = extractNumber(data, i);
                     path.AddLine(currentPoint.getX(), currentPoint.getY(), x, currentPoint.getY());
                     currentPoint.setX(x);
-                break;
+                    break;
+                }
 
                 case 'h':
                 break;
 
                 case 'V':
-                    int y = extractNumber(data, i);
+                {
+                    float y = extractNumber(data, i);
                     path.AddLine(currentPoint.getX(), currentPoint.getY(), currentPoint.getX(), y);
                     currentPoint.setY(y);
-                break;
+                    break;
+                }
 
                 case 'v':
                 break;
 
                 case 'C':
-                    int x1 = extractNumber(data, i);
-                    int y1 = extractNumber(data, i);
-                    int x2 = extractNumber(data, i);
-                    int y2 = extractNumber(data, i);
-                    int x3 = extractNumber(data, i);
-                    int y3 = extractNumber(data, i);
+                {
+                    float x1 = extractNumber(data, i);
+                    float y1 = extractNumber(data, i);
+                    float x2 = extractNumber(data, i);
+                    float y2 = extractNumber(data, i);
+                    float x3 = extractNumber(data, i);
+                    float y3 = extractNumber(data, i);
 
                     path.AddBezier(currentPoint.getX(), currentPoint.getY(), x1, y1, x2, y2, x3, y3);
                     currentPoint = MyPoint::Point(x3, y3);
-                break;
+                    break;
+                }
 
                 case 'c':
                 break;
 
                 case 'Z':
+                {
                     path.CloseFigure();
                     currentPoint = startPoint;
-                break;
+                    break;
+                }
 
                 case 'z':
                 break;
@@ -120,8 +137,10 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
                 break;
 
                 default:
+                {
                     cout << "Invalide Path's command\n";
-                break;
+                    break;
+                }
             }
 
             --i;

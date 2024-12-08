@@ -13,8 +13,8 @@ namespace MyFigure
 	{
 	private:
 		MyPoint::Point point;
-		int height;
-		int width;
+		float height;
+		float width;
 	public:
 		//intialyze list 
 		Rectangle(xml_node<>* rootNode, Gdiplus::Graphics& graphics);

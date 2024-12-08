@@ -10,16 +10,16 @@ namespace MyPoint
     class Point
     {
     private:
-        int x;
-        int y;
+        float x;
+        float y;
     public:
         Point();
-        Point(int x, int y);
+        Point(float x, float y);
         ~Point();
-        void setX(int x);
-        void setY(int y);
-        int getY();
-        int getX();
+        void setX(float x);
+        void setY(float y);
+        float getY();
+        float getX();
         void print();
     };
 }

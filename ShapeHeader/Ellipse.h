@@ -13,8 +13,8 @@ namespace MyFigure
 	{
 	protected:
 		MyPoint::Point center;
-		INT rx;
-		INT ry;
+		float rx;
+		float ry;
 	public:
 		// Parameterized constructor: form rootNode
 		Ellipse(xml_node<>* rootNode, Gdiplus::Graphics& graphics);
