@@ -2,18 +2,18 @@
 
 MyFigure::Ellipse::Ellipse(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure(rootNode, graphics)
 {
-    center.setX(stoi(rootNode->first_attribute("cx")->value()));
-    center.setY(stoi(rootNode->first_attribute("cy")->value()));
+    center.setX(stod(rootNode->first_attribute("cx")->value()));
+    center.setY(stod(rootNode->first_attribute("cy")->value()));
 
     if (rootNode->first_attribute("rx") && rootNode->first_attribute("ry"))
     {
-        rx = stoi(rootNode->first_attribute("rx")->value());
-        ry = stoi(rootNode->first_attribute("ry")->value());
+        rx = stod(rootNode->first_attribute("rx")->value());
+        ry = stod(rootNode->first_attribute("ry")->value());
         cout << "Ellipse rx: " << rx << ", ry: " << ry << endl;
     }
     else
     {
-        std::cerr << "Attributes 'rx' or 'ry' not found in ellipse node." << std::endl;
+        std::cout << "Attributes 'rx' or 'ry' not found in ellipse node." << std::endl;
         rx = 0;
         ry = 0;
     }
