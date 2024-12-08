@@ -9,9 +9,14 @@ MyFigure::Text::Text(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
     string getX = rootNode->first_attribute("x")->value();
     string getY = rootNode->first_attribute("y")->value();
     string getFont = rootNode->first_attribute("font-size")->value();
-    this->point.setX(stoi(getX));
-    this->point.setY(stoi(getY));
-    this->font = stoi(getFont);
+    string getDx = "";
+    if (!rootNode->first_attribute("dx")->value()) getDx = rootNode->first_attribute("dx")->value();
+    string getDy = "";
+    if (!rootNode->first_attribute("dy")->value()) getDx = rootNode->first_attribute("dy")->value();
+
+    this->point.setX(stod(getX) + stod(getDx));
+    this->point.setY(stod(getY) + stod(getDy));
+    this->font = stod(getFont);
 }
 
 void MyFigure::Text::printInfomation()
@@ -24,12 +29,8 @@ void MyFigure::Text::printInfomation()
 
 void MyFigure::Text::draw()
 {
-    
+
     // Get fill color and adjust opacity
-    Color fillColor = attributes.getFillColor();
-    int opacity = static_cast<int>(attributes.getFillOpacity() * 255);
-    fillColor = Color(opacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
-    SolidBrush brush(fillColor);
 
     // Set font
     FontFamily fontFamily(L"Times New Roman");
@@ -37,6 +38,7 @@ void MyFigure::Text::draw()
 
     // Convert text content to wide string
     string text = attributes.getText();
+    cout << text << '\n';
     std::wstring wideText(text.begin(), text.end());
 
     // Adjust the Y coordinate to move the text up
@@ -48,19 +50,24 @@ void MyFigure::Text::draw()
 
     Color strokeColor = attributes.getStrokeColor();
     // Adjust opacity
-    opacity = static_cast<int>(attributes.getStrokeOpacity() * 255);
+    int opacity = static_cast<int>(attributes.getStrokeOpacity() * 255);
     strokeColor = Color(opacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
     Pen pen(strokeColor, attributes.getStrokeWidth());
+
+    Color fillColor = attributes.getFillColor();
+
+    fillColor = Color(opacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
+    SolidBrush brush(fillColor);
 
     // Draw the text with the specified format
     Gdiplus::GraphicsPath textToPath;
     Gdiplus::Matrix a;
-	attributes.getTransform().transform(a);
+    attributes.getTransform().transform(a);
 
-	Gdiplus::Matrix originalMatrix;
-	graphics.GetTransform(&originalMatrix);
-	graphics.SetTransform(&a);
-    
+    Gdiplus::Matrix originalMatrix;
+    graphics.GetTransform(&originalMatrix);
+    graphics.SetTransform(&a);
+
     textToPath.StartFigure();
     textToPath.AddString(wideText.c_str(), wideText.length(), &fontFamily, 0, font, pointF, &format);
 

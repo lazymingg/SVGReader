@@ -16,7 +16,7 @@ namespace MyFigure
 	{
 	private:
 		MyPoint::Point point;
-		int font;
+		double font;
 	public:
 		//intialyze list 
 		Text(xml_node<>* rootNode, Gdiplus::Graphics& graphics);

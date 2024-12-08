@@ -32,8 +32,7 @@ void MyFigure::Polyline::draw()
 {
     // draw polygon here
     // draw fill polygon first
-    // if (attributes.getFill() != "none" || attributes.getFillOpacity() != 0)
-    // {
+  
     Color fillColor = attributes.getFillColor();
     // adjust opacity
     int opacity = attributes.getFillOpacity() * 255;
@@ -59,8 +58,7 @@ void MyFigure::Polyline::draw()
     // }
 
     // draw stroke
-    // if (attributes.getStroke() != "none")
-    // {
+
     Color strokeColor = attributes.getStrokeColor();
     // adjust opacity
     opacity = attributes.getStrokeOpacity() * 255;
