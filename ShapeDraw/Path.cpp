@@ -57,7 +57,10 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
             
                 case 'm':
                 {
-                    cout << "Do something\n";
+                    float dx = extractNumber(data, i);
+                    float dy = extractNumber(data, i);
+                    currentPoint = MyPoint::Point(currentPoint.getX() + dx, currentPoint.getY() + dy);
+                    startPoint = currentPoint;
                     break;
                 }
 
@@ -72,6 +75,10 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
 
                 case 'l':
                 {
+                    float dx = extractNumber(data, i);
+                    float dy = extractNumber(data, i);
+                    path.AddLine(currentPoint.getX(), currentPoint.getY(), currentPoint.getX() + dx, currentPoint.getY() + dy);
+                    currentPoint = MyPoint::Point(currentPoint.getX() + dx, currentPoint.getY() + dy);
                     break;
                 }
 
@@ -84,6 +91,10 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
                 }
 
                 case 'h':
+                    float dx = extractNumber(data, i);
+                    path.AddLine(currentPoint.getX(), currentPoint.getY(), currentPoint.getX() + dx, currentPoint.getY());
+                    currentPoint.setX(currentPoint.getX() + dx);
+                    break;
                 break;
 
                 case 'V':
@@ -95,7 +106,12 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
                 }
 
                 case 'v':
-                break;
+                {
+                    float dy = extractNumber(data, i);
+                    path.AddLine(currentPoint.getX(), currentPoint.getY(), currentPoint.getX(), currentPoint.getY() + dy);
+                    currentPoint.setY(currentPoint.getY() + dy);
+                    break;
+                }
 
                 case 'C':
                 {
@@ -112,7 +128,21 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
                 }
 
                 case 'c':
-                break;
+                {
+                    float dx1 = extractNumber(data, i);
+                    float dy1 = extractNumber(data, i);
+                    float dx2 = extractNumber(data, i);
+                    float dy2 = extractNumber(data, i);
+                    float dx3 = extractNumber(data, i);
+                    float dy3 = extractNumber(data, i);
+
+                    path.AddBezier(currentPoint.getX(), currentPoint.getY(), 
+                                    currentPoint.getX() + dx1, currentPoint.getY() + dy1, 
+                                    currentPoint.getX() + dx2, currentPoint.getY() + dy2, 
+                                    currentPoint.getX() + dx3, currentPoint.getY() + dy3);
+                    currentPoint = MyPoint::Point(currentPoint.getX() + dx3, currentPoint.getY() + dy3);
+                    break;
+                }
 
                 case 'Z':
                 {
@@ -201,6 +231,8 @@ void MyFigure::Path::draw()
 
     SolidBrush fillBrush(attributes.getFillColor());
     Pen strokePen(attributes.getStrokeColor(), attributes.getStrokeWidth());
+    graphics.SetSmoothingMode(SmoothingModeAntiAlias);
+
     Gdiplus::Matrix a;
     attributes.getTransform().transform(a);
 

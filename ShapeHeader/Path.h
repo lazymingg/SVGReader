@@ -11,6 +11,21 @@ using namespace rapidxml;
 
 namespace MyFigure
 {
+    class PathSegment
+    {
+    protected:
+        Gdiplus::GraphicsPath segment;
+
+    public:
+        virtual void setSegment(const string &data, int& i) = 0;
+        Gdiplus::GraphicsPath& getSegment() { return this->segment; }
+    };
+
+    class PathSegmentM
+    {
+
+    };
+
     class Path : public Figure
     {
     private:
