@@ -46,6 +46,7 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
 
             switch (command)
             {
+                // Move-to commands
                 case 'M':
                 {
                     float x = extractNumber(data, i);
@@ -64,6 +65,7 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
                     break;
                 }
 
+                // Line-to commands
                 case 'L':
                 {
                     float x = extractNumber(data, i);
@@ -91,11 +93,12 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
                 }
 
                 case 'h':
+                {
                     float dx = extractNumber(data, i);
                     path.AddLine(currentPoint.getX(), currentPoint.getY(), currentPoint.getX() + dx, currentPoint.getY());
                     currentPoint.setX(currentPoint.getX() + dx);
                     break;
-                break;
+                }
 
                 case 'V':
                 {
@@ -113,6 +116,7 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
                     break;
                 }
 
+                // Cubic-Bézier-curve commands
                 case 'C':
                 {
                     float x1 = extractNumber(data, i);
@@ -144,16 +148,6 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
                     break;
                 }
 
-                case 'Z':
-                {
-                    path.CloseFigure();
-                    currentPoint = startPoint;
-                    break;
-                }
-
-                case 'z':
-                break;
-
                 case 'A':
                 break;
 
@@ -165,6 +159,15 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
 
                 case 's':
                 break;
+
+                // Close-path commands
+                case 'Z':
+                case 'z':
+                {
+                    path.CloseFigure();
+                    currentPoint = startPoint;
+                    break;
+                }
 
                 default:
                 {
