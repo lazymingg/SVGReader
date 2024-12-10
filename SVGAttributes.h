@@ -17,9 +17,20 @@ protected:
 
 public:
     Attribute();
+    Attribute(string value);
+    ~Attribute();
 };
 
-class SVGAttributes
+class Fill : public Attribute
+{
+    public:
+    Fill();
+    Fill(string value);
+    ~Fill();
+};
+
+
+class SVGAttributes : public Attribute
 {
 private:
     std::map<std::string, Attribute *> Attributes;

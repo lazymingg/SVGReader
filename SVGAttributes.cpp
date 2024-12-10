@@ -1,18 +1,7 @@
 ﻿#include "SVGAttributes.h"
 
 // Constructor
-SVGAttributes::SVGAttributes(xml_node<> *shapeNode) : fill("none"),
-													  stroke("none"),
-													  strokeWidth(1.0f),
-													  opacity(1.0f),
-													  fillOpacity(1.0f),
-													  strokeOpacity(0.0f),
-													  strokeLinecap("butt"),
-													  strokeLinejoin("miter"),
-													  strokeDasharray(""),
-													  text(""),
-													  fillColor(Gdiplus::Color(0, 0, 0, 0)),
-													  strokeColor(Gdiplus::Color(0, 0, 0, 0))
+SVGAttributes::SVGAttributes(xml_node<> *shapeNode)
 {
 // default if not define stroke we will not draw stroke
 // default if not define fill browser will fill with black color
@@ -106,7 +95,9 @@ SVGAttributes::SVGAttributes(xml_node<> *shapeNode) : fill("none"),
 }
 
 // Getters and setters
-void SVGAttributes::setFill(const std::string &color) { fill = color; }
+void SVGAttributes::setFill(const std::string &color) {
+	
+ }
 std::string SVGAttributes::getFill() const { return fill; }
 
 void SVGAttributes::setStroke(const std::string &color) { stroke = color; }
