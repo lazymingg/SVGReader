@@ -7,10 +7,10 @@
 #include <Windows.h>
 #include <gdiplus.h>
 #include "../extendLib/rapid_xml/rapidxml.hpp"
-#include "Transform.h"
-#include <memory>
 #include <regex>
 using namespace rapidxml;
+
+
 class Attribute
 {
 public:

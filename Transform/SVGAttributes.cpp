@@ -1,4 +1,5 @@
 ﻿#include "SVGAttributes.h"
+#include "Transform.h"
 
 SVGAttributes::SVGAttributes(xml_node<> *shapeNode)
 {
@@ -55,6 +56,7 @@ float SVGAttributes::getStrokeWidth()
 	auto it = Attributes.find("stroke-width");
 	if (it != Attributes.end())
 	{
+
 		StrokeWidth *strokeWidth = dynamic_cast<StrokeWidth *>(it->second);
 
 		if (strokeWidth != nullptr)

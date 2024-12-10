@@ -7,23 +7,25 @@
 #include <sstream>
 #include "TransformStragetry.h"
 #include "SVGAttributes.h"
-using namespace std;
+// // Forward declaration
+// class SVGAttributes;
+
+// class Attribute;
 
 class Transform : public Attribute
 {
-    private:
-        vector<TransformStragetry *>stragetry;        
-    public:
-        Transform();
-        Transform(string str);
-        //copy constructor
-        Transform(const Transform &transform);
-        void transform(Gdiplus::Matrix &matrix);
-        Transform &operator=(const Transform &transform);
-        //void setTransform(string str);
-        void addStragetry(Transform transform);
-        Attribute* clone() override;
-        ~Transform();
+private:
+    std::vector<TransformStragetry *> stragetry;
+
+public:
+    Transform();
+    Transform(std::string str);
+    Transform(const Transform &transform);
+    void transform(Gdiplus::Matrix &matrix);
+    Transform &operator=(const Transform &transform);
+    void addStragetry(Transform transform);
+    Attribute *clone() override;
+    ~Transform();
 };
 
 #endif
