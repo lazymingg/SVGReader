@@ -11,8 +11,8 @@ SVGAttributes::SVGAttributes(xml_node<> *shapeNode) : fill("none"),
 													  strokeLinejoin("miter"),
 													  strokeDasharray(""),
 													  text(""),
-													  fillColor(Gdiplus::Color(0, 0, 0, 0)),
-													  strokeColor(Gdiplus::Color(0, 0, 0, 0))
+													  fillColor(Gdiplus::Color(255, 0, 0, 0)),
+													  strokeColor(Gdiplus::Color(255, 0, 0, 0))
 {
 // default if not define stroke we will not draw stroke
 // default if not define fill browser will fill with black color
@@ -92,7 +92,7 @@ SVGAttributes::SVGAttributes(xml_node<> *shapeNode) : fill("none"),
 			setFill(value);
 			if (value == "none")
 			{
-				setFillOpacity(0.0f);
+				setFillOpacity(1.0f);
 			}
 		}
 		attribute = attribute->next_attribute();
