@@ -6,6 +6,7 @@
 #include <iostream>
 #include <Windows.h>
 #include <gdiplus.h>
+#include <objidl.h>
 #include <string>
 #include <vector>
 #include <sstream>
@@ -13,8 +14,10 @@
 #include "../extendLib/rapid_xml/rapidxml.hpp"
 #include <memory>
 #include <regex>
-using namespace rapidxml;
 
+using namespace rapidxml;
+using namespace Gdiplus;
+#pragma comment(lib, "Gdiplus.lib")
 
 class Attribute
 {
