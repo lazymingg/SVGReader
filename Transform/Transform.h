@@ -28,6 +28,7 @@ class Transform : public Attribute
          */
         void transform(Gdiplus::Matrix &matrix);
         Transform &operator=(const Transform &transform);
+        Attribute* clone() override;
         //void setTransform(string str);
         void addStragetry(Transform transform);
         ~Transform();

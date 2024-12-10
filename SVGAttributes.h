@@ -88,7 +88,7 @@ private:
     float value;
 public:
     FillOpacity();
-    FillOpacity(string value);
+    FillOpacity(string getValue);
     float getFillOpacity();
     Attribute* clone() override;
     ~FillOpacity();
