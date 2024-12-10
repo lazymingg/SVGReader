@@ -79,15 +79,32 @@ xml_node<> *SVGParser::getRootNode()
     return root_node;
 }
 
+void printNode(xml_node<> *node, int depth = 0)
+{
+    // In ra tên node với độ thụt lề theo chiều sâu
+    cout << std::string(depth * 2, ' ') << "Ten nut: " << node->name() << std::endl;
+
+    // In ra tất cả thuộc tính của node
+    for (xml_attribute<> *attr = node->first_attribute(); attr; attr = attr->next_attribute())
+    {
+        cout << std::string(depth * 2 + 2, ' ') << "Thuoc tinh: " << attr->name() << " = " << attr->value() << std::endl;
+    }
+
+    // Nếu node là một nhóm (g), duyệt đệ quy qua các node con
+    if (std::string(node->name()) == "g")
+    {
+        for (xml_node<> *child = node->first_node(); child; child = child->next_sibling())
+        {
+            printNode(child, depth + 1); // Gọi đệ quy với chiều sâu tăng lên
+        }
+    }
+}
+
 void SVGParser::print()
 {
+    // Duyệt qua tất cả các node ở cấp cao nhất
     for (xml_node<> *node = root_node->first_node(); node; node = node->next_sibling())
     {
-        std::cout << "Tên nút: " << node->name() << endl;
-        // Duyệt qua tất cả các thuộc tính của node
-        for (xml_attribute<> *attr = node->first_attribute(); attr; attr = attr->next_attribute())
-        {
-            std::cout << "Thuộc tính: " << attr->name() << " = " << attr->value() << std::endl;
-        }
+        printNode(node); // Gọi hàm đệ quy
     }
 }
