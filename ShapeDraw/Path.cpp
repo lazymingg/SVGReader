@@ -32,6 +32,18 @@ float extractNumber(const std::string &data, int &i)
     }
 }
 
+float MyFigure::Path::CalculateVectorAngle(float ux, float uy, float vx, float vy)
+{
+    float ta = atan2(uy, ux);
+    float tb = atan2(vy, vx);
+
+    if (tb >= ta) {
+        return tb - ta;
+    }
+
+    return 2.0 * PI - (ta - tb);
+}
+
 MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure(rootNode, graphics)
 {
     if (!rootNode) return;
@@ -53,6 +65,7 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
             while (i < len && data[i] == ' ')
                 ++i;
 
+            cout << "Current command: " << curCommand << endl;
             switch (curCommand)
             {
                 // Move-to commands
@@ -341,13 +354,116 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
                 }
 
                 // Elliptical-arc-curve commands
+                // Source: https://github.com/svg-net/SVG/blob/master/Source/Paths/SvgArcSegment.Drawing.cs
                 case 'A':
-                {
-                    break;
-                }
-
                 case 'a':
                 {
+                    MyPoint::Point radius = {extractNumber(data, i), extractNumber(data, i)};
+                    float rotation = extractNumber(data, i);
+                    bool largeArcFlag = bool(extractNumber(data, i));
+                    bool sweepFlag = bool(extractNumber(data, i));
+                    
+                    // End point
+                    if (curCommand == 'A')
+                        point1 = {extractNumber(data, i), extractNumber(data, i)};
+                    else if (curCommand == 'a')
+                        point1 = {currentPoint.getX() + extractNumber(data, i), currentPoint.getY() + extractNumber(data, i)};
+
+                    if (point1.getX() == currentPoint.getX() && point1.getY() == currentPoint.getY())
+                        break;
+
+                    if (radius.getX() == 0 || radius.getY() == 0)
+                        path.AddLine
+                        (
+                            currentPoint.getX(), currentPoint.getY(),
+                            point1.getX(), point1.getY()
+                        );
+
+                    else
+                    {
+                        float rX = abs(radius.getX());
+                        float rY = abs(radius.getY());
+
+                        float sinPhi = sin(rotation * PI / 180);
+                        float cosPhi = cos(rotation * PI / 180);
+
+                        float dx = (currentPoint.getX() - point1.getX()) / 2.0f;
+                        float dy = (currentPoint.getY() - point1.getY()) / 2.0f;
+
+                        MyPoint::Point dash1 = {cosPhi * dx + sinPhi * dy, -sinPhi * dx + cosPhi * dy};
+
+                        float root;
+                        float numerator = rX * rX * rY * rY - rX * rX * dash1.getY() * dash1.getY() - rY * rY * dash1.getX() * dash1.getX();
+
+                        if (numerator < 0.0f)
+                        {
+                            float scale = sqrt(1.0 - numerator / (rX * rX * rY * rY));
+                            rX *= scale;
+                            rY *= scale;
+                            root = 0;
+                        }
+                        else
+                            root = ((largeArcFlag && sweepFlag) || (!largeArcFlag && !sweepFlag) ? -1 : 1) * sqrt(numerator / (rX * rX * dash1.getY() * dash1.getY() + rY * rY * dash1.getX() * dash1.getX()));
+
+                        MyPoint::Point centerDash = {root * rX * dash1.getY() / rY, -root * rY * dash1.getX() / rX};
+                        MyPoint::Point center = 
+                        {
+                            cosPhi * centerDash.getX() - sinPhi * centerDash.getY() + (currentPoint.getX() + point1.getX()) / 2,
+                            sinPhi * centerDash.getX() + cosPhi * centerDash.getY() + (currentPoint.getY() + point1.getY()) / 2
+                        };
+
+                        float theta1 = CalculateVectorAngle(1.0, 0.0, (dash1.getX() - centerDash.getX()) / rX, (dash1.getY() - centerDash.getY()) / rY);
+                        float dTheta = CalculateVectorAngle((dash1.getX() - centerDash.getX()) / rX, (dash1.getY() - centerDash.getY()) / rY, -(dash1.getX() + centerDash.getX()) / rX, -(dash1.getY() + centerDash.getY()) / rY);
+
+                        if (!sweepFlag && dTheta > 0)
+                            dTheta -= 2 * PI;
+                        else if (sweepFlag && dTheta < 0)
+                            dTheta += 2 * PI;
+
+                        int segments = int(ceil(abs(dTheta / (PI / 2))));
+                        float delta = dTheta / segments;
+                        float t = 8.0 / 3.0 * sin(delta / 4.0) * sin(delta / 4.0) / sin(delta / 2.0);
+
+                        for (int i = 0; i < segments; ++i)
+                        {
+                            float cosTheta1 = cos(theta1);
+                            float sinTheta1 = sin(theta1);
+                            float theta2 = theta1 + delta;
+                            float cosTheta2 = cos(theta2);
+                            float sinTheta2 = sin(theta2);
+                            
+                            MyPoint::Point end = 
+                            {
+                                cosPhi * rX * cosTheta2 - sinPhi * rY * sinTheta2 + center.getX(),
+                                sinPhi * rX * cosTheta2 + cosPhi * rY * sinTheta2 + center.getY()
+                            };
+
+                            MyPoint::Point d1 =
+                            {
+                                t * (-cosPhi * rX * sinTheta1 - sinPhi * rY * cosTheta1),
+                                t * (-sinPhi * rX * sinTheta1 + cosPhi * rY * cosTheta1)
+                            };
+
+                            MyPoint::Point de =
+                            {
+                                t * (cosPhi * rX * sinTheta2 + sinPhi * rY * cosTheta2),
+                                t * (sinPhi * rX * sinTheta2 - cosPhi * rY * cosTheta2)
+                            };
+
+                            path.AddBezier
+                            (
+                                currentPoint.getX(), currentPoint.getY(),
+                                currentPoint.getX() + d1.getX(), currentPoint.getY() + d1.getY(),
+                                end.getX() + de.getX(), end.getY() + de.getY(),
+                                end.getX(), end.getY()
+                            );
+
+                            theta1 = theta2;
+                            currentPoint = end;     
+                        }
+                    }
+
+                    currentPoint = point1;
                     break;
                 }
 

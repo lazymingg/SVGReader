@@ -12,7 +12,7 @@ SVGAttributes::SVGAttributes(xml_node<> *shapeNode) : fill("none"),
 													  strokeDasharray(""),
 													  text(""),
 													  fillColor(Gdiplus::Color(255, 0, 0, 0)),
-													  strokeColor(Gdiplus::Color(255, 0, 0, 0))
+													  strokeColor(Gdiplus::Color(0, 0, 0, 0))
 {
 // default if not define stroke we will not draw stroke
 // default if not define fill browser will fill with black color
