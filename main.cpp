@@ -3,18 +3,21 @@
 using namespace Gdiplus;
 
 #pragma comment(lib, "Gdiplus.lib")
+static string svgFile;
 
-VOID OnPaint(HDC hdc)
+VOID OnPaint(HDC hdc, string filePath)
 {
     Graphics graphics(hdc);
     FigureDraw FigureDraw(graphics);
-    FigureDraw.loadSVGFile("testSVG/sample4.svg");
+    //FigureDraw.loadSVGFile("TestSVG/svg-03.svg");
+    FigureDraw.loadSVGFile(filePath.c_str());
+
     FigureDraw.draw();
 }
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
-INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, PSTR, INT iCmdShow)
+INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, PSTR cmdline, INT iCmdShow)
 {
     // Tạo cửa sổ console để xem output
     AllocConsole();
@@ -31,6 +34,10 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, PSTR, INT iCmdShow)
 
     // Khởi tạo GDI+
     GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
+
+    svgFile = "svg-01.svg";
+    if (cmdline != nullptr && strlen(cmdline) > 0) svgFile = cmdline;
+    cout << svgFile << endl;
 
     wndClass.style = CS_HREDRAW | CS_VREDRAW;
     wndClass.lpfnWndProc = WndProc;
@@ -56,7 +63,8 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, PSTR, INT iCmdShow)
         NULL,                    // Handle cửa sổ cha
         NULL,                    // Handle menu cửa sổ
         hInstance,               // Handle instance chương trình
-        NULL);                   // Tham số khởi tạo
+        //NULL);                   // Tham số khởi tạo
+        (LPVOID)svgFile.c_str());// Tham số khởi tạo
 
     ShowWindow(hWnd, iCmdShow);
     UpdateWindow(hWnd);
@@ -84,9 +92,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
     switch (message)
     {
+    case WM_CREATE:
+    {
+        svgFile = reinterpret_cast<LPCSTR>(((LPCREATESTRUCT)lParam)->lpCreateParams);
+        return 0;
+    }
     case WM_PAINT:
         hdc = BeginPaint(hWnd, &ps);
-        OnPaint(hdc);
+        OnPaint(hdc, svgFile);
         EndPaint(hWnd, &ps);
         return 0;
     case WM_DESTROY:
@@ -96,3 +109,4 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         return DefWindowProc(hWnd, message, wParam, lParam);
     }
 }
+
