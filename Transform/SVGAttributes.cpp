@@ -531,29 +531,24 @@ StrokeOpacity::StrokeOpacity(string getValue)
 	// Default stroke opacity
 	value = 1.0f;
 
-	// Regular expressions to match different formats of stroke-opacity
-	std::regex numberRegex(R"(stroke-opacity\s*=\s*\"([0-9]*\.?[0-9]+)\")");
-	std::regex percentageRegex(R"(stroke-opacity\s*=\s*\"([0-9]+)%\")");
-	std::regex styleRegex(R"(style\s*=\s*\"[^\"]*stroke-opacity\s*:\s*([0-9]*\.?[0-9]+)\s*;\")");
-
+	// Regex patterns
+	std::regex percentageRegex(R"(^([0-9]+)%$)");	   // Match percentage (e.g., "50%")
+	std::regex decimalRegex(R"(^([0-9]*\.?[0-9]+)$)"); // Match decimal (e.g., "0.5", "1.0")
 	std::smatch match;
 
-	// Check for stroke-opacity as a number
-	if (std::regex_search(getValue, match, numberRegex))
+	// Check for percentage
+	if (std::regex_match(getValue, match, percentageRegex))
 	{
-		value = std::stof(match[1].str());
+		value = std::stof(match[1].str()) / 100.0f; // Extract and convert percentage
 	}
-
-	// Check for stroke-opacity as a percentage
-	if (std::regex_search(getValue, match, percentageRegex))
+	// Check for decimal
+	else if (std::regex_match(getValue, match, decimalRegex))
 	{
-		value = std::stof(match[1].str()) / 100.0f;
+		value = std::stof(match[1].str()); // Convert to float directly
 	}
-
-	// Check for valueoke-opacity as a CSS property
-	if (std::regex_search(getValue, match, styleRegex))
+	else
 	{
-		value = std::stof(match[1].str());
+		value = 1.0f; // Default stroke-opacity
 	}
 }
 

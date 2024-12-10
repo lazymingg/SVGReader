@@ -40,7 +40,7 @@ void MyFigure::Polygon::draw()
 	fillColor = Color(opacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
 	SolidBrush brush(fillColor);
 	// print color
-
+	cout << "Fill color: " << fillColor.GetR() << " " << fillColor.GetG() << " " << fillColor.GetB() << endl;
 	Point *pointArray = new Point[points.size()];
 	for (int i = 0; i < points.size(); i++)
 	{
@@ -63,7 +63,7 @@ void MyFigure::Polygon::draw()
 	cout << "Stroke width: " << attributes.getStrokeWidth() << endl;
 	// print stroke opacity
 	cout << "Stroke opacity: " << attributes.getStrokeOpacity() << endl;
-	
+
 	graphics.SetSmoothingMode(SmoothingMode::SmoothingModeAntiAlias);
 	Gdiplus::Matrix a;
 	attributes.getTransform().transform(a);
