@@ -9,6 +9,9 @@ MyFigure::Text::Text(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
     string getX = rootNode->first_attribute("x")->value();
     string getY = rootNode->first_attribute("y")->value();
     string getFont = rootNode->first_attribute("font-size")->value();
+    // string getDx = rootNode->first_attribute("dx")->value();
+    // string getDy = rootNode->first_attribute("dy")->value();
+    
     this->point.setX(stof(getX));
     this->point.setY(stof(getY));
     this->font = stof(getFont);
@@ -24,7 +27,6 @@ void MyFigure::Text::printInfomation()
 
 void MyFigure::Text::draw()
 {
-
     // Get fill color and adjust opacity
 
     // Set font

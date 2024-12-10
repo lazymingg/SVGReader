@@ -91,11 +91,12 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
                 }
 
                 case 'h':
+                {
                     float dx = extractNumber(data, i);
                     path.AddLine(currentPoint.getX(), currentPoint.getY(), currentPoint.getX() + dx, currentPoint.getY());
                     currentPoint.setX(currentPoint.getX() + dx);
                     break;
-                break;
+                }
 
                 case 'V':
                 {
@@ -143,7 +144,7 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
                     currentPoint = MyPoint::Point(currentPoint.getX() + dx3, currentPoint.getY() + dy3);
                     break;
                 }
-
+/*
                 case 'Z':
                 {
                     path.CloseFigure();
@@ -165,7 +166,7 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
 
                 case 's':
                 break;
-
+*/
                 default:
                 {
                     cout << "Invalide Path's command\n";

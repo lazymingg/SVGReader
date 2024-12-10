@@ -37,6 +37,7 @@ void MyFigure::Rectangle::draw()
 	Color fillColor = attributes.getFillColor();
 	// ajust opacity
 	int opacity = attributes.getFillOpacity() * 255;
+	
 	fillColor = Color(opacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
 	SolidBrush brush(fillColor);
 
