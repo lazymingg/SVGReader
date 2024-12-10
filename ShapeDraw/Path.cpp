@@ -133,6 +133,7 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
                         point2.getX(), point2.getY(),
                         point3.getX(), point3.getY()
                     );
+
                     currentPoint = point3;
                     break;
                 }
@@ -151,6 +152,7 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
                         point2.getX(), point2.getY(),
                         point3.getX(), point3.getY()
                     );
+
                     currentPoint = point3;
                     break;
                 }
@@ -172,8 +174,8 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
                         point2.getX(), point2.getY(),
                         point3.getX(), point3.getY()
                     );
-                    currentPoint = point3;
 
+                    currentPoint = point3;
                     break;
                 }
 
@@ -228,31 +230,126 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
                         control2.getX(), control2.getY(),    
                         point2.getX(), point2.getY()
                     );
+
                     currentPoint = point2;
                     break;
                 }
 
                 case 'q':
                 {
+                    point1 = {currentPoint.getX() + extractNumber(data, i), currentPoint.getY() + extractNumber(data, i)};
+                    point2 = {currentPoint.getX() + extractNumber(data, i), currentPoint.getY() + extractNumber(data, i)}; 
+
+                    MyPoint::Point control1 =
+                    {
+                        currentPoint.getX() + 2.0f / 3 * (point1.getX() - currentPoint.getX()),
+                        currentPoint.getY() + 2.0f / 3 * (point1.getY() - currentPoint.getY()),
+                    };
+                    
+                    MyPoint::Point control2 =
+                    {                        
+                        point2.getX() + 2.0f / 3 * (point1.getX() - point2.getX()),
+                        point2.getY() + 2.0f / 3 * (point1.getY() - point2.getY()),
+                    };
+
+                    path.AddBezier
+                    (
+                        currentPoint.getX(), currentPoint.getY(),
+                        control1.getX(), control1.getY(),
+                        control2.getX(), control2.getY(),    
+                        point2.getX(), point2.getY()
+                    );
+
+                    currentPoint = point2;
                     break;
                 }
 
                 case 'T':
                 {
+                    if (prevCommand == 'Q' || prevCommand == 'q' || 
+                        prevCommand == 'T' || prevCommand == 't')
+                        point1 =
+                        {
+                            2 * currentPoint.getX() - point1.getX(),
+                            2 * currentPoint.getY() - point1.getY()
+                        };
+                    else
+                        point1 = currentPoint;
+
+                    point2 = {extractNumber(data, i), extractNumber(data, i)}; 
+
+                    MyPoint::Point control1 =
+                    {
+                        currentPoint.getX() + 2.0f / 3 * (point1.getX() - currentPoint.getX()),
+                        currentPoint.getY() + 2.0f / 3 * (point1.getY() - currentPoint.getY()),
+                    };
+                    
+                    MyPoint::Point control2 =
+                    {                        
+                        point2.getX() + 2.0f / 3 * (point1.getX() - point2.getX()),
+                        point2.getY() + 2.0f / 3 * (point1.getY() - point2.getY()),
+                    };
+
+                    path.AddBezier
+                    (
+                        currentPoint.getX(), currentPoint.getY(),
+                        control1.getX(), control1.getY(),
+                        control2.getX(), control2.getY(),    
+                        point2.getX(), point2.getY()
+                    );
+
+                    currentPoint = point2;
                     break;
                 }
 
                 case 't':
                 {
+                    if (prevCommand == 'Q' || prevCommand == 'q' || 
+                        prevCommand == 'T' || prevCommand == 't')
+                        point1 =
+                        {
+                            2 * currentPoint.getX() - point1.getX(),
+                            2 * currentPoint.getY() - point1.getY()
+                        };
+                    else
+                        point1 = currentPoint;
+
+                    point2 = {currentPoint.getX() + extractNumber(data, i), currentPoint.getY() + extractNumber(data, i)}; 
+
+                    MyPoint::Point control1 =
+                    {
+                        currentPoint.getX() + 2.0f / 3 * (point1.getX() - currentPoint.getX()),
+                        currentPoint.getY() + 2.0f / 3 * (point1.getY() - currentPoint.getY()),
+                    };
+                    
+                    MyPoint::Point control2 =
+                    {                        
+                        point2.getX() + 2.0f / 3 * (point1.getX() - point2.getX()),
+                        point2.getY() + 2.0f / 3 * (point1.getY() - point2.getY()),
+                    };
+
+                    path.AddBezier
+                    (
+                        currentPoint.getX(), currentPoint.getY(),
+                        control1.getX(), control1.getY(),
+                        control2.getX(), control2.getY(),    
+                        point2.getX(), point2.getY()
+                    );
+
+                    currentPoint = point2;
                     break;
                 }
 
                 // Elliptical-arc-curve commands
                 case 'A':
-                break;
+                {
+                    break;
+                }
 
                 case 'a':
-                break;
+                {
+                    break;
+                }
 
                 // Close-path commands
                 case 'Z':
