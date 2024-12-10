@@ -12,76 +12,89 @@
 using namespace rapidxml;
 class Attribute
 {
-protected:
-    std::string value;
-
-public:
-    Attribute();
-    Attribute(string value);
-    ~Attribute();
 };
 
 class Fill : public Attribute
 {
-    public:
+private:
+    Gdiplus::Color color;
+
+public:
     Fill();
     Fill(string value);
+    Gdiplus::Color getFill();
     ~Fill();
+};
+
+class Stroke : public Attribute
+{
+private:
+    Gdiplus::Color color;
+
+public:
+    Stroke();
+    Stroke(string value);
+    Gdiplus::Color getStroke();
+    ~Stroke();
+};
+
+class StrokeWidth : public Attribute
+{
+private:
+    float width;
+
+public:
+    StrokeWidth();
+    StrokeWidth(float width);
+    float getStrokeWidth();
+    ~StrokeWidth();
+};
+
+class Ocopacity : public Attribute
+{
+private:
+    float value;
+
+public:
+    Ocopacity();
+    Ocopacity(float value);
+    float getOcopacity();
+    ~Ocopacity();
+};
+
+class Text : public Attribute
+{
+private:
+    string text;
+
+public:
+    Text();
+    Text(string text);
+    string getText();
+    ~Text();
 };
 
 
 class SVGAttributes : public Attribute
 {
 private:
-    std::map<std::string, Attribute *> Attributes;
+    std::map<std::string, Attribute> Attributes;
 
 public:
     // Constructor
     SVGAttributes(xml_node<> *shapeNode);
 
-    // Getters and setters
-    void setFill(const std::string &color);
-    std::string getFill() const;
-
-    void setStroke(const std::string &color);
-    std::string getStroke() const;
-
-    void setStrokeWidth(float width);
-    float getStrokeWidth() const;
-
-    void setOpacity(float value);
-    float getOpacity() const;
-
-    void setFillOpacity(float value);
-    float getFillOpacity() const;
-
-    void setStrokeOpacity(float value);
-    float getStrokeOpacity() const;
-
-    void setStrokeLinecap(const std::string &cap);
-    std::string getStrokeLinecap() const;
-
-    void setStrokeLinejoin(const std::string &join);
-    std::string getStrokeLinejoin() const;
-
-    void setStrokeDasharray(const std::string &dash);
-    std::string getStrokeDasharray() const;
-
+    float getStrokeWidth();
+    float getOpacity();
+    float getFillOpacity();
+    float getStrokeOpacity();
     Transform getTransform();
 
     // Print attributes
-    void printAttributes() const;
-
-    void setFillColor(std::string str);
-    Gdiplus::Color getFillColor() const;
-
-    void setStrokeColor(std::string str);
-    Gdiplus::Color getStrokeColor() const;
-
-    void setText(std::string tex);
-    std::string getText() const;
-
-    void mergeAttributes(SVGAttributes &attr);
+    void printAttributes();
+    Gdiplus::Color getFillColor();
+    Gdiplus::Color getStrokeColor();
+    std::string getText();
 };
 
 #endif // _SVGATTRIBUTES_H_
