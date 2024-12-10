@@ -2,6 +2,7 @@
 #define _SVGATTRIBUTES_H_
 
 #include <string>
+#include <map>
 #include <iostream>
 #include <Windows.h>
 #include <gdiplus.h>
@@ -9,22 +10,19 @@
 #include "Transform/Transform.h"
 
 using namespace rapidxml;
+class Attribute
+{
+protected:
+    std::string value;
+
+public:
+    Attribute();
+};
+
 class SVGAttributes
 {
 private:
-    std::string fill;            // Màu lấp đầy
-    std::string stroke;          // Màu viền
-    float strokeWidth;           // Độ dày của viền
-    float opacity;               // Độ trong suốt
-    float fillOpacity;           // Độ trong suốt của phần lấp đầy
-    float strokeOpacity;         // Độ trong suốt của viền
-    std::string strokeLinecap;   // Kiểu kết thúc viền
-    std::string strokeLinejoin;  // Kiểu nối viền
-    std::string strokeDasharray; // Mẫu nét đứt
-    Transform transform;
-    Gdiplus::Color fillColor;    // Màu lấp đầy dạng Color
-    Gdiplus::Color strokeColor;  // Màu viền dạng Color
-    std::string text;            // Chữ của định dạng text
+    std::map<std::string, Attribute *> Attributes;
 
 public:
     // Constructor
