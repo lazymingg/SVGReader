@@ -547,17 +547,17 @@ void MyFigure::Path::draw()
     Pen strokePen(attributes.getStrokeColor(), attributes.getStrokeWidth());
     graphics.SetSmoothingMode(SmoothingModeAntiAlias);
 
-    // Gdiplus::Matrix a;
-//     attributes.getTransform().transform(a);
+    Gdiplus::Matrix a;
+    attributes.getTransform().transform(a);
 
-    // Gdiplus::Matrix originalMatrix;
-    // graphics.GetTransform(&originalMatrix);
-    // graphics.SetTransform(&a);
+    Gdiplus::Matrix originalMatrix;
+    graphics.GetTransform(&originalMatrix);
+    graphics.SetTransform(&a);
 
     graphics.FillPath(&fillBrush, &path);
 
     graphics.DrawPath(&strokePen, &path);
-    // graphics.SetTransform(&originalMatrix);
+    graphics.SetTransform(&originalMatrix);
 
     delete[] points;
     delete[] pathTypes;
