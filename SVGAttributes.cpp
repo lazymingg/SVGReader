@@ -227,6 +227,41 @@ SVGAttributes::~SVGAttributes()
 	}
 }
 
+//using regex to check valid color
+Gdiplus::Color getColor(string value)
+{
+	std::regex hexColorRegex(R"(^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})$)");
+	if (regex_match(value, hexColorRegex))
+	{
+		std::cout << value << " is a valid HEX color!" << std::endl;
+	}
+}
+Fill::Fill(string value)
+{
+    std::regex hexColorRegex(R"(^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})$)");
+    if (regex_match(fill, hexColorRegex)) {
+        std::cout << fill << " is a valid HEX color!" << std::endl;
+    }
+    // Kiểm tra RGBA color (ví dụ: rgba(255, 0, 0, 1))
+    else if (std::regex_match(fill, std::regex(R"(^rgba\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3}),\s*([01]|0\.\d+)\)$)"))) {
+        std::cout << fill << " is a valid RGBA color!" << std::endl;
+    }
+    // Kiểm tra RGB color (ví dụ: rgb(255, 0, 0))
+    else if (std::regex_match(fill, std::regex(R"(^rgb\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3})\)$)"))) {
+        std::cout << fill << " is a valid RGB color!" << std::endl;
+    }
+    // Kiểm tra tên màu chuẩn (ví dụ: red, blue, etc.)
+    else if (std::regex_match(fill, std::regex(R"(^[a-zA-Z]+$)"))) {
+        std::cout << fill << " is a valid named color!" << std::endl;
+    }
+    // Kiểm tra giá trị "none"
+    else if (fill == "none") {
+        std::cout << fill << " is a valid 'none' color!" << std::endl;
+    } else {
+        std::cout << fill << " is NOT a valid color!" << std::endl;
+    }
+}
+
 Attribute *Fill::clone()
 {
 	return new Fill(*this);

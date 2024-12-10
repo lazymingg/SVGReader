@@ -9,7 +9,7 @@
 #include "extendLib/rapid_xml/rapidxml.hpp"
 #include "Transform/Transform.h"
 #include <memory>
-
+#include <regex>
 using namespace rapidxml;
 class Attribute
 {
@@ -115,7 +115,7 @@ private:
 
 public:
     SVGAttributes(xml_node<> *shapeNode);
-    SVGAttributes(const SVGAttributes &attributes);
+    SVGAttributes(const SVGAttributes &attributes);+
     float getStrokeWidth();
     float getOpacity();
     float getFillOpacity();
