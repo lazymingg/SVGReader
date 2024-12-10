@@ -355,6 +355,11 @@ StrokeOpacity::StrokeOpacity(string getValue)
 	}
 }
 
+float StrokeOpacity::getStrokeOpacity()
+{
+    return value;
+}
+
 Attribute *StrokeOpacity::clone()
 {
 	return new StrokeOpacity(*this);
