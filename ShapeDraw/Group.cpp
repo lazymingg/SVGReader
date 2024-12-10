@@ -51,18 +51,18 @@ void MyFigure::Group::addChild(Figure *child)
     children.push_back(child);
 }
 
-// void MyFigure::Group::draw()
-// {
-//     for (auto &child : children)
-//     {
-//         child->getAttributes().mergeAttributes(attributes);
-//     }
+void MyFigure::Group::draw()
+{
+    // for (auto &child : children)
+    // {
+    //     child->getAttributes().mergeAttributes(attributes);
+    // }
 
-//     for (auto &child : children)
-//     {
-//         child->draw();
-//     }
-// }
+    // for (auto &child : children)
+    // {
+    //     child->draw();
+    // }
+}
 
 void MyFigure::Group::applyTransform()
 {

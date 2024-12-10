@@ -6,7 +6,12 @@
 #include <iostream>
 #include <Windows.h>
 #include <gdiplus.h>
+#include <string>
+#include <vector>
+#include <sstream>
+#include "TransformStragetry.h"
 #include "../extendLib/rapid_xml/rapidxml.hpp"
+#include <memory>
 #include <regex>
 using namespace rapidxml;
 
@@ -106,7 +111,22 @@ public:
     ~StrokeOpacity();
 };
 
-
+class Transform : public Attribute
+{
+    private:
+        vector<TransformStragetry *>stragetry;        
+    public:
+        Transform();
+        Transform(string str);
+        //copy constructor
+        Transform(const Transform &transform);
+        void transform(Gdiplus::Matrix &matrix);
+        Transform &operator=(const Transform &transform);
+        //void setTransform(string str);
+        void addStragetry(Transform transform);
+        Attribute* clone() override;
+        ~Transform();
+};
 
 class SVGAttributes 
 {

@@ -198,6 +198,10 @@ std::string SVGAttributes::getText()
 	return "";
 }
 
+void SVGAttributes::printAttributes()
+{
+}
+
 Transform SVGAttributes::getTransform()
 {
 	auto it = Attributes.find("transform");
@@ -304,24 +308,24 @@ Gdiplus::Color getColor(const std::string &value)
         }
     }
     // Nếu là tên màu
-    else if (std::regex_match(value, namedColorRegex))
-    {
-        static std::map<std::string, Gdiplus::Color> namedColors = {
-            {"red", Gdiplus::Color::Red},
-            {"green", Gdiplus::Color::Green},
-            {"blue", Gdiplus::Color::Blue},
-            {"black", Gdiplus::Color::Black},
-            {"white", Gdiplus::Color::White},
-            {"yellow", Gdiplus::Color::Yellow},
-            // Thêm các tên màu khác nếu cần
-        };
+    // else if (std::regex_match(value, namedColorRegex))
+    // {
+    //     static std::map<std::string, Gdiplus::Color> namedColors = {
+    //         {"red", Gdiplus::Color::Red},
+    //         {"green", Gdiplus::Color::Green},
+    //         {"blue", Gdiplus::Color::Blue},
+    //         {"black", Gdiplus::Color::Black},
+    //         {"white", Gdiplus::Color::White},
+    //         {"yellow", Gdiplus::Color::Yellow},
+    //         // Thêm các tên màu khác nếu cần
+    //     };
 
-        auto it = namedColors.find(value);
-        if (it != namedColors.end())
-        {
-            return it->second;
-        }
-    }
+    //     auto it = namedColors.find(value);
+    //     if (it != namedColors.end())
+    //     {
+    //         return it->second;
+    //     }
+    // }
     // Nếu là "none"
     else if (std::regex_match(value, noneColorRegex))
     {
@@ -332,14 +336,27 @@ Gdiplus::Color getColor(const std::string &value)
     return Gdiplus::Color::Black;
 }
 
+Fill::Fill()
+{
+}
+
 Fill::Fill(string value)
 {
 	color = getColor(value);
 }
 
+Gdiplus::Color Fill::getFill()
+{
+    return Gdiplus::Color();
+}
+
 Attribute *Fill::clone()
 {
 	return new Fill(*this);
+}
+
+Fill::~Fill()
+{
 }
 
 Stroke::Stroke()
@@ -352,9 +369,18 @@ Stroke::Stroke(string value)
 	color = getColor(value);
 }
 
+Gdiplus::Color Stroke::getStroke()
+{
+    return Gdiplus::Color();
+}
+
 Attribute *Stroke::clone()
 {
 	return new Stroke(*this);
+}
+
+Stroke::~Stroke()
+{
 }
 
 StrokeWidth::StrokeWidth()
@@ -367,9 +393,22 @@ StrokeWidth::StrokeWidth(string width)
 	StrokeWidth::width = std::stof(width);
 }
 
+float StrokeWidth::getStrokeWidth()
+{
+    return 0.0f;
+}
+
 Attribute *StrokeWidth::clone()
 {
 	return new StrokeWidth(*this);
+}
+
+StrokeWidth::~StrokeWidth()
+{
+}
+
+Ocopacity::Ocopacity()
+{
 }
 
 Ocopacity::Ocopacity(string value)
@@ -396,9 +435,18 @@ Ocopacity::Ocopacity(string value)
 	}
 }
 
+float Ocopacity::getOcopacity()
+{
+    return 0.0f;
+}
+
 Attribute *Ocopacity::clone()
 {
 	return new Ocopacity(*this);
+}
+
+Ocopacity::~Ocopacity()
+{
 }
 
 Text::Text()
@@ -523,4 +571,104 @@ Attribute *StrokeOpacity::clone()
 
 StrokeOpacity::~StrokeOpacity()
 {
+}
+
+Transform::Transform()
+{
+    stragetry.push_back(new Translate("translate(0,0)"));
+}
+
+Transform::Transform(string str)
+{   
+    vector<string> tokens;
+    int len = str.length();
+
+    string get = "";
+
+    for (int i = 0; i <= len; i++)
+    {
+        if ((str[i] == ' ' && str[i - 1] == ')') || i == len)
+        {
+            tokens.push_back(get);
+            get = "";
+        }
+        else
+            get += str[i];
+    }
+    
+    for (int i = 0; i < tokens.size(); i++)
+    cout << tokens[i] << '\n';
+
+    for (auto &token : tokens)
+    {
+        if (token.find("translate") != string::npos)
+        {
+            stragetry.push_back(new Translate(token));
+        }
+        else if (token.find("scale") != string::npos)
+        {
+            stragetry.push_back(new Scale(token));
+        }
+        else if (token.find("rotate") != string::npos)
+        {
+            stragetry.push_back(new Rotate(token));
+        }
+    }
+}
+
+Transform::Transform(const Transform &transform)
+{
+    for (auto &a : transform.stragetry)
+    {
+        this->stragetry.push_back(a->clone());
+    }
+}
+
+void Transform::transform(Gdiplus::Matrix &matrix)
+{
+    for (auto &stragetry : stragetry)
+    {
+        stragetry->transform(matrix);
+    }
+}
+Transform &Transform::operator=(const Transform &transform)
+{
+    if (this == &transform)
+    {
+        return *this;
+    }
+
+    for (auto &stragetry : stragetry)
+    {
+        delete stragetry;
+    }
+    stragetry.clear();
+
+    for (auto &stragetry : transform.stragetry)
+    {
+        this->stragetry.push_back(stragetry->clone());
+    }
+
+    return *this;
+}
+
+void Transform::addStragetry(Transform transform)
+{
+    for (auto &stragetry : transform.stragetry)
+    {
+        this->stragetry.push_back(stragetry->clone());
+    }
+}
+Attribute* Transform::clone()
+{
+    return new Transform(*this);
+}
+
+Transform::~Transform()
+{
+    for (auto &stragetry : stragetry)
+    {
+        delete stragetry;
+    }
+    stragetry.clear();
 }
