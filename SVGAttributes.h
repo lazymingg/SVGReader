@@ -9,6 +9,7 @@
 #include "extendLib/rapid_xml/rapidxml.hpp"
 #include "Transform/Transform.h"
 #include <memory>
+#include <regex>
 
 using namespace rapidxml;
 class Attribute
@@ -88,7 +89,7 @@ private:
     float value;
 public:
     FillOpacity();
-    FillOpacity(string value);
+    FillOpacity(string getValue);
     float getFillOpacity();
     Attribute* clone() override;
     ~FillOpacity();

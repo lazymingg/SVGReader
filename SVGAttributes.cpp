@@ -42,8 +42,6 @@ SVGAttributes::SVGAttributes(xml_node<> *shapeNode)
 	}
 }
 
-
-
 SVGAttributes::SVGAttributes(const SVGAttributes &attributes)
 {
 	for (auto &attr : attributes.Attributes)
@@ -54,22 +52,22 @@ SVGAttributes::SVGAttributes(const SVGAttributes &attributes)
 
 float SVGAttributes::getStrokeWidth()
 {
-    auto it = Attributes.find("stroke-width");
-    if (it != Attributes.end())
-    {
-        StrokeWidth* strokeWidth = dynamic_cast<StrokeWidth*>(it->second);
+	auto it = Attributes.find("stroke-width");
+	if (it != Attributes.end())
+	{
+		StrokeWidth *strokeWidth = dynamic_cast<StrokeWidth *>(it->second);
 
-        if (strokeWidth != nullptr)
-        {
+		if (strokeWidth != nullptr)
+		{
 			return strokeWidth->getStrokeWidth();
-        }
-        else
-        {
-            std::cerr << "Error: stroke-width attribute is not of type StrokeWidth." << std::endl;
-            return 0.0f;
-        }
-    }
-    return 0.0f;
+		}
+		else
+		{
+			std::cerr << "Error: stroke-width attribute is not of type StrokeWidth." << std::endl;
+			return 0.0f;
+		}
+	}
+	return 0.0f;
 }
 
 Gdiplus::Color SVGAttributes::getStrokeColor()
@@ -77,7 +75,7 @@ Gdiplus::Color SVGAttributes::getStrokeColor()
 	auto it = Attributes.find("stroke");
 	if (it != Attributes.end())
 	{
-		Stroke* stroke = dynamic_cast<Stroke*>(it->second);
+		Stroke *stroke = dynamic_cast<Stroke *>(it->second);
 
 		if (stroke != nullptr)
 		{
@@ -98,7 +96,7 @@ Gdiplus::Color SVGAttributes::getFillColor()
 	auto it = Attributes.find("fill");
 	if (it != Attributes.end())
 	{
-		Fill* fill = dynamic_cast<Fill*>(it->second);
+		Fill *fill = dynamic_cast<Fill *>(it->second);
 
 		if (fill != nullptr)
 		{
@@ -119,7 +117,7 @@ float SVGAttributes::getFillOpacity()
 	auto it = Attributes.find("fill-opacity");
 	if (it != Attributes.end())
 	{
-		FillOpacity* fillOpacity = dynamic_cast<FillOpacity*>(it->second);
+		FillOpacity *fillOpacity = dynamic_cast<FillOpacity *>(it->second);
 
 		if (fillOpacity != nullptr)
 		{
@@ -140,7 +138,7 @@ float SVGAttributes::getStrokeOpacity()
 	auto it = Attributes.find("stroke-opacity");
 	if (it != Attributes.end())
 	{
-		StrokeOpacity* strokeOpacity = dynamic_cast<StrokeOpacity*>(it->second);
+		StrokeOpacity *strokeOpacity = dynamic_cast<StrokeOpacity *>(it->second);
 
 		if (strokeOpacity != nullptr)
 		{
@@ -161,7 +159,7 @@ float SVGAttributes::getOpacity()
 	auto it = Attributes.find("opacity");
 	if (it != Attributes.end())
 	{
-		Ocopacity* opacity = dynamic_cast<Ocopacity*>(it->second);
+		Ocopacity *opacity = dynamic_cast<Ocopacity *>(it->second);
 
 		if (opacity != nullptr)
 		{
@@ -182,7 +180,7 @@ std::string SVGAttributes::getText()
 	auto it = Attributes.find("text");
 	if (it != Attributes.end())
 	{
-		Text* text = dynamic_cast<Text*>(it->second);
+		Text *text = dynamic_cast<Text *>(it->second);
 
 		if (text != nullptr)
 		{
@@ -203,7 +201,7 @@ Transform SVGAttributes::getTransform()
 	auto it = Attributes.find("transform");
 	if (it != Attributes.end())
 	{
-		Transform* transform = dynamic_cast<Transform*>(it->second);
+		Transform *transform = dynamic_cast<Transform *>(it->second);
 
 		if (transform != nullptr)
 		{
@@ -247,9 +245,69 @@ Attribute *Ocopacity::clone()
 	return new Ocopacity(*this);
 }
 
+Text::Text()
+{
+	text = "";
+}
+
+Text::Text(string text)
+{
+	text = text;
+}
+
+string Text::getText()
+{
+    return text;
+}
+
 Attribute *Text::clone()
 {
 	return new Text(*this);
+}
+
+Text::~Text()
+{
+}
+
+FillOpacity::FillOpacity()
+{
+	value = 1.0f;
+}
+
+FillOpacity::FillOpacity(string getValue)
+{
+	// Default fill opacity
+	value = 1.0f;
+
+	// Regular expressions to match different formats of fill-opacity
+	std::regex numberRegex(R"(fill-opacity\s*=\s*\"([0-9]*\.?[0-9]+)\")");
+	std::regex percentageRegex(R"(fill-opacity\s*=\s*\"([0-9]+)%\")");
+	std::regex styleRegex(R"(style\s*=\s*\"[^\"]*fill-opacity\s*:\s*([0-9]*\.?[0-9]+)\s*;\")");
+
+	std::smatch match;
+
+	// Check for fill-opacity as a number
+	if (std::regex_search(getValue, match, numberRegex))
+	{
+		value = std::stof(match[1].str());
+	}
+
+	// Check for fill-opacity as a percentage
+	if (std::regex_search(getValue, match, percentageRegex))
+	{
+		value = std::stof(match[1].str()) / 100.0f;
+	}
+
+	// Check for fill-opacity as a CSS property
+	if (std::regex_search(getValue, match, styleRegex))
+	{
+		value = std::stof(match[1].str());
+	}
+}
+
+float FillOpacity::getFillOpacity()
+{
+	return value;
 }
 
 Attribute *FillOpacity::clone()
@@ -257,14 +315,56 @@ Attribute *FillOpacity::clone()
 	return new FillOpacity(*this);
 }
 
+FillOpacity::~FillOpacity()
+{
+}
+
+StrokeOpacity::StrokeOpacity()
+{
+	value = 1.0f;
+}
+
+StrokeOpacity::StrokeOpacity(string getValue)
+{
+	// Default stroke opacity
+	value = 1.0f;
+
+	// Regular expressions to match different formats of stroke-opacity
+	std::regex numberRegex(R"(stroke-opacity\s*=\s*\"([0-9]*\.?[0-9]+)\")");
+	std::regex percentageRegex(R"(stroke-opacity\s*=\s*\"([0-9]+)%\")");
+	std::regex styleRegex(R"(style\s*=\s*\"[^\"]*stroke-opacity\s*:\s*([0-9]*\.?[0-9]+)\s*;\")");
+
+	std::smatch match;
+
+	// Check for stroke-opacity as a number
+	if (std::regex_search(getValue, match, numberRegex))
+	{
+		value = std::stof(match[1].str());
+	}
+
+	// Check for stroke-opacity as a percentage
+	if (std::regex_search(getValue, match, percentageRegex))
+	{
+		value = std::stof(match[1].str()) / 100.0f;
+	}
+
+	// Check for valueoke-opacity as a CSS property
+	if (std::regex_search(getValue, match, styleRegex))
+	{
+		value = std::stof(match[1].str());
+	}
+}
+
 Attribute *StrokeOpacity::clone()
 {
 	return new StrokeOpacity(*this);
+}
+
+StrokeOpacity::~StrokeOpacity()
+{
 }
 
 Attribute *Transform::clone()
 {
 	return new Transform(*this);
 }
-
-
