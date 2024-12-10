@@ -96,7 +96,7 @@ SVGAttributes::SVGAttributes(xml_node<> *shapeNode)
 
 // Getters and setters
 void SVGAttributes::setFill(const std::string &color) {
-	
+
  }
 std::string SVGAttributes::getFill() const { return fill; }
 
@@ -270,4 +270,8 @@ void SVGAttributes::setStrokeColor(std::string str)
 Gdiplus::Color SVGAttributes::getStrokeColor() const
 {
 	return strokeColor;
+}
+
+Fill::Fill()
+{
 }

@@ -81,7 +81,6 @@ private:
     std::map<std::string, Attribute> Attributes;
 
 public:
-    // Constructor
     SVGAttributes(xml_node<> *shapeNode);
 
     float getStrokeWidth();
