@@ -6,7 +6,7 @@
 #include <vector>
 #include <sstream>
 #include "TransformStragetry.h"
-#include "../SVGAttributes.h"
+#include "SVGAttributes.h"
 using namespace std;
 
 class Transform : public Attribute
@@ -18,19 +18,11 @@ class Transform : public Attribute
         Transform(string str);
         //copy constructor
         Transform(const Transform &transform);
-        /**
-         * @brief Transform the tag using mutiple matrix 
-         * 
-         * @param matrix the matrix to transform
-         * 
-         * @return void
-         * 
-         */
         void transform(Gdiplus::Matrix &matrix);
         Transform &operator=(const Transform &transform);
-        Attribute* clone() override;
         //void setTransform(string str);
         void addStragetry(Transform transform);
+        Attribute* clone() override;
         ~Transform();
 };
 

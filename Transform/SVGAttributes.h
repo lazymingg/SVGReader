@@ -6,8 +6,8 @@
 #include <iostream>
 #include <Windows.h>
 #include <gdiplus.h>
-#include "extendLib/rapid_xml/rapidxml.hpp"
-#include "Transform/Transform.h"
+#include "../extendLib/rapid_xml/rapidxml.hpp"
+#include "Transform.h"
 #include <memory>
 #include <regex>
 using namespace rapidxml;
@@ -108,24 +108,23 @@ public:
 
 
 
-class SVGAttributes : public Attribute
+class SVGAttributes 
 {
 private:
     std::map<std::string, Attribute*> Attributes;
 
 public:
     SVGAttributes(xml_node<> *shapeNode);
-    SVGAttributes(const SVGAttributes &attributes);+
+    SVGAttributes(const SVGAttributes &attributes);
     float getStrokeWidth();
     float getOpacity();
     float getFillOpacity();
     float getStrokeOpacity();
     Transform getTransform();
-    // Print attributes
-    void printAttributes();
     Gdiplus::Color getFillColor();
     Gdiplus::Color getStrokeColor();
     std::string getText();
+    void printAttributes();
 
 
     ~SVGAttributes();
