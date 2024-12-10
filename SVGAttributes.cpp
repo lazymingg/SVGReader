@@ -7,9 +7,6 @@ SVGAttributes::SVGAttributes(xml_node<> *shapeNode) : fill("none"),
 													  opacity(1.0f),
 													  fillOpacity(1.0f),
 													  strokeOpacity(0.0f),
-													  strokeLinecap("butt"),
-													  strokeLinejoin("miter"),
-													  strokeDasharray(""),
 													  text(""),
 													  fillColor(Gdiplus::Color(0, 0, 0, 0)),
 													  strokeColor(Gdiplus::Color(0, 0, 0, 0))
@@ -48,21 +45,9 @@ SVGAttributes::SVGAttributes(xml_node<> *shapeNode) : fill("none"),
 		{
 			setFillOpacity(stof(value));
 		}
-		else if (name == "stroke-linecap")
-		{
-			setStrokeLinecap(value);
-		}
-		else if (name == "stroke-linejoin")
-		{
-			setStrokeLinejoin(value);
-		}
 		else if (name == "transform")
 		{
 			transform = Transform(value);
-		}
-		else if (name == "stroke-dasharray")
-		{
-			setStrokeDasharray(value);
 		}
 		attribute = attribute->next_attribute();
 	}
@@ -124,14 +109,6 @@ float SVGAttributes::getFillOpacity() const { return fillOpacity; }
 void SVGAttributes::setStrokeOpacity(float value) { strokeOpacity = value; }
 float SVGAttributes::getStrokeOpacity() const { return strokeOpacity; }
 
-void SVGAttributes::setStrokeLinecap(const std::string &cap) { strokeLinecap = cap; }
-std::string SVGAttributes::getStrokeLinecap() const { return strokeLinecap; }
-
-void SVGAttributes::setStrokeLinejoin(const std::string &join) { strokeLinejoin = join; }
-std::string SVGAttributes::getStrokeLinejoin() const { return strokeLinejoin; }
-
-void SVGAttributes::setStrokeDasharray(const std::string &dash) { strokeDasharray = dash; }
-std::string SVGAttributes::getStrokeDasharray() const { return strokeDasharray; }
 
 Transform SVGAttributes::getTransform()
 {
@@ -167,18 +144,6 @@ void SVGAttributes::mergeAttributes(SVGAttributes &attr)
 	{
 		this->strokeOpacity = attr.strokeOpacity;
 	}
-	if (this->strokeLinecap == "butt")
-	{
-		this->strokeLinecap = attr.strokeLinecap;
-	}
-	if (this->strokeLinejoin == "miter")
-	{
-		this->strokeLinejoin = attr.strokeLinejoin;
-	}
-	if (this->strokeDasharray == "")
-	{
-		this->strokeDasharray = attr.strokeDasharray;
-	}
 	if (this->text == "")
 	{
 		this->text = attr.text;
@@ -203,9 +168,6 @@ void SVGAttributes::printAttributes() const
 			  << "Opacity: " << opacity << "\n"
 			  << "Fill Opacity: " << fillOpacity << "\n"
 			  << "Stroke Opacity: " << strokeOpacity << "\n"
-			  << "Stroke Linecap: " << strokeLinecap << "\n"
-			  << "Stroke Linejoin: " << strokeLinejoin << "\n"
-			  << "Stroke Dasharray: " << strokeDasharray << "\n"
 			  << "Text: " << text << "\n";
 }
 

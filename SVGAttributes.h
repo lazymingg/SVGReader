@@ -18,12 +18,10 @@ private:
     float opacity;               // Độ trong suốt
     float fillOpacity;           // Độ trong suốt của phần lấp đầy
     float strokeOpacity;         // Độ trong suốt của viền
-    std::string strokeLinecap;   // Kiểu kết thúc viền
-    std::string strokeLinejoin;  // Kiểu nối viền
-    std::string strokeDasharray; // Mẫu nét đứt
     Transform transform;
     Gdiplus::Color fillColor;    // Màu lấp đầy dạng Color
     Gdiplus::Color strokeColor;  // Màu viền dạng Color
+    string fontSize;
     std::string text;            // Chữ của định dạng text
 
 public:
@@ -49,15 +47,6 @@ public:
     void setStrokeOpacity(float value);
     float getStrokeOpacity() const;
 
-    void setStrokeLinecap(const std::string &cap);
-    std::string getStrokeLinecap() const;
-
-    void setStrokeLinejoin(const std::string &join);
-    std::string getStrokeLinejoin() const;
-
-    void setStrokeDasharray(const std::string &dash);
-    std::string getStrokeDasharray() const;
-
     Transform getTransform();
 
     // Print attributes
@@ -75,4 +64,4 @@ public:
     void mergeAttributes(SVGAttributes &attr);
 };
 
-#endif // _SVGATTRIBUTES_H_
+#endif 
