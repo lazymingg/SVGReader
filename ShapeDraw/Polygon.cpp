@@ -67,6 +67,7 @@ void MyFigure::Polygon::draw() {
     graphics.SetTransform(&originalMatrix);
 }
 
+
 void MyFigure::Polygon::applyTransform()
 {
 }
