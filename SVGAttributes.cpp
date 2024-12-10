@@ -1,277 +1,270 @@
 ﻿#include "SVGAttributes.h"
 
-// Constructor
 SVGAttributes::SVGAttributes(xml_node<> *shapeNode)
 {
-// default if not define stroke we will not draw stroke
-// default if not define fill browser will fill with black color
-// default fill opacity is 1
-// default stroke opacity is 0
-// default stroke width is 1
-// default opacity is 1
-// default stroke linecap is butt
-// default stroke linejoin is miter
-// default stroke dasharray is empty
-// default transform is empty
-// default text is empty
-
-	xml_attribute<> *attribute = shapeNode->first_attribute();
-	while (attribute != NULL)
+	for (xml_attribute<> *attr = shapeNode->first_attribute(); attr; attr = attr->next_attribute())
 	{
-		std::string name = attribute->name();
-		std::string value = attribute->value();
+		std::string name = attr->name();
+		std::string value = attr->value();
 
-		if (name == "stroke-opacity")
+		if (name == "stroke")
 		{
-			setStrokeOpacity(stof(value));
+			Attributes["stroke"] = new Stroke(value);
 		}
 		else if (name == "stroke-width")
 		{
-			setStrokeWidth(stof(value));
-		}
-		else if (name == "opacity")
-		{
-			setOpacity(stof(value));
-		}
-		else if (name == "fill-opacity")
-		{
-			setFillOpacity(stof(value));
-		}
-		else if (name == "stroke-linecap")
-		{
-			setStrokeLinecap(value);
-		}
-		else if (name == "stroke-linejoin")
-		{
-			setStrokeLinejoin(value);
-		}
-		else if (name == "transform")
-		{
-			transform = Transform(value);
-		}
-		else if (name == "stroke-dasharray")
-		{
-			setStrokeDasharray(value);
-		}
-		attribute = attribute->next_attribute();
-	}
-
-	//loop through all the attributes again to determine is fill or stroke need to be drawn
-	attribute = shapeNode->first_attribute();
-	while (attribute != NULL)
-	{
-		std::string name = attribute->name();
-		std::string value = attribute->value();
-		//if no stroke we will not draw stroke default stroke opacity is 0
-		if (name == "stroke")
-		{
-			if (value != "none")
-			{
-				setStrokeColor(value);
-				setStroke(value);
-				if (getStrokeOpacity() == 0)
-				{
-					setStrokeOpacity(1.0f);
-				}
-			}
+			Attributes["stroke-width"] = new StrokeWidth(value);
 		}
 		else if (name == "fill")
 		{
-			setFillColor(value);
-			setFill(value);
-			if (value == "none")
-			{
-				setFillOpacity(0.0f);
-			}
+			Attributes["fill"] = new Fill(value);
 		}
-		attribute = attribute->next_attribute();
-	}
-
-	// Handle text content separately
-	if (shapeNode->value() && strlen(shapeNode->value()) > 0)
-	{
-		setText(shapeNode->value());
+		else if (name == "fill-opacity")
+		{
+			Attributes["fill-opacity"] = new FillOpacity(value);
+		}
+		else if (name == "stroke-opacity")
+		{
+			Attributes["stroke-opacity"] = new StrokeOpacity(value);
+		}
+		else if (name == "opacity")
+		{
+			Attributes["opacity"] = new Ocopacity(value);
+		}
+		else if (name == "text")
+		{
+			Attributes["text"] = new Text(value);
+		}
+		else if (name == "transform")
+		{
+			Attributes["transform"] = new Transform(value);
+		}
 	}
 }
 
-// Getters and setters
-void SVGAttributes::setFill(const std::string &color) {
 
- }
-std::string SVGAttributes::getFill() const { return fill; }
 
-void SVGAttributes::setStroke(const std::string &color) { stroke = color; }
-std::string SVGAttributes::getStroke() const { return stroke; }
+SVGAttributes::SVGAttributes(const SVGAttributes &attributes)
+{
+	for (auto &attr : attributes.Attributes)
+	{
+		Attributes[attr.first] = attr.second->clone();
+	}
+}
 
-void SVGAttributes::setStrokeWidth(float width) { strokeWidth = width; }
-float SVGAttributes::getStrokeWidth() const { return strokeWidth; }
+float SVGAttributes::getStrokeWidth()
+{
+    auto it = Attributes.find("stroke-width");
+    if (it != Attributes.end())
+    {
+        StrokeWidth* strokeWidth = dynamic_cast<StrokeWidth*>(it->second);
 
-void SVGAttributes::setOpacity(float value) { opacity = value; }
-float SVGAttributes::getOpacity() const { return opacity; }
+        if (strokeWidth != nullptr)
+        {
+			return strokeWidth->getStrokeWidth();
+        }
+        else
+        {
+            std::cerr << "Error: stroke-width attribute is not of type StrokeWidth." << std::endl;
+            return 0.0f;
+        }
+    }
+    return 0.0f;
+}
 
-void SVGAttributes::setFillOpacity(float value) { fillOpacity = value; }
-float SVGAttributes::getFillOpacity() const { return fillOpacity; }
+Gdiplus::Color SVGAttributes::getStrokeColor()
+{
+	auto it = Attributes.find("stroke");
+	if (it != Attributes.end())
+	{
+		Stroke* stroke = dynamic_cast<Stroke*>(it->second);
 
-void SVGAttributes::setStrokeOpacity(float value) { strokeOpacity = value; }
-float SVGAttributes::getStrokeOpacity() const { return strokeOpacity; }
+		if (stroke != nullptr)
+		{
+			return stroke->getStroke();
+		}
+		else
+		{
+			std::cerr << "Error: stroke attribute is not of type Stroke." << std::endl;
+			return Gdiplus::Color();
+		}
+	}
+	// Default stroke color is black
+	return Gdiplus::Color();
+}
 
-void SVGAttributes::setStrokeLinecap(const std::string &cap) { strokeLinecap = cap; }
-std::string SVGAttributes::getStrokeLinecap() const { return strokeLinecap; }
+Gdiplus::Color SVGAttributes::getFillColor()
+{
+	auto it = Attributes.find("fill");
+	if (it != Attributes.end())
+	{
+		Fill* fill = dynamic_cast<Fill*>(it->second);
 
-void SVGAttributes::setStrokeLinejoin(const std::string &join) { strokeLinejoin = join; }
-std::string SVGAttributes::getStrokeLinejoin() const { return strokeLinejoin; }
+		if (fill != nullptr)
+		{
+			return fill->getFill();
+		}
+		else
+		{
+			std::cerr << "Error: fill attribute is not of type Fill." << std::endl;
+			return Gdiplus::Color();
+		}
+	}
+	// Default fill color is black
+	return Gdiplus::Color();
+}
 
-void SVGAttributes::setStrokeDasharray(const std::string &dash) { strokeDasharray = dash; }
-std::string SVGAttributes::getStrokeDasharray() const { return strokeDasharray; }
+float SVGAttributes::getFillOpacity()
+{
+	auto it = Attributes.find("fill-opacity");
+	if (it != Attributes.end())
+	{
+		FillOpacity* fillOpacity = dynamic_cast<FillOpacity*>(it->second);
+
+		if (fillOpacity != nullptr)
+		{
+			return fillOpacity->getFillOpacity();
+		}
+		else
+		{
+			std::cerr << "Error: fill-opacity attribute is not of type FillOpacity." << std::endl;
+			return 1.0f;
+		}
+	}
+	// Default fill opacity is 1.0
+	return 1.0f;
+}
+
+float SVGAttributes::getStrokeOpacity()
+{
+	auto it = Attributes.find("stroke-opacity");
+	if (it != Attributes.end())
+	{
+		StrokeOpacity* strokeOpacity = dynamic_cast<StrokeOpacity*>(it->second);
+
+		if (strokeOpacity != nullptr)
+		{
+			return strokeOpacity->getStrokeOpacity();
+		}
+		else
+		{
+			std::cerr << "Error: stroke-opacity attribute is not of type StrokeOpacity." << std::endl;
+			return 1.0f;
+		}
+	}
+	// Default stroke opacity is 1.0
+	return 1.0f;
+}
+
+float SVGAttributes::getOpacity()
+{
+	auto it = Attributes.find("opacity");
+	if (it != Attributes.end())
+	{
+		Ocopacity* opacity = dynamic_cast<Ocopacity*>(it->second);
+
+		if (opacity != nullptr)
+		{
+			return opacity->getOcopacity();
+		}
+		else
+		{
+			std::cerr << "Error: opacity attribute is not of type Ocopacity." << std::endl;
+			return 1.0f;
+		}
+	}
+	// Default opacity is 1.0
+	return 1.0f;
+}
+
+std::string SVGAttributes::getText()
+{
+	auto it = Attributes.find("text");
+	if (it != Attributes.end())
+	{
+		Text* text = dynamic_cast<Text*>(it->second);
+
+		if (text != nullptr)
+		{
+			return text->getText();
+		}
+		else
+		{
+			std::cerr << "Error: text attribute is not of type Text." << std::endl;
+			return "";
+		}
+	}
+	// Default text is empty
+	return "";
+}
 
 Transform SVGAttributes::getTransform()
 {
-	return this->transform;
+	auto it = Attributes.find("transform");
+	if (it != Attributes.end())
+	{
+		Transform* transform = dynamic_cast<Transform*>(it->second);
+
+		if (transform != nullptr)
+		{
+			return *transform;
+		}
+		else
+		{
+			std::cerr << "Error: transform attribute is not of type Transform." << std::endl;
+			return Transform();
+		}
+	}
+	// Default transform is identity matrix
+	return Transform();
 }
 
-void SVGAttributes::setText(std::string tex) { text = tex; };
-std::string SVGAttributes::getText() const { return text; }
-
-void SVGAttributes::mergeAttributes(SVGAttributes &attr)
+SVGAttributes::~SVGAttributes()
 {
-	if (this->fill == "none")
+	for (auto &attr : Attributes)
 	{
-		this->fill = attr.fill;
-	}
-	if (this->stroke == "none")
-	{
-		this->stroke = attr.stroke;
-	}
-	if (this->strokeWidth == 1.0f)
-	{
-		this->strokeWidth = attr.strokeWidth;
-	}
-	if (this->opacity == 1.0f)
-	{
-		this->opacity = attr.opacity;
-	}
-	if (this->fillOpacity == 1.0f)
-	{
-		this->fillOpacity = attr.fillOpacity;
-	}
-	if (this->strokeOpacity == 0.0f)
-	{
-		this->strokeOpacity = attr.strokeOpacity;
-	}
-	if (this->strokeLinecap == "butt")
-	{
-		this->strokeLinecap = attr.strokeLinecap;
-	}
-	if (this->strokeLinejoin == "miter")
-	{
-		this->strokeLinejoin = attr.strokeLinejoin;
-	}
-	if (this->strokeDasharray == "")
-	{
-		this->strokeDasharray = attr.strokeDasharray;
-	}
-	if (this->text == "")
-	{
-		this->text = attr.text;
-	}
-	if (this->fillColor.GetValue() == 0)
-	{
-		this->fillColor = attr.fillColor;
-	}
-	if (this->strokeColor.GetValue() == 0)
-	{
-		this->strokeColor = attr.strokeColor;
-	}
-	this->transform.addStragetry(attr.transform);
-};
-
-// Print attributes
-void SVGAttributes::printAttributes() const
-{
-	std::cout << "Fill: " << fill << "\n"
-			  << "Stroke: " << stroke << "\n"
-			  << "Stroke Width: " << strokeWidth << "\n"
-			  << "Opacity: " << opacity << "\n"
-			  << "Fill Opacity: " << fillOpacity << "\n"
-			  << "Stroke Opacity: " << strokeOpacity << "\n"
-			  << "Stroke Linecap: " << strokeLinecap << "\n"
-			  << "Stroke Linejoin: " << strokeLinejoin << "\n"
-			  << "Stroke Dasharray: " << strokeDasharray << "\n"
-			  << "Text: " << text << "\n";
-}
-
-// string format = "rgb(255, 0, 0)";
-void SVGAttributes::setFillColor(std::string str)
-{
-	if (str == "none")
-	{
-		fillColor = Gdiplus::Color(0, 0, 0, 0);
-		return;
-	}
-	if (str[0] == '#')
-	{
-		int r = std::stoi(str.substr(1, 2), nullptr, 16);
-		int g = std::stoi(str.substr(3, 2), nullptr, 16);
-		int b = std::stoi(str.substr(5, 2), nullptr, 16);
-		fillColor = Gdiplus::Color(255, r, g, b);
-		return;
-	}
-	if (str.substr(0, 3) == "rgb")
-	{
-		int r, g, b;
-		sscanf_s(str.c_str(), "rgb(%d, %d, %d)", &r, &g, &b);
-		fillColor = Gdiplus::Color(255, r, g, b);
-		return;
-	}
-	if (str.substr(0, 4) == "rgba")
-	{
-		int r, g, b, a;
-		sscanf_s(str.c_str(), "rgba(%d, %d, %d, %d)", &r, &g, &b, &a);
-		fillColor = Gdiplus::Color(a, r, g, b);
-		return;
-	}
-}
-Gdiplus::Color SVGAttributes::getFillColor() const
-{
-	return fillColor;
-}
-
-void SVGAttributes::setStrokeColor(std::string str)
-{
-	if (str == "none")
-	{
-		strokeColor = Gdiplus::Color(0, 0, 0, 0);
-		return;
-	}
-	if (str[0] == '#')
-	{
-		int r = std::stoi(str.substr(1, 2), nullptr, 16);
-		int g = std::stoi(str.substr(3, 2), nullptr, 16);
-		int b = std::stoi(str.substr(5, 2), nullptr, 16);
-		strokeColor = Gdiplus::Color(255, r, g, b);
-		return;
-	}
-	if (str.substr(0, 3) == "rgb")
-	{
-		int r, g, b;
-		sscanf_s(str.c_str(), "rgb(%d, %d, %d)", &r, &g, &b);
-		strokeColor = Gdiplus::Color(255, r, g, b);
-		return;
-	}
-	if (str.substr(0, 4) == "rgba")
-	{
-		int r, g, b, a;
-		sscanf_s(str.c_str(), "rgba(%d, %d, %d, %d)", &r, &g, &b, &a);
-		strokeColor = Gdiplus::Color(a, r, g, b);
-		return;
+		delete attr.second;
 	}
 }
 
-Gdiplus::Color SVGAttributes::getStrokeColor() const
+Attribute *Fill::clone()
 {
-	return strokeColor;
+	return new Fill(*this);
 }
 
-Fill::Fill()
+Attribute *Stroke::clone()
 {
+	return new Stroke(*this);
 }
+
+Attribute *StrokeWidth::clone()
+{
+	return new StrokeWidth(*this);
+}
+
+Attribute *Ocopacity::clone()
+{
+	return new Ocopacity(*this);
+}
+
+Attribute *Text::clone()
+{
+	return new Text(*this);
+}
+
+Attribute *FillOpacity::clone()
+{
+	return new FillOpacity(*this);
+}
+
+Attribute *StrokeOpacity::clone()
+{
+	return new StrokeOpacity(*this);
+}
+
+Attribute *Transform::clone()
+{
+	return new Transform(*this);
+}
+
+

@@ -6,10 +6,10 @@
 #include <vector>
 #include <sstream>
 #include "TransformStragetry.h"
-
+#include "../SVGAttributes.h"
 using namespace std;
 
-class Transform
+class Transform : public Attribute
 {
     private:
         vector<TransformStragetry *>stragetry;        

@@ -86,6 +86,10 @@ void Transform::addStragetry(Transform transform)
         this->stragetry.push_back(stragetry->clone());
     }
 }
+Attribute* Transform::clone()
+{
+    return new Transform(*this);
+}
 
 Transform::~Transform()
 {
