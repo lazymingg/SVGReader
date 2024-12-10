@@ -7,7 +7,6 @@
 #include <gdiplus.h>
 #include <objidl.h>
 #include <iostream>
-#include "../Transform/Transform.h"
 
 #pragma comment(lib, "Gdiplus.lib")
 
