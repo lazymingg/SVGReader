@@ -1,5 +1,4 @@
 ﻿#include "SVGAttributes.h"
-#include "Transform.h"
 
 SVGAttributes::SVGAttributes(xml_node<> *shapeNode)
 {
@@ -102,6 +101,7 @@ Gdiplus::Color SVGAttributes::getFillColor()
 
 		if (fill != nullptr)
 		{
+			cout << "getFillColor" << endl;
 			return fill->getFill();
 		}
 		else
@@ -234,106 +234,107 @@ SVGAttributes::~SVGAttributes()
 // Hàm chuyển đổi màu HEX sang Gdiplus::Color
 Gdiplus::Color hexToColor(const std::string &hex)
 {
-    int r, g, b, a = 255; // Mặc định alpha = 255 (hoàn toàn không trong suốt)
+	int r, g, b, a = 255; // Mặc định alpha = 255 (hoàn toàn không trong suốt)
 
-    // Kiểm tra chuỗi HEX có đúng định dạng không (có dấu # và đúng độ dài)
-    if (hex[0] == '#' && (hex.length() == 7 || hex.length() == 9))
-    {
-        // Chuyển đổi từ HEX sang các giá trị RGB
-        sscanf(hex.c_str() + 1, "%2x%2x%2x", &r, &g, &b);
+	// Kiểm tra chuỗi HEX có đúng định dạng không (có dấu # và đúng độ dài)
+	if (hex[0] == '#' && (hex.length() == 7 || hex.length() == 9))
+	{
+		// Chuyển đổi từ HEX sang các giá trị RGB
+		sscanf(hex.c_str() + 1, "%2x%2x%2x", &r, &g, &b);
 
-        // Nếu có alpha, tách alpha từ 2 ký tự cuối
-        if (hex.length() == 9)
-        {
-            sscanf(hex.c_str() + 7, "%2x", &a);
-        }
+		// Nếu có alpha, tách alpha từ 2 ký tự cuối
+		if (hex.length() == 9)
+		{
+			sscanf(hex.c_str() + 7, "%2x", &a);
+		}
 
-        // Trả về màu từ ARGB
-        return Gdiplus::Color(a, r, g, b);
-    }
-    else
-    {
-        // Nếu chuỗi không hợp lệ, trả về màu mặc định (đen)
-        return Gdiplus::Color::Black;
-    }
+		// Trả về màu từ ARGB
+		return Gdiplus::Color(a, r, g, b);
+	}
+	else
+	{
+		// Nếu chuỗi không hợp lệ, trả về màu mặc định (đen)
+		return Gdiplus::Color::Black;
+	}
 }
 
 // Hàm lấy màu từ chuỗi
 Gdiplus::Color getColor(const std::string &value)
 {
-    // Regex kiểm tra các định dạng màu
-    std::regex hexColorRegex(R"(^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})$)");
-    std::regex rgbaColorRegex(R"(^rgba\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3}),\s*([01]|0\.\d+)\)$)");
-    std::regex rgbColorRegex(R"(^rgb\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3})\)$)");
-    std::regex namedColorRegex(R"(^[a-zA-Z]+$)");
-    std::regex noneColorRegex(R"(^none$)");
+	// Regex kiểm tra các định dạng màu
+	std::regex hexColorRegex(R"(^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})$)");
+	std::regex rgbaColorRegex(R"(^rgba\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3}),\s*([01]|0\.\d+)\)$)");
+	std::regex rgbColorRegex(R"(^rgb\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3})\)$)");
+	std::regex namedColorRegex(R"(^[a-zA-Z]+$)");
+	std::regex noneColorRegex(R"(^none$)");
 
-    // Nếu là màu HEX
-    if (std::regex_match(value, hexColorRegex))
-    {
-        return hexToColor(value);
-    }
-    // Nếu là màu RGBA
-    else if (std::regex_match(value, rgbaColorRegex))
-    {
-        int red, green, blue;
-        float alpha;
+	// Nếu là màu HEX
+	if (std::regex_match(value, hexColorRegex))
+	{
+		return hexToColor(value);
+	}
+	// Nếu là màu RGBA
+	else if (std::regex_match(value, rgbaColorRegex))
+	{
+		int red, green, blue;
+		float alpha;
 
-        std::smatch match;
-        if (std::regex_search(value, match, rgbaColorRegex))
-        {
-            red = std::stoi(match[1].str());
-            green = std::stoi(match[2].str());
-            blue = std::stoi(match[3].str());
-            alpha = std::stof(match[4].str());
+		std::smatch match;
+		if (std::regex_search(value, match, rgbaColorRegex))
+		{
+			red = std::stoi(match[1].str());
+			green = std::stoi(match[2].str());
+			blue = std::stoi(match[3].str());
+			alpha = std::stof(match[4].str());
 
-            int alphaInt = static_cast<int>(alpha * 255);
+			int alphaInt = static_cast<int>(alpha * 255);
 
-            return Gdiplus::Color(alphaInt, red, green, blue);
-        }
-    }
-    // Nếu là màu RGB
-    else if (std::regex_match(value, rgbColorRegex))
-    {
-        int red, green, blue;
+			return Gdiplus::Color(alphaInt, red, green, blue);
+		}
+	}
+	// Nếu là màu RGB
+	else if (std::regex_match(value, rgbColorRegex))
+	{
+		cout << "rgbColorRegex" << endl;
+		int red, green, blue;
 
-        std::smatch match;
-        if (std::regex_search(value, match, rgbColorRegex))
-        {
-            red = std::stoi(match[1].str());
-            green = std::stoi(match[2].str());
-            blue = std::stoi(match[3].str());
+		std::smatch match;
+		if (std::regex_search(value, match, rgbColorRegex))
+		{
+			red = std::stoi(match[1].str());
+			green = std::stoi(match[2].str());
+			blue = std::stoi(match[3].str());
 
-            return Gdiplus::Color(255, red, green, blue);
-        }
-    }
-    // Nếu là tên màu
-    // else if (std::regex_match(value, namedColorRegex))
-    // {
-    //     static std::map<std::string, Gdiplus::Color> namedColors = {
-    //         {"red", Gdiplus::Color::Red},
-    //         {"green", Gdiplus::Color::Green},
-    //         {"blue", Gdiplus::Color::Blue},
-    //         {"black", Gdiplus::Color::Black},
-    //         {"white", Gdiplus::Color::White},
-    //         {"yellow", Gdiplus::Color::Yellow},
-    //         // Thêm các tên màu khác nếu cần
-    //     };
+			return Gdiplus::Color(255, red, green, blue);
+		}
+	}
+	// Nếu là tên màu
+	// else if (std::regex_match(value, namedColorRegex))
+	// {
+	//     static std::map<std::string, Gdiplus::Color> namedColors = {
+	//         {"red", Gdiplus::Color::Red},
+	//         {"green", Gdiplus::Color::Green},
+	//         {"blue", Gdiplus::Color::Blue},
+	//         {"black", Gdiplus::Color::Black},
+	//         {"white", Gdiplus::Color::White},
+	//         {"yellow", Gdiplus::Color::Yellow},
+	//         // Thêm các tên màu khác nếu cần
+	//     };
 
-    //     auto it = namedColors.find(value);
-    //     if (it != namedColors.end())
-    //     {
-    //         return it->second;
-    //     }
-    // }
-    // Nếu là "none"
-    else if (std::regex_match(value, noneColorRegex))
-    {
-        return Gdiplus::Color(0, 0, 0, 0); // Màu trong suốt hoàn toàn
-    }
+	//     auto it = namedColors.find(value);
+	//     if (it != namedColors.end())
+	//     {
+	//         return it->second;
+	//     }
+	// }
+	// Nếu là "none"
+	else if (std::regex_match(value, noneColorRegex))
+	{
+		return Gdiplus::Color(0, 0, 0, 0); // Màu trong suốt hoàn toàn
+	}
 
-    // Nếu không khớp với định dạng nào, trả về màu đen
-    return Gdiplus::Color::Black;
+	// Nếu không khớp với định dạng nào, trả về màu đen
+	return Gdiplus::Color::Black;
 }
 
 Fill::Fill()
@@ -347,7 +348,7 @@ Fill::Fill(string value)
 
 Gdiplus::Color Fill::getFill()
 {
-    return Gdiplus::Color();
+	return color;
 }
 
 Attribute *Fill::clone()
@@ -361,17 +362,19 @@ Fill::~Fill()
 
 Stroke::Stroke()
 {
-	color = Gdiplus::Color::Black;
 }
 
 Stroke::Stroke(string value)
 {
 	color = getColor(value);
+	cout << "red" << color.GetR() << endl;
+	cout << "green" << color.GetG() << endl;
+	cout << "blue" << color.GetB() << endl;
 }
 
 Gdiplus::Color Stroke::getStroke()
 {
-    return Gdiplus::Color();
+	return color;
 }
 
 Attribute *Stroke::clone()
@@ -395,7 +398,7 @@ StrokeWidth::StrokeWidth(string width)
 
 float StrokeWidth::getStrokeWidth()
 {
-    return 0.0f;
+	return width;
 }
 
 Attribute *StrokeWidth::clone()
@@ -419,7 +422,7 @@ Ocopacity::Ocopacity(string value)
 	// Regular expressions to match different formats of opacity
 	std::regex numberRegex(R"(opacity\s*=\s*\"([0-9]*\.?[0-9]+)\")");
 	std::regex percentageRegex(R"(opacity\s*=\s*\"([0-9]+)%\")");
-	
+
 	std::smatch match;
 
 	// Check for opacity as a number
@@ -437,7 +440,7 @@ Ocopacity::Ocopacity(string value)
 
 float Ocopacity::getOcopacity()
 {
-    return 0.0f;
+	return value;
 }
 
 Attribute *Ocopacity::clone()
@@ -478,34 +481,29 @@ FillOpacity::FillOpacity()
 	value = 1.0f;
 }
 
-FillOpacity::FillOpacity(string getValue)
+FillOpacity::FillOpacity(const std::string &getValue)
 {
 	// Default fill opacity
 	value = 1.0f;
 
-	// Regular expressions to match different formats of fill-opacity
-	std::regex numberRegex(R"(fill-opacity\s*=\s*\"([0-9]*\.?[0-9]+)\")");
-	std::regex percentageRegex(R"(fill-opacity\s*=\s*\"([0-9]+)%\")");
-	std::regex styleRegex(R"(style\s*=\s*\"[^\"]*fill-opacity\s*:\s*([0-9]*\.?[0-9]+)\s*;\")");
-
+	// Regex patterns
+	std::regex percentageRegex(R"(^([0-9]+)%$)");	   // Match percentage (e.g., "50%")
+	std::regex decimalRegex(R"(^([0-9]*\.?[0-9]+)$)"); // Match decimal (e.g., "0.5", "1.0")
 	std::smatch match;
 
-	// Check for fill-opacity as a number
-	if (std::regex_search(getValue, match, numberRegex))
+	// Check for percentage
+	if (std::regex_match(getValue, match, percentageRegex))
 	{
-		value = std::stof(match[1].str());
+		value = std::stof(match[1].str()) / 100.0f; // Extract and convert percentage
 	}
-
-	// Check for fill-opacity as a percentage
-	if (std::regex_search(getValue, match, percentageRegex))
+	// Check for decimal
+	else if (std::regex_match(getValue, match, decimalRegex))
 	{
-		value = std::stof(match[1].str()) / 100.0f;
+		value = std::stof(match[1].str()); // Convert to float directly
 	}
-
-	// Check for fill-opacity as a CSS property
-	if (std::regex_search(getValue, match, styleRegex))
+	else
 	{
-		value = std::stof(match[1].str());
+		value = 1.0f; // Default fill-opacity
 	}
 }
 
@@ -575,100 +573,100 @@ StrokeOpacity::~StrokeOpacity()
 
 Transform::Transform()
 {
-    stragetry.push_back(new Translate("translate(0,0)"));
+	stragetry.push_back(new Translate("translate(0,0)"));
 }
 
 Transform::Transform(string str)
-{   
-    vector<string> tokens;
-    int len = str.length();
+{
+	vector<string> tokens;
+	int len = str.length();
 
-    string get = "";
+	string get = "";
 
-    for (int i = 0; i <= len; i++)
-    {
-        if ((str[i] == ' ' && str[i - 1] == ')') || i == len)
-        {
-            tokens.push_back(get);
-            get = "";
-        }
-        else
-            get += str[i];
-    }
-    
-    for (int i = 0; i < tokens.size(); i++)
-    cout << tokens[i] << '\n';
+	for (int i = 0; i <= len; i++)
+	{
+		if ((str[i] == ' ' && str[i - 1] == ')') || i == len)
+		{
+			tokens.push_back(get);
+			get = "";
+		}
+		else
+			get += str[i];
+	}
 
-    for (auto &token : tokens)
-    {
-        if (token.find("translate") != string::npos)
-        {
-            stragetry.push_back(new Translate(token));
-        }
-        else if (token.find("scale") != string::npos)
-        {
-            stragetry.push_back(new Scale(token));
-        }
-        else if (token.find("rotate") != string::npos)
-        {
-            stragetry.push_back(new Rotate(token));
-        }
-    }
+	for (int i = 0; i < tokens.size(); i++)
+		cout << tokens[i] << '\n';
+
+	for (auto &token : tokens)
+	{
+		if (token.find("translate") != string::npos)
+		{
+			stragetry.push_back(new Translate(token));
+		}
+		else if (token.find("scale") != string::npos)
+		{
+			stragetry.push_back(new Scale(token));
+		}
+		else if (token.find("rotate") != string::npos)
+		{
+			stragetry.push_back(new Rotate(token));
+		}
+	}
 }
 
 Transform::Transform(const Transform &transform)
 {
-    for (auto &a : transform.stragetry)
-    {
-        this->stragetry.push_back(a->clone());
-    }
+	for (auto &a : transform.stragetry)
+	{
+		this->stragetry.push_back(a->clone());
+	}
 }
 
 void Transform::transform(Gdiplus::Matrix &matrix)
 {
-    for (auto &stragetry : stragetry)
-    {
-        stragetry->transform(matrix);
-    }
+	for (auto &stragetry : stragetry)
+	{
+		stragetry->transform(matrix);
+	}
 }
 Transform &Transform::operator=(const Transform &transform)
 {
-    if (this == &transform)
-    {
-        return *this;
-    }
+	if (this == &transform)
+	{
+		return *this;
+	}
 
-    for (auto &stragetry : stragetry)
-    {
-        delete stragetry;
-    }
-    stragetry.clear();
+	for (auto &stragetry : stragetry)
+	{
+		delete stragetry;
+	}
+	stragetry.clear();
 
-    for (auto &stragetry : transform.stragetry)
-    {
-        this->stragetry.push_back(stragetry->clone());
-    }
+	for (auto &stragetry : transform.stragetry)
+	{
+		this->stragetry.push_back(stragetry->clone());
+	}
 
-    return *this;
+	return *this;
 }
 
 void Transform::addStragetry(Transform transform)
 {
-    for (auto &stragetry : transform.stragetry)
-    {
-        this->stragetry.push_back(stragetry->clone());
-    }
+	for (auto &stragetry : transform.stragetry)
+	{
+		this->stragetry.push_back(stragetry->clone());
+	}
 }
-Attribute* Transform::clone()
+Attribute *Transform::clone()
 {
-    return new Transform(*this);
+	return new Transform(*this);
 }
 
 Transform::~Transform()
 {
-    for (auto &stragetry : stragetry)
-    {
-        delete stragetry;
-    }
-    stragetry.clear();
+	for (auto &stragetry : stragetry)
+	{
+		delete stragetry;
+	}
+	stragetry.clear();
 }

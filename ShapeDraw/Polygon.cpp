@@ -57,7 +57,13 @@ void MyFigure::Polygon::draw()
 	strokeColor = Color(opacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
 	Pen pen(strokeColor, attributes.getStrokeWidth());
 	// print color
-
+	// print stroke color
+	cout << "Stroke color: " << strokeColor.GetR() << " " << strokeColor.GetG() << " " << strokeColor.GetB() << endl;
+	// print stroke width
+	cout << "Stroke width: " << attributes.getStrokeWidth() << endl;
+	// print stroke opacity
+	cout << "Stroke opacity: " << attributes.getStrokeOpacity() << endl;
+	
 	graphics.SetSmoothingMode(SmoothingMode::SmoothingModeAntiAlias);
 	Gdiplus::Matrix a;
 	attributes.getTransform().transform(a);

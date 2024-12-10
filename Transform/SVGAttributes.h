@@ -93,7 +93,7 @@ private:
     float value;
 public:
     FillOpacity();
-    FillOpacity(string getValue);
+    FillOpacity(const std::string &getValue);
     float getFillOpacity();
     Attribute* clone() override;
     ~FillOpacity();
@@ -118,7 +118,6 @@ class Transform : public Attribute
     public:
         Transform();
         Transform(string str);
-        //copy constructor
         Transform(const Transform &transform);
         void transform(Gdiplus::Matrix &matrix);
         Transform &operator=(const Transform &transform);
