@@ -31,6 +31,10 @@ void MyFigure::Text::draw()
     // Get stroke color and adjust opacity
     Color strokeColor = attributes.getStrokeColor();
     int strokeOpacity = static_cast<int>(attributes.getStrokeOpacity() * 255);
+    if (fillColor.GetR() == 255 && fillColor.GetG() == 255 && fillColor.GetB() == 255)
+    {
+        strokeOpacity = 0;
+    }
     strokeColor = Color(strokeOpacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
     Pen pen(strokeColor, attributes.getStrokeWidth());
 

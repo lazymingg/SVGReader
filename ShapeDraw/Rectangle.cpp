@@ -36,7 +36,11 @@ void MyFigure::Rectangle::draw()
 	// {
 	Color fillColor = attributes.getFillColor();
 	// ajust opacity
-	int opacity = attributes.getFillOpacity() * (int) fillColor.GetA();
+	int opacity = attributes.getFillOpacity() * 255;
+	if (fillColor.GetR() == 255 && fillColor.GetG() == 255 && fillColor.GetB() == 255)
+	{
+		opacity = 0;
+	}
 
 	fillColor = Color(opacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
 	SolidBrush brush(fillColor);
@@ -58,9 +62,9 @@ void MyFigure::Rectangle::draw()
 	graphics.GetTransform(&originalMatrix);
 	graphics.SetTransform(&a);
 
-    // Draw the rectangle with the pen and brush
-    graphics.DrawRectangle(&pen, point.getX(), point.getY(), width, height);
-    graphics.FillRectangle(&brush, point.getX(), point.getY(), width, height);
+	// Draw the rectangle with the pen and brush
+	graphics.DrawRectangle(&pen, point.getX(), point.getY(), width, height);
+	graphics.FillRectangle(&brush, point.getX(), point.getY(), width, height);
 
 	graphics.SetTransform(&originalMatrix);
 }

@@ -32,10 +32,15 @@ void MyFigure::Polyline::draw()
 {
     // draw polygon here
     // draw fill polygon first
-  
+
     Color fillColor = attributes.getFillColor();
     // adjust opacity
     int opacity = attributes.getFillOpacity() * 255;
+    if (fillColor.GetR() == 255 && fillColor.GetG() == 255 && fillColor.GetB() == 255)
+    {
+        opacity = 0;
+    }
+
     fillColor = Color(opacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
     SolidBrush brush(fillColor);
 

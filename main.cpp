@@ -6,15 +6,6 @@ using namespace Gdiplus;
 
 VOID OnPaint(HDC hdc)
 {
-<<<<<<< HEAD
-    Graphics graphics(hdc);
-    FigureDraw FigureDraw(graphics);
-    string filename = "";
-    cout << "Enter the file name: ";
-    getline(cin, filename);
-    FigureDraw.loadSVGFile(filename);
-    FigureDraw.draw();
-=======
     Graphics graphics(hdc); // Assuming hdc is defined somewhere in your code
     FigureDraw figureDraw(graphics);
     std::string filename;
@@ -23,11 +14,9 @@ VOID OnPaint(HDC hdc)
     {
         std::cout << "Enter the file name: ";
         std::getline(std::cin, filename);
-
         figureDraw.loadSVGFile(filename);
         figureDraw.draw();
     }
->>>>>>> AnhTris
 }
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);

@@ -543,8 +543,22 @@ void MyFigure::Path::draw()
 
     cout << int(attributes.getFillColor().GetAlpha()) << ", " << int(attributes.getFillColor().GetRed()) << ", " << int(attributes.getFillColor().GetGreen()) << ", " << int(attributes.getFillColor().GetBlue()) << endl;
     cout << int(attributes.getStrokeColor().GetAlpha()) << ", " << int(attributes.getStrokeColor().GetRed()) << ", " << int(attributes.getStrokeColor().GetGreen()) << ", " << int(attributes.getStrokeColor().GetBlue()) << endl;
-    SolidBrush fillBrush(attributes.getFillColor());
-    Pen strokePen(attributes.getStrokeColor(), attributes.getStrokeWidth());
+    Color fillColor = attributes.getFillColor();
+    int fillOpacity = attributes.getFillOpacity() * 255;
+    fillColor = Color(fillOpacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
+    SolidBrush fillBrush(fillColor);
+
+    Color strokeColor = attributes.getStrokeColor();
+    int strokeOpacity = attributes.getStrokeOpacity() * 255;
+
+    if (fillColor.GetR() == 255 && fillColor.GetG() == 255 && fillColor.GetB() == 255)
+    {
+        strokeOpacity = 0;
+    }
+
+    strokeColor = Color(strokeOpacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
+    Pen strokePen(strokeColor, attributes.getStrokeWidth());
+
     graphics.SetSmoothingMode(SmoothingModeAntiAlias);
 
     Gdiplus::Matrix a;
