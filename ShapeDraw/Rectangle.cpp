@@ -29,7 +29,7 @@ void MyFigure::Rectangle::printInfomation()
 
 void MyFigure::Rectangle::draw()
 {
-	
+
 	// Draw the Rectangle
 	// Fill rectangle first
 	// if (attributes.getFill() != "none")
@@ -37,10 +37,12 @@ void MyFigure::Rectangle::draw()
 	Color fillColor = attributes.getFillColor();
 	// ajust opacity
 	int opacity = attributes.getFillOpacity() * 255;
-	
+	// Check if the color is fully transparent
+	if (fillColor.GetA() == 0 && fillColor.GetR() == 0 && fillColor.GetG() == 0 && fillColor.GetB() == 0)
+		opacity = 0;
+
 	fillColor = Color(opacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
 	SolidBrush brush(fillColor);
-
 
 	// draw stroke
 	// if (attributes.getStroke() != "none")
@@ -54,16 +56,15 @@ void MyFigure::Rectangle::draw()
 	graphics.SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeAntiAlias);
 	Gdiplus::Matrix a;
 	attributes.getTransform().transform(a);
-	
+
 	Gdiplus::Matrix originalMatrix;
-    graphics.GetTransform(&originalMatrix);
-    graphics.SetTransform(&a);
+	graphics.GetTransform(&originalMatrix);
+	graphics.SetTransform(&a);
 
 	graphics.DrawRectangle(&pen, point.getX(), point.getY(), width, height);
 	graphics.FillRectangle(&brush, point.getX(), point.getY(), width, height);
 
-    graphics.SetTransform(&originalMatrix);
-
+	graphics.SetTransform(&originalMatrix);
 }
 
 void MyFigure::Rectangle::applyTransform()
