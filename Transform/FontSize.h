@@ -14,7 +14,7 @@ private:
 public:
     FontSize();
     FontSize(std::string value);
-    float getSize() const;
+    float getFontSize();
     Attribute* clone() override;
     void mergeData(Attribute* attribute) override;
     ~FontSize();

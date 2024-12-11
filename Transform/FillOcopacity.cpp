@@ -5,7 +5,7 @@
 FillOpacity::FillOpacity() : value(1.0f) {}
 
 // Constructor with value
-FillOpacity::FillOpacity(const std::string &getValue)
+FillOpacity::FillOpacity(std::string &getValue)
 {
     std::regex percentageRegex(R"(^([0-9]+)%$)");
     std::regex decimalRegex(R"(^([0-9]*\.?[0-9]+)$)");

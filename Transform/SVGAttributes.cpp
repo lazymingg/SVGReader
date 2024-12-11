@@ -210,6 +210,66 @@ std::string SVGAttributes::getText()
 	return "";
 }
 
+float SVGAttributes::getFontSize()
+{
+    auto it = Attributes.find("font-size");
+    if (it != Attributes.end())
+    {
+        FontSize *fontSize = dynamic_cast<FontSize *>(it->second);
+        if (fontSize != nullptr)
+        {
+            return fontSize->getFontSize();
+        }
+        else
+        {
+            std::cerr << "Error: font-size attribute is not of type FontSize." << std::endl;
+            return 0.0f;
+        }
+    }
+    // Default font size is 0.0
+    return 0.0f;
+}
+
+Gdiplus::FontFamily* SVGAttributes::getFontFamily()
+{
+    auto it = Attributes.find("font-family");
+    if (it != Attributes.end())
+    {
+        MyFontFamily *fontFamily = dynamic_cast<MyFontFamily *>(it->second);
+        if (fontFamily != nullptr)
+        {
+            return fontFamily->getFontFamily();
+        }
+        else
+        {
+            std::cerr << "Error: font-family attribute is not of type MyFontFamily." << std::endl;
+            return nullptr;
+        }
+    }
+    // Default font family is nullptr
+    return nullptr;
+}
+
+Gdiplus::FontStyle SVGAttributes::getFontStyle()
+{
+    auto it = Attributes.find("font-style");
+    if (it != Attributes.end())
+    {
+        MyFontStyle *fontStyle = dynamic_cast<MyFontStyle *>(it->second);
+        if (fontStyle != nullptr)
+        {
+            return fontStyle->getFontStyle();
+        }
+        else
+        {
+            std::cerr << "Error: font-style attribute is not of type MyFontStyle." << std::endl;
+            return Gdiplus::FontStyleRegular;
+        }
+    }
+    // Default font style is regular
+    return Gdiplus::FontStyleRegular;
+}
+
 void SVGAttributes::printAttributes()
 {
 }

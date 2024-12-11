@@ -71,6 +71,10 @@ Gdiplus::Color getColor(const std::string &value)
             return Gdiplus::Color(255, red, green, blue);
         }
     }
+    else if (std::regex_match(value, noneColorRegex))
+    {
+        return Gdiplus::Color(0, 0, 0, 0);
+    }
     else if (std::regex_match(value, namedColorRegex))
     {
         static std::map<std::string, Gdiplus::ARGB> namedColors = {
@@ -223,10 +227,7 @@ Gdiplus::Color getColor(const std::string &value)
             return Gdiplus::Color(it->second);
         }
     }
-    else if (std::regex_match(value, noneColorRegex))
-    {
-        return Gdiplus::Color(0, 0, 0, 0); // Fully transparent color
-    }
+    
 
-    return Gdiplus::Color(0, 0, 0, 0); // Default to black if no match
+    return Gdiplus::Color(0, 0, 0, 0); 
 }
