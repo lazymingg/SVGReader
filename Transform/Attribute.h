@@ -20,6 +20,7 @@ class Attribute
 public:
     virtual Attribute* clone() = 0;
     virtual ~Attribute() = default;
+    virtual void mergeData(Attribute* attribute) = 0;
 };
 
 

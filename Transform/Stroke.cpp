@@ -22,5 +22,10 @@ Attribute* Stroke::clone()
     return new Stroke(*this);
 }
 
+void Stroke::mergeData(Attribute *attribute)
+{
+    // do nothing
+}
+
 // Destructor
 Stroke::~Stroke() {}

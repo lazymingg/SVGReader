@@ -33,5 +33,15 @@ Attribute* FillOpacity::clone()
     return new FillOpacity(*this);
 }
 
+void FillOpacity::mergeData(Attribute *attribute)
+{
+    FillOpacity *fillOpacity = dynamic_cast<FillOpacity *>(attribute);
+    //multiple fill-opacity
+    if (fillOpacity)
+    {
+        value *= fillOpacity->value;
+    }
+}
+
 // Destructor
 FillOpacity::~FillOpacity() {}

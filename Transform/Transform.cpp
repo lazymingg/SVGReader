@@ -98,3 +98,12 @@ Transform::~Transform()
 	}
 	stragetry.clear();
 }
+
+void Transform::mergeData(Attribute *attribute)
+{
+    Transform *transform = dynamic_cast<Transform *>(attribute);
+    if (transform)
+    {
+        addStragetry(*transform);
+    }
+}

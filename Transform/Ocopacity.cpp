@@ -33,5 +33,15 @@ Attribute* Ocopacity::clone()
     return new Ocopacity(*this);
 }
 
+void Ocopacity::mergeData(Attribute *attribute)
+{
+    Ocopacity *ocopacity = dynamic_cast<Ocopacity *>(attribute);
+    //multiple fill-opacity
+    if (ocopacity)
+    {
+        value *= ocopacity->value;
+    }
+}
+
 // Destructor
 Ocopacity::~Ocopacity() {}

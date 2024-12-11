@@ -18,5 +18,10 @@ Attribute* Text::clone()
     return new Text(*this);
 }
 
+void Text::mergeData(Attribute *attribute)
+{
+    // donothings
+}
+
 // Destructor
 Text::~Text() {}

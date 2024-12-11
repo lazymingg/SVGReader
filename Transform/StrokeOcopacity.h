@@ -15,6 +15,7 @@ public:
     StrokeOpacity(std::string getValue);
     float getStrokeOpacity();
     Attribute* clone() override;
+    void mergeData(Attribute* attribute) override;
     ~StrokeOpacity();
 };
 

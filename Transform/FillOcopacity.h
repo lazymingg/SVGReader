@@ -15,6 +15,7 @@ public:
     FillOpacity(const std::string &getValue);
     float getFillOpacity();
     Attribute* clone() override;
+    void mergeData(Attribute* attribute) override;
     ~FillOpacity();
 };
 

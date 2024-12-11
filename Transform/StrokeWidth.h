@@ -14,6 +14,7 @@ public:
     StrokeWidth(std::string width);
     float getStrokeWidth();
     Attribute* clone() override;
+    void mergeData(Attribute* attribute) override;
     ~StrokeWidth();
 };
 

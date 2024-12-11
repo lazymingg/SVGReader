@@ -16,6 +16,7 @@ public:
     Stroke(std::string value);
     Gdiplus::Color getStroke();
     Attribute* clone() override;
+    void mergeData(Attribute* attribute) override;
     ~Stroke();
 };
 

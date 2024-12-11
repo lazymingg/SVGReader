@@ -202,6 +202,21 @@ void SVGAttributes::printAttributes()
 {
 }
 
+void SVGAttributes::mergeAttributes(SVGAttributes &attributes)
+{
+	for (auto &attr : attributes.Attributes)
+	{
+		if (Attributes.find(attr.first) == Attributes.end())
+		{
+			Attributes[attr.first] = attr.second->clone();
+		}
+		else
+		{
+			Attributes[attr.first]->mergeData(attr.second);
+		}
+	}
+}
+
 Transform SVGAttributes::getTransform()
 {
 	auto it = Attributes.find("transform");
