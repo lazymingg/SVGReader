@@ -202,6 +202,19 @@ void SVGAttributes::printAttributes()
 {
 }
 
+void SVGAttributes::mergeAttributes(const SVGAttributes &other)
+{
+	for (const auto &attr : other.Attributes)
+	{
+		// Only add the attribute if it does not already exist
+		if (Attributes.find(attr.first) == Attributes.end())
+		{
+			// Clone the attribute from the other object
+			Attributes[attr.first] = attr.second->clone();
+		}
+	}
+}
+
 Transform SVGAttributes::getTransform()
 {
 	auto it = Attributes.find("transform");

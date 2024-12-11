@@ -40,6 +40,8 @@ public:
     std::string getText();
     void printAttributes();
 
+    void mergeAttributes(const SVGAttributes &other);
+
     ~SVGAttributes();
 };
 
