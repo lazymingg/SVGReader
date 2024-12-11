@@ -1,133 +1,28 @@
-﻿#ifndef _SVGATTRIBUTES_H_
-#define _SVGATTRIBUTES_H_
+﻿#ifndef SVG_ATTRIBUTES_H
+#define SVG_ATTRIBUTES_H
 
 #include <string>
 #include <map>
 #include <iostream>
 #include <Windows.h>
 #include <gdiplus.h>
-#include <string>
-#include <vector>
-#include <sstream>
-#include "TransformStragetry.h"
-#include "../extendLib/rapid_xml/rapidxml.hpp"
 #include <memory>
 #include <regex>
+#include "../extendLib/rapid_xml/rapidxml.hpp"
+#include "Attribute.h"
+#include "Transform.h"
+#include "Stroke.h"
+#include "StrokeWidth.h"
+#include "Fill.h"
+#include "FillOcopacity.h"
+#include "StrokeOcopacity.h"
+#include "Text.h"
+#include "Ocopacity.h"
+
+
 using namespace rapidxml;
 
-
-class Attribute
-{
-public:
-    virtual Attribute* clone() = 0;
-    
-};
-
-class Fill : public Attribute
-{
-private:
-    Gdiplus::Color color;
-public:
-    Fill();
-    Fill(string value);
-    Gdiplus::Color getFill();
-    Attribute* clone() override;
-    ~Fill();
-};
-
-class Stroke : public Attribute
-{
-private:
-    Gdiplus::Color color;
-
-public:
-    Stroke();
-    Stroke(string value);
-    Gdiplus::Color getStroke();
-    Attribute* clone() override;
-    ~Stroke();
-};
-
-class StrokeWidth : public Attribute
-{
-private:
-    float width;
-
-public:
-    StrokeWidth();
-    StrokeWidth(string width);
-    float getStrokeWidth();
-    Attribute* clone() override;
-    ~StrokeWidth();
-};
-
-class Ocopacity : public Attribute
-{
-private:
-    float value;
-
-public:
-    Ocopacity();
-    Ocopacity(string value);
-    float getOcopacity();
-    Attribute* clone() override;
-    ~Ocopacity();
-};
-
-class Text : public Attribute
-{
-private:
-    string text;
-
-public:
-    Text();
-    Text(string text);
-    string getText();
-    Attribute* clone() override;
-    ~Text();
-};
-
-class FillOpacity : public Attribute
-{
-private:
-    float value;
-public:
-    FillOpacity();
-    FillOpacity(const std::string &getValue);
-    float getFillOpacity();
-    Attribute* clone() override;
-    ~FillOpacity();
-};
-
-class StrokeOpacity : public Attribute
-{
-private:
-    float value;
-public:
-    StrokeOpacity();
-    StrokeOpacity(string value);
-    float getStrokeOpacity();
-    Attribute* clone() override;
-    ~StrokeOpacity();
-};
-
-class Transform : public Attribute
-{
-    private:
-        vector<TransformStragetry *>stragetry;        
-    public:
-        Transform();
-        Transform(string str);
-        Transform(const Transform &transform);
-        void transform(Gdiplus::Matrix &matrix);
-        Transform &operator=(const Transform &transform);
-        //void setTransform(string str);
-        void addStragetry(Transform transform);
-        Attribute* clone() override;
-        ~Transform();
-};
-
-class SVGAttributes 
+class SVGAttributes
 {
 private:
     std::map<std::string, Attribute*> Attributes;
@@ -145,8 +40,7 @@ public:
     std::string getText();
     void printAttributes();
 
-
     ~SVGAttributes();
 };
 
-#endif // _SVGATTRIBUTES_H_
+#endif // SVG_ATTRIBUTES_H
