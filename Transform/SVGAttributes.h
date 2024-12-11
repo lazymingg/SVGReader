@@ -16,9 +16,11 @@
 #include "Fill.h"
 #include "FillOcopacity.h"
 #include "StrokeOcopacity.h"
+#include "FontSize.h"
+#include "MyFontFamily.h"
+#include "MyFontStyle.h"
 #include "Text.h"
 #include "Ocopacity.h"
-
 
 
 using namespace rapidxml;
@@ -39,6 +41,9 @@ public:
     Gdiplus::Color getFillColor();
     Gdiplus::Color getStrokeColor();
     std::string getText();
+    float getFontSize();
+    Gdiplus::FontFamily* getFontFamily();
+    Gdiplus::FontStyle getFontStyle();
     void printAttributes();
     void mergeAttributes(SVGAttributes &attributes);
     ~SVGAttributes();

@@ -28,14 +28,40 @@ void MyFigure::Text::printInfomation()
 void MyFigure::Text::draw()
 {
     // Get fill color and adjust opacity
+    Color fillColor = attributes.getFillColor();
+    int fillOpacity = static_cast<int>(attributes.getFillOpacity() * 255);
+    fillColor = Color(fillOpacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
+    SolidBrush brush(fillColor);
 
-    // Set font
-    FontFamily fontFamily(L"Times New Roman");
-    Font fontDraw(&fontFamily, this->font, FontStyleRegular, UnitPixel);
+    // Get stroke color and adjust opacity
+    Color strokeColor = attributes.getStrokeColor();
+    int strokeOpacity = static_cast<int>(attributes.getStrokeOpacity() * 255);
+    strokeColor = Color(strokeOpacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
+    Pen pen(strokeColor, attributes.getStrokeWidth());
+
+    // Get font size, family, and style
+    float fontSize = attributes.getFontSize();
+    Gdiplus::FontFamily* fontFamily = attributes.getFontFamily();
+    Gdiplus::FontStyle fontStyle = attributes.getFontStyle();
+
+    // Set default values if attributes are not found
+    bool defaultFontFamilyUsed = false;
+    if (fontFamily == nullptr)
+    {
+        fontFamily = new Gdiplus::FontFamily(L"Times New Roman");
+        defaultFontFamilyUsed = true;
+    }
+    if (fontSize == 0.0f)
+    {
+        fontSize = 12.0f; // Default font size
+    }
+
+    // Create the font
+    Font fontDraw(fontFamily, fontSize, fontStyle, UnitPixel);
 
     // Convert text content to wide string
-    string text = attributes.getText();
-    cout << text << '\n';
+    std::string text = attributes.getText();
+    std::cout << text << '\n';
     std::wstring wideText(text.begin(), text.end());
 
     // Adjust the Y coordinate to move the text up
@@ -44,17 +70,6 @@ void MyFigure::Text::draw()
     // Create a StringFormat object and set the vertical alignment to bottom
     StringFormat format;
     format.SetLineAlignment(StringAlignmentFar); // Align text to the bottom
-
-    Color strokeColor = attributes.getStrokeColor();
-    // Adjust opacity
-    int opacity = static_cast<int>(attributes.getStrokeOpacity() * 255);
-    strokeColor = Color(opacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
-    Pen pen(strokeColor, attributes.getStrokeWidth());
-
-    Color fillColor = attributes.getFillColor();
-
-    fillColor = Color(opacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
-    SolidBrush brush(fillColor);
 
     // Draw the text with the specified format
     Gdiplus::GraphicsPath textToPath;
@@ -66,11 +81,17 @@ void MyFigure::Text::draw()
     graphics.SetTransform(&a);
 
     textToPath.StartFigure();
-    textToPath.AddString(wideText.c_str(), wideText.length(), &fontFamily, 0, font, pointF, &format);
+    textToPath.AddString(wideText.c_str(), wideText.length(), fontFamily, fontStyle, fontSize, pointF, &format);
 
     graphics.FillPath(&brush, &textToPath);
     graphics.DrawPath(&pen, &textToPath);
     graphics.SetTransform(&originalMatrix);
+
+    // Clean up if default font family was used
+    if (defaultFontFamilyUsed)
+    {
+        delete fontFamily;
+    }
 }
 
 void MyFigure::Text::applyTransform()

@@ -2,44 +2,56 @@
 
 SVGAttributes::SVGAttributes(xml_node<> *shapeNode)
 {
-	for (xml_attribute<> *attr = shapeNode->first_attribute(); attr; attr = attr->next_attribute())
-	{
-		std::string name = attr->name();
-		std::string value = attr->value();
+    for (xml_attribute<> *attr = shapeNode->first_attribute(); attr; attr = attr->next_attribute())
+    {
+        std::string name = attr->name();
+        std::string value = attr->value();
 
-		if (name == "stroke")
-		{
-			Attributes["stroke"] = new Stroke(value);
-		}
-		else if (name == "stroke-width")
-		{
-			Attributes["stroke-width"] = new StrokeWidth(value);
-		}
-		else if (name == "fill")
-		{
-			Attributes["fill"] = new Fill(value);
-		}
-		else if (name == "fill-opacity")
-		{
-			Attributes["fill-opacity"] = new FillOpacity(value);
-		}
-		else if (name == "stroke-opacity")
-		{
-			Attributes["stroke-opacity"] = new StrokeOpacity(value);
-		}
-		else if (name == "opacity")
-		{
-			Attributes["opacity"] = new Ocopacity(value);
-		}
-		else if (name == "text")
-		{
-			Attributes["text"] = new Text(value);
-		}
-		else if (name == "transform")
-		{
-			Attributes["transform"] = new Transform(value);
-		}
-	}
+        if (name == "stroke")
+        {
+            Attributes["stroke"] = new Stroke(value);
+        }
+        else if (name == "stroke-width")
+        {
+            Attributes["stroke-width"] = new StrokeWidth(value);
+        }
+        else if (name == "fill")
+        {
+            Attributes["fill"] = new Fill(value);
+        }
+        else if (name == "fill-opacity")
+        {
+            Attributes["fill-opacity"] = new FillOpacity(value);
+        }
+        else if (name == "stroke-opacity")
+        {
+            Attributes["stroke-opacity"] = new StrokeOpacity(value);
+        }
+        else if (name == "opacity")
+        {
+            Attributes["opacity"] = new Ocopacity(value);
+        }
+        else if (name == "text")
+        {
+            Attributes["text"] = new Text(value);
+        }
+        else if (name == "transform")
+        {
+            Attributes["transform"] = new Transform(value);
+        }
+        else if (name == "font-size")
+        {
+            Attributes["font-size"] = new FontSize(value);
+        }
+        else if (name == "font-family")
+        {
+            Attributes["font-family"] = new MyFontFamily(value);
+        }
+        else if (name == "font-style")
+        {
+            Attributes["font-style"] = new MyFontStyle(value);
+        }
+    }
 }
 
 SVGAttributes::SVGAttributes(const SVGAttributes &attributes)
@@ -196,6 +208,66 @@ std::string SVGAttributes::getText()
 	}
 	// Default text is empty
 	return "";
+}
+
+float SVGAttributes::getFontSize()
+{
+    auto it = Attributes.find("font-size");
+    if (it != Attributes.end())
+    {
+        FontSize *fontSize = dynamic_cast<FontSize *>(it->second);
+        if (fontSize != nullptr)
+        {
+            return fontSize->getFontSize();
+        }
+        else
+        {
+            std::cerr << "Error: font-size attribute is not of type FontSize." << std::endl;
+            return 0.0f;
+        }
+    }
+    // Default font size is 0.0
+    return 0.0f;
+}
+
+Gdiplus::FontFamily* SVGAttributes::getFontFamily()
+{
+    auto it = Attributes.find("font-family");
+    if (it != Attributes.end())
+    {
+        MyFontFamily *fontFamily = dynamic_cast<MyFontFamily *>(it->second);
+        if (fontFamily != nullptr)
+        {
+            return fontFamily->getFontFamily();
+        }
+        else
+        {
+            std::cerr << "Error: font-family attribute is not of type MyFontFamily." << std::endl;
+            return nullptr;
+        }
+    }
+    // Default font family is nullptr
+    return nullptr;
+}
+
+Gdiplus::FontStyle SVGAttributes::getFontStyle()
+{
+    auto it = Attributes.find("font-style");
+    if (it != Attributes.end())
+    {
+        MyFontStyle *fontStyle = dynamic_cast<MyFontStyle *>(it->second);
+        if (fontStyle != nullptr)
+        {
+            return fontStyle->getFontStyle();
+        }
+        else
+        {
+            std::cerr << "Error: font-style attribute is not of type MyFontStyle." << std::endl;
+            return Gdiplus::FontStyleRegular;
+        }
+    }
+    // Default font style is regular
+    return Gdiplus::FontStyleRegular;
 }
 
 void SVGAttributes::printAttributes()

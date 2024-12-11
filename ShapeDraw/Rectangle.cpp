@@ -29,36 +29,40 @@ void MyFigure::Rectangle::printInfomation()
 
 void MyFigure::Rectangle::draw()
 {
-    // Get fill color and adjust opacity if necessary
-    Color fillColor = attributes.getFillColor();
-    int fillOpacity = static_cast<int>(attributes.getFillOpacity() * 255);
-    fillColor = Color(fillOpacity * fillColor.GetA(), fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
-    SolidBrush brush(fillColor);
 
-    // Get stroke color and adjust opacity if necessary
-    Color strokeColor = attributes.getStrokeColor();
-    int strokeOpacity = static_cast<int>(attributes.getStrokeOpacity() * 255);
-    strokeColor = Color(strokeOpacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
-    Pen pen(strokeColor, attributes.getStrokeWidth());
+	// Draw the Rectangle
+	// Fill rectangle first
+	// if (attributes.getFill() != "none")
+	// {
+	Color fillColor = attributes.getFillColor();
+	// ajust opacity
+	int opacity = attributes.getFillOpacity() * fillColor.GetA();
 
-    // Set anti-aliasing for smoother rendering
-    graphics.SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeAntiAlias);
+	fillColor = Color(opacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
+	SolidBrush brush(fillColor);
 
-    // Apply transformation if defined
-    Gdiplus::Matrix transformMatrix;
-    attributes.getTransform().transform(transformMatrix);
+	// draw stroke
+	// if (attributes.getStroke() != "none")
+	// {
+	Color strokeColor = attributes.getStrokeColor();
+	// ajust opacity
+	opacity = attributes.getStrokeOpacity() * 255;
+	strokeColor = Color(opacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
+	Pen pen(strokeColor, attributes.getStrokeWidth());
+	// print color
+	graphics.SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeAntiAlias);
+	Gdiplus::Matrix a;
+	attributes.getTransform().transform(a);
 
-    // Save the original transformation and set the new one
-    Gdiplus::Matrix originalMatrix;
-    graphics.GetTransform(&originalMatrix);
-    graphics.SetTransform(&transformMatrix);
+	Gdiplus::Matrix originalMatrix;
+	graphics.GetTransform(&originalMatrix);
+	graphics.SetTransform(&a);
 
     // Draw the rectangle with the pen and brush
     graphics.DrawRectangle(&pen, point.getX(), point.getY(), width, height);
     graphics.FillRectangle(&brush, point.getX(), point.getY(), width, height);
 
-    // Restore the original transformation
-    graphics.SetTransform(&originalMatrix);
+	graphics.SetTransform(&originalMatrix);
 }
 
 void MyFigure::Rectangle::applyTransform()

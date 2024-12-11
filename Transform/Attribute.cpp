@@ -28,6 +28,7 @@ Gdiplus::Color hexToColor(const std::string &hex)
 // Hàm lấy màu từ chuỗi
 Gdiplus::Color getColor(const std::string &value)
 {
+    
     std::regex hexColorRegex(R"(^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})$)");
     std::regex rgbaColorRegex(R"(^rgba\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3}),\s*([01]|0\.\d+)\)$)");
     std::regex rgbColorRegex(R"(^rgb\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3})\)$)");
