@@ -41,6 +41,7 @@ void MyFigure::Text::draw()
 
     // Get font size, family, and style
     float fontSize = attributes.getFontSize();
+    cout << fontSize << " ";
     Gdiplus::FontFamily* fontFamily = attributes.getFontFamily();
     Gdiplus::FontStyle fontStyle = attributes.getFontStyle();
 
@@ -51,11 +52,7 @@ void MyFigure::Text::draw()
         fontFamily = new Gdiplus::FontFamily(L"Times New Roman");
         defaultFontFamilyUsed = true;
     }
-    if (fontSize == 0.0f)
-    {
-        fontSize = 12.0f; // Default font size
-    }
-
+    
     // Create the font
     Font fontDraw(fontFamily, fontSize, fontStyle, UnitPixel);
 

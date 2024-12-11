@@ -223,11 +223,11 @@ float SVGAttributes::getFontSize()
         else
         {
             std::cerr << "Error: font-size attribute is not of type FontSize." << std::endl;
-            return 0.0f;
+            return 16.0f;
         }
     }
     // Default font size is 0.0
-    return 0.0f;
+    return 16.0f;
 }
 
 Gdiplus::FontFamily* SVGAttributes::getFontFamily()
