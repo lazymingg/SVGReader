@@ -19,7 +19,6 @@
 #include "FontSize.h"
 #include "MyFontFamily.h"
 #include "MyFontStyle.h"
-#include "Text.h"
 #include "Ocopacity.h"
 #include "TextAnchor.h"
 
@@ -41,7 +40,6 @@ public:
     Transform getTransform();
     Gdiplus::Color getFillColor();
     Gdiplus::Color getStrokeColor();
-    std::string getText();
     float getFontSize();
     Gdiplus::FontFamily* getFontFamily();
     Gdiplus::FontStyle getFontStyle();

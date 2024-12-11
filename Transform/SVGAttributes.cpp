@@ -31,10 +31,6 @@ SVGAttributes::SVGAttributes(xml_node<> *shapeNode)
         {
             Attributes["opacity"] = new Ocopacity(value);
         }
-        else if (name == "")
-        {
-            Attributes["text"] = new Text(value);
-        }
         else if (name == "transform")
         {
             Attributes["transform"] = new Transform(value);
@@ -191,27 +187,6 @@ float SVGAttributes::getOpacity()
 	}
 	// Default opacity is 1.0
 	return 1.0f;
-}
-
-std::string SVGAttributes::getText()
-{
-	auto it = Attributes.find("text");
-	if (it != Attributes.end())
-	{
-		Text *text = dynamic_cast<Text *>(it->second);
-
-		if (text != nullptr)
-		{
-			return text->getText();
-		}
-		else
-		{
-			std::cerr << "Error: text attribute is not of type Text." << std::endl;
-			return "";
-		}
-	}
-	// Default text is empty
-	return "";
 }
 
 float SVGAttributes::getFontSize()
