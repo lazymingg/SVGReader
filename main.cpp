@@ -3,9 +3,11 @@
 using namespace Gdiplus;
 
 #pragma comment(lib, "Gdiplus.lib")
+static string svgFile;
 
-VOID OnPaint(HDC hdc)
+VOID OnPaint(HDC hdc, string filePath)
 {
+<<<<<<< HEAD
     Graphics graphics(hdc); // Assuming hdc is defined somewhere in your code
     FigureDraw figureDraw(graphics);
     std::string filename;
@@ -17,11 +19,19 @@ VOID OnPaint(HDC hdc)
         figureDraw.loadSVGFile(filename);
         figureDraw.draw();
     }
+=======
+    Graphics graphics(hdc);
+    FigureDraw FigureDraw(graphics);
+    //FigureDraw.loadSVGFile("TestSVG/svg-03.svg");
+    FigureDraw.loadSVGFile(filePath.c_str());
+
+    FigureDraw.draw();
+>>>>>>> Hieu
 }
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
-INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, PSTR, INT iCmdShow)
+INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, PSTR cmdline, INT iCmdShow)
 {
     // Tạo cửa sổ console để xem output
     AllocConsole();
@@ -39,6 +49,10 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, PSTR, INT iCmdShow)
     // Khởi tạo GDI+
     GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
 
+    svgFile = "svg-01.svg";
+    if (cmdline != nullptr && strlen(cmdline) > 0) svgFile = cmdline;
+    cout << svgFile << endl;
+
     wndClass.style = CS_HREDRAW | CS_VREDRAW;
     wndClass.lpfnWndProc = WndProc;
     wndClass.cbClsExtra = 0;
@@ -53,6 +67,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, PSTR, INT iCmdShow)
     RegisterClass(&wndClass);
 
     hWnd = CreateWindow(
+<<<<<<< HEAD
         TEXT("GettingStarted"), // Tên lớp cửa sổ
         TEXT("SVG Reader"),     // Tiêu đề cửa sổ
         WS_OVERLAPPEDWINDOW,    // Kiểu cửa sổ
@@ -64,6 +79,20 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, PSTR, INT iCmdShow)
         NULL,                   // Handle menu cửa sổ
         hInstance,              // Handle instance chương trình
         NULL);                  // Tham số khởi tạo
+=======
+        TEXT("GettingStarted"),  // Tên lớp cửa sổ
+        TEXT("SVG Reader"), // Tiêu đề cửa sổ
+        WS_OVERLAPPEDWINDOW,     // Kiểu cửa sổ
+        CW_USEDEFAULT,           // Vị trí x ban đầu
+        CW_USEDEFAULT,           // Vị trí y ban đầu
+        CW_USEDEFAULT,           // Kích thước x ban đầu
+        CW_USEDEFAULT,           // Kích thước y ban đầu
+        NULL,                    // Handle cửa sổ cha
+        NULL,                    // Handle menu cửa sổ
+        hInstance,               // Handle instance chương trình
+        //NULL);                   // Tham số khởi tạo
+        (LPVOID)svgFile.c_str());// Tham số khởi tạo
+>>>>>>> Hieu
 
     ShowWindow(hWnd, iCmdShow);
     UpdateWindow(hWnd);
@@ -91,9 +120,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
     switch (message)
     {
+    case WM_CREATE:
+    {
+        svgFile = reinterpret_cast<LPCSTR>(((LPCREATESTRUCT)lParam)->lpCreateParams);
+        return 0;
+    }
     case WM_PAINT:
         hdc = BeginPaint(hWnd, &ps);
-        OnPaint(hdc);
+        OnPaint(hdc, svgFile);
         EndPaint(hWnd, &ps);
         return 0;
     case WM_DESTROY:
@@ -103,3 +137,4 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         return DefWindowProc(hWnd, message, wParam, lParam);
     }
 }
+
