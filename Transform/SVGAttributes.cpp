@@ -230,4 +230,3 @@ SVGAttributes::~SVGAttributes()
 		delete attr.second;
 	}
 }
-
