@@ -17,6 +17,7 @@ public:
     Fill(std::string value);
     Gdiplus::Color getFill();
     Attribute* clone() override;
+    void mergeData(Attribute* attribute) override;
     ~Fill();
 };
 

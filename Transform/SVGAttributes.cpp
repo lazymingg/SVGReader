@@ -202,15 +202,17 @@ void SVGAttributes::printAttributes()
 {
 }
 
-void SVGAttributes::mergeAttributes(const SVGAttributes &other)
+void SVGAttributes::mergeAttributes(SVGAttributes &attributes)
 {
-	for (const auto &attr : other.Attributes)
+	for (auto &attr : attributes.Attributes)
 	{
-		// Only add the attribute if it does not already exist
 		if (Attributes.find(attr.first) == Attributes.end())
 		{
-			// Clone the attribute from the other object
 			Attributes[attr.first] = attr.second->clone();
+		}
+		else
+		{
+			Attributes[attr.first]->mergeData(attr.second);
 		}
 	}
 }

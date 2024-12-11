@@ -8,7 +8,11 @@ VOID OnPaint(HDC hdc)
 {
     Graphics graphics(hdc);
     FigureDraw FigureDraw(graphics);
+<<<<<<< HEAD
     FigureDraw.loadSVGFile("testSVG/svg-05.svg");
+=======
+    FigureDraw.loadSVGFile("sample.svg");
+>>>>>>> 8d8cdce29b603f30ffd7b7702dac7ef09e54a80a
     FigureDraw.draw();
 }
 

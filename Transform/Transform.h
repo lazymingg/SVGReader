@@ -20,6 +20,7 @@ public:
     Transform &operator=(const Transform &transform);
     void addStragetry(Transform transform);
     Attribute* clone() override;
+    void mergeData(Attribute* attribute) override;
     ~Transform();
 };
 

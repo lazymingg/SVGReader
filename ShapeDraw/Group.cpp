@@ -57,7 +57,10 @@ void MyFigure::Group::draw()
     {
         child->getAttributes().mergeAttributes(attributes);
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8d8cdce29b603f30ffd7b7702dac7ef09e54a80a
     for (auto &child : children)
     {
         child->draw();

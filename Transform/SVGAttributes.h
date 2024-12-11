@@ -20,6 +20,7 @@
 #include "Ocopacity.h"
 
 
+
 using namespace rapidxml;
 
 class SVGAttributes
@@ -39,9 +40,7 @@ public:
     Gdiplus::Color getStrokeColor();
     std::string getText();
     void printAttributes();
-
-    void mergeAttributes(const SVGAttributes &other);
-
+    void mergeAttributes(SVGAttributes &attributes);
     ~SVGAttributes();
 };
 

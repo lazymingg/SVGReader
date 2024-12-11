@@ -15,6 +15,7 @@ public:
     Ocopacity(std::string value);
     float getOcopacity();
     Attribute* clone() override;
+    void mergeData(Attribute* attribute) override;
     ~Ocopacity();
 };
 

@@ -27,5 +27,11 @@ Attribute* Fill::clone()
     return new Fill(*this);
 }
 
+//this funtion will be call if the attribute is allready exist
+void Fill::mergeData(Attribute *attribute)
+{
+    //don't need to do anything because fill is a single attribute
+}
+
 // Destructor
 Fill::~Fill() {}

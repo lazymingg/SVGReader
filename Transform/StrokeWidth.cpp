@@ -22,5 +22,10 @@ Attribute* StrokeWidth::clone()
     return new StrokeWidth(*this);
 }
 
+void StrokeWidth::mergeData(Attribute *attribute)
+{
+    // do nothing
+}
+
 // Destructor
 StrokeWidth::~StrokeWidth() {}
