@@ -21,8 +21,21 @@ MyFigure::Ellipse::Ellipse(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : 
 
 void MyFigure::Ellipse::drawEllipse(Graphics &graphics)
 {
-    SolidBrush fillBrush(attributes.getFillColor());
-    Pen strokePen(attributes.getStrokeColor(), attributes.getStrokeWidth());
+   Color fillColor = attributes.getFillColor();
+    int fillOpacity = attributes.getFillOpacity() * 255;
+    if (fillColor.GetA() == 0 && fillColor.GetR() == 0 && fillColor.GetG() == 0 && fillColor.GetB() == 0)
+    {
+        fillOpacity = 0;
+    }
+    fillColor = Color(fillOpacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
+    SolidBrush fillBrush(fillColor);
+
+    Color strokeColor = attributes.getStrokeColor();
+    int strokeOpacity = attributes.getStrokeOpacity() * 255;
+
+    strokeColor = Color(strokeOpacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
+    Pen strokePen(strokeColor, attributes.getStrokeWidth());
+
     std::cout << "rx = " << rx << ", ry = " << ry << std::endl;
     Gdiplus::Matrix a;
     attributes.getTransform().transform(a);

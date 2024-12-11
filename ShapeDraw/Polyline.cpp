@@ -36,7 +36,7 @@ void MyFigure::Polyline::draw()
     Color fillColor = attributes.getFillColor();
     // adjust opacity
     int opacity = attributes.getFillOpacity() * 255;
-    if (fillColor.GetR() == 255 && fillColor.GetG() == 255 && fillColor.GetB() == 255)
+    if (fillColor.GetA() == 0 && fillColor.GetR() == 0 && fillColor.GetG() == 0 && fillColor.GetB() == 0)
     {
         opacity = 0;
     }

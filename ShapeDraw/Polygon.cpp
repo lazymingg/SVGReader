@@ -34,17 +34,17 @@ void MyFigure::Polygon::draw()
     // Fill color
     Color fillColor = attributes.getFillColor();
     int fillOpacity = attributes.getFillOpacity() * 255;
+    if (fillColor.GetA() == 0 && fillColor.GetR() == 0 && fillColor.GetG() == 0 && fillColor.GetB() == 0)
+    {
+        fillOpacity = 0;
+    }
+
     fillColor = Color(fillOpacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
     SolidBrush brush(fillColor);
 
     // Stroke color
     Color strokeColor = attributes.getStrokeColor();
     int strokeOpacity = attributes.getStrokeOpacity() * 255;
-
-    if (fillColor.GetR() == 255 && fillColor.GetG() == 255 && fillColor.GetB() == 255)
-    {
-        strokeOpacity = 0;
-    }
 
     strokeColor = Color(strokeOpacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
     Pen pen(strokeColor, attributes.getStrokeWidth());
