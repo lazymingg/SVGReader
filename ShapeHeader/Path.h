@@ -21,9 +21,6 @@ namespace MyFigure
         Gdiplus::GraphicsPath path;
 
     public:
-        friend bool isDigit(const char &c);
-        friend bool isAlpha(const char &c);
-        friend float extractNumber(const string &data, int &i);
         float CalculateVectorAngle(float ux, float uy, float vx, float vy);
         Path(xml_node<>* rootNode, Gdiplus::Graphics& graphics);
         ~Path() { path.Reset(); };

@@ -8,16 +8,25 @@ MyFigure::Polygon::Polygon(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : 
 {
     // Đặt các điểm từ thuộc tính "points"
     string points = rootNode->first_attribute("points")->value();
-    stringstream ss(points);
-    string point;
-    while (getline(ss, point, ' '))
+    float x, y;
+    int len = points.length(), i = 0;
+
+    for (i; i < len; ++i)
     {
-        stringstream ssPoint(point);
-        string x, y;
-        getline(ssPoint, x, ',');
-        getline(ssPoint, y, ',');
-        this->points.push_back(MyPoint::Point(stof(x), stof(y)));
+        x = extractNumber(points, i);
+        y = extractNumber(points, i);
+        this->points.push_back(MyPoint::Point(x, y));
     }
+
+    // stringstream ss(points);
+    // string point;
+    // while (getline(ss, point, ' '))
+    // {
+    //     stringstream ssPoint(point);
+    //     string x, y;
+    //     getline(ssPoint, x, ',');
+    //     getline(ssPoint, y, ',');
+    // }
 }
 
 void MyFigure::Polygon::printInfomation()

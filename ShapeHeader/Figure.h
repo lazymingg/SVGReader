@@ -13,6 +13,10 @@
 // using namespace std;
 using namespace rapidxml;
 
+bool isDigit(const char &c);
+bool isAlpha(const char &c);
+float extractNumber(const string &data, int &i);
+
 class Figure
 {
 protected:
