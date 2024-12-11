@@ -48,7 +48,3 @@ void MyFigure::Line::draw()
     graphics.DrawLine(&pen, start.getX(), start.getY(), end.getX(), end.getY());
     graphics.SetTransform(&originalMatrix);
 }
-
-void MyFigure::Line::applyTransform()
-{
-}

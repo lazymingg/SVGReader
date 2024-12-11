@@ -562,7 +562,3 @@ void MyFigure::Path::draw()
     delete[] points;
     delete[] pathTypes;
 }
-
-void MyFigure::Path::applyTransform()
-{
-}

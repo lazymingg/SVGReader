@@ -28,7 +28,6 @@ namespace MyFigure
         Path(xml_node<>* rootNode, Gdiplus::Graphics& graphics);
         ~Path() { path.Reset(); };
         void draw() override;
-        void applyTransform() override;
     };
 }
 

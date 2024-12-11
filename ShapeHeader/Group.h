@@ -18,7 +18,6 @@ namespace MyFigure
         void addChild(Figure *child);
 
         void draw() override;
-        void applyTransform() override;
         ~Group();
     };
 }

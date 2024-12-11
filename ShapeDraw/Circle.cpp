@@ -17,7 +17,6 @@ MyFigure::Circle::Circle(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : El
 
 void MyFigure::Circle::draw()
 {
-    applyTransform();
     // Ghi đè phương thức draw để sử dụng thông tin hình tròn
     cout << "Draw Circle: center = (" << center.getX() << ", " << center.getY() << "), ";
     cout << "r = " << rx << "\n\n";
@@ -25,8 +24,4 @@ void MyFigure::Circle::draw()
 
     // Gọi hàm vẽ ellipse từ lớp cha
     drawEllipse(graphics); // Gọi phương thức drawEllipse từ Ellipse
-}
-
-void MyFigure::Circle::applyTransform()
-{
 }

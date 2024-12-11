@@ -90,7 +90,3 @@ void MyFigure::Polyline::draw()
     delete[] pointArray;
     // }
 }
-
-void MyFigure::Polyline::applyTransform()
-{
-}

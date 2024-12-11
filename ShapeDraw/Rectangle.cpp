@@ -64,7 +64,3 @@ void MyFigure::Rectangle::draw()
 
 	graphics.SetTransform(&originalMatrix);
 }
-
-void MyFigure::Rectangle::applyTransform()
-{
-}

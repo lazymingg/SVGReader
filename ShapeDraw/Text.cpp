@@ -93,7 +93,3 @@ void MyFigure::Text::draw()
         delete fontFamily;
     }
 }
-
-void MyFigure::Text::applyTransform()
-{
-}

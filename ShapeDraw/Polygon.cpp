@@ -66,8 +66,3 @@ void MyFigure::Polygon::draw() {
     // Restore original matrix
     graphics.SetTransform(&originalMatrix);
 }
-
-
-void MyFigure::Polygon::applyTransform()
-{
-}

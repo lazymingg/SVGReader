@@ -63,10 +63,6 @@ void MyFigure::Group::draw()
     }
 }
 
-void MyFigure::Group::applyTransform()
-{
-}
-
 MyFigure::Group::~Group()
 {
     for (auto &child : children)
