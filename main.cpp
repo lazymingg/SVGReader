@@ -6,6 +6,7 @@ using namespace Gdiplus;
 
 VOID OnPaint(HDC hdc)
 {
+<<<<<<< HEAD
     Graphics graphics(hdc);
     FigureDraw FigureDraw(graphics);
     string filename = "";
@@ -13,6 +14,20 @@ VOID OnPaint(HDC hdc)
     getline(cin, filename);
     FigureDraw.loadSVGFile(filename);
     FigureDraw.draw();
+=======
+    Graphics graphics(hdc); // Assuming hdc is defined somewhere in your code
+    FigureDraw figureDraw(graphics);
+    std::string filename;
+
+    while (true)
+    {
+        std::cout << "Enter the file name: ";
+        std::getline(std::cin, filename);
+
+        figureDraw.loadSVGFile(filename);
+        figureDraw.draw();
+    }
+>>>>>>> AnhTris
 }
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -49,17 +64,17 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, PSTR, INT iCmdShow)
     RegisterClass(&wndClass);
 
     hWnd = CreateWindow(
-        TEXT("GettingStarted"),  // Tên lớp cửa sổ
-        TEXT("SVG Reader"), // Tiêu đề cửa sổ
-        WS_OVERLAPPEDWINDOW,     // Kiểu cửa sổ
-        CW_USEDEFAULT,           // Vị trí x ban đầu
-        CW_USEDEFAULT,           // Vị trí y ban đầu
-        CW_USEDEFAULT,           // Kích thước x ban đầu
-        CW_USEDEFAULT,           // Kích thước y ban đầu
-        NULL,                    // Handle cửa sổ cha
-        NULL,                    // Handle menu cửa sổ
-        hInstance,               // Handle instance chương trình
-        NULL);                   // Tham số khởi tạo
+        TEXT("GettingStarted"), // Tên lớp cửa sổ
+        TEXT("SVG Reader"),     // Tiêu đề cửa sổ
+        WS_OVERLAPPEDWINDOW,    // Kiểu cửa sổ
+        CW_USEDEFAULT,          // Vị trí x ban đầu
+        CW_USEDEFAULT,          // Vị trí y ban đầu
+        CW_USEDEFAULT,          // Kích thước x ban đầu
+        CW_USEDEFAULT,          // Kích thước y ban đầu
+        NULL,                   // Handle cửa sổ cha
+        NULL,                   // Handle menu cửa sổ
+        hInstance,              // Handle instance chương trình
+        NULL);                  // Tham số khởi tạo
 
     ShowWindow(hWnd, iCmdShow);
     UpdateWindow(hWnd);

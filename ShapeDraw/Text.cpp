@@ -8,23 +8,18 @@ MyFigure::Text::Text(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
 {
     string getX = rootNode->first_attribute("x")->value();
     string getY = rootNode->first_attribute("y")->value();
-    string getFont = rootNode->first_attribute("font-size")->value();
-    // string getDx = rootNode->first_attribute("dx")->value();
-    // string getDy = rootNode->first_attribute("dy")->value();
-    
+    text = rootNode->value();
     this->point.setX(stof(getX));
     this->point.setY(stof(getY));
-    this->font = stof(getFont);
 }
 
 void MyFigure::Text::printInfomation()
 {
     cout << "Text" << endl;
     point.print();
-    cout << font << '\n';
+
     attributes.printAttributes();
 }
-
 void MyFigure::Text::draw()
 {
     // Get fill color and adjust opacity
@@ -41,7 +36,7 @@ void MyFigure::Text::draw()
 
     // Get font size, family, and style
     float fontSize = attributes.getFontSize();
-    Gdiplus::FontFamily* fontFamily = attributes.getFontFamily();
+    Gdiplus::FontFamily *fontFamily = attributes.getFontFamily();
     Gdiplus::FontStyle fontStyle = attributes.getFontStyle();
 
     // Set default values if attributes are not found
@@ -49,42 +44,56 @@ void MyFigure::Text::draw()
     if (fontFamily == nullptr)
     {
         fontFamily = new Gdiplus::FontFamily(L"Times New Roman");
+
         defaultFontFamilyUsed = true;
-    }
-    if (fontSize == 0.0f)
-    {
-        fontSize = 12.0f; // Default font size
     }
 
     // Create the font
     Font fontDraw(fontFamily, fontSize, fontStyle, UnitPixel);
 
     // Convert text content to wide string
-    std::string text = attributes.getText();
-    std::cout << text << '\n';
     std::wstring wideText(text.begin(), text.end());
 
     // Adjust the Y coordinate to move the text up
-    PointF pointF(point.getX(), point.getY()); // Adjust the value as needed
+    PointF pointF(static_cast<float>(point.getX()), static_cast<float>(point.getY()));
 
-    // Create a StringFormat object and set the vertical alignment to bottom
+    // Create a StringFormat object
     StringFormat format;
-    format.SetLineAlignment(StringAlignmentFar); // Align text to the bottom
+
+    // Handle text-anchor attribute
+    std::string textAnchor = attributes.getTextAnchor();
+    if (textAnchor == "middle")
+    {
+        format.SetAlignment(StringAlignmentCenter); // Center alignment
+    }
+    else if (textAnchor == "end")
+    {
+        format.SetAlignment(StringAlignmentFar); // Right alignment
+    }
+    else
+    {
+        format.SetAlignment(StringAlignmentNear); // Default: Left alignment
+    }
+
+    // Set the vertical alignment to bottom
+    format.SetLineAlignment(StringAlignmentFar);
 
     // Draw the text with the specified format
-    Gdiplus::GraphicsPath textToPath;
-    Gdiplus::Matrix a;
-    attributes.getTransform().transform(a);
+    GraphicsPath textToPath;
+    Matrix transformMatrix;
+    attributes.getTransform().transform(transformMatrix);
 
-    Gdiplus::Matrix originalMatrix;
+    Matrix originalMatrix;
     graphics.GetTransform(&originalMatrix);
-    graphics.SetTransform(&a);
+    graphics.SetTransform(&transformMatrix);
 
-    textToPath.StartFigure();
-    textToPath.AddString(wideText.c_str(), wideText.length(), fontFamily, fontStyle, fontSize, pointF, &format);
+    textToPath.AddString(wideText.c_str(), static_cast<INT>(wideText.length()),
+                         fontFamily, fontStyle, fontSize, pointF, &format);
 
     graphics.FillPath(&brush, &textToPath);
     graphics.DrawPath(&pen, &textToPath);
+
+    // Restore the original transform
     graphics.SetTransform(&originalMatrix);
 
     // Clean up if default font family was used
