@@ -16,7 +16,6 @@ namespace MyFigure
 	{
 	private:
 		MyPoint::Point point;
-		float font;
 		float dx;
 		float dy;
 	public:

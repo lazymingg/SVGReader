@@ -21,6 +21,7 @@
 #include "MyFontStyle.h"
 #include "Text.h"
 #include "Ocopacity.h"
+#include "TextAnchor.h"
 
 
 using namespace rapidxml;
@@ -44,6 +45,7 @@ public:
     float getFontSize();
     Gdiplus::FontFamily* getFontFamily();
     Gdiplus::FontStyle getFontStyle();
+    std::string getTextAnchor();
     void printAttributes();
     void mergeAttributes(SVGAttributes &attributes);
     ~SVGAttributes();

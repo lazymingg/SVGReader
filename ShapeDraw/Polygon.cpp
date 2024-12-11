@@ -32,7 +32,7 @@ void MyFigure::Polygon::printInfomation()
 void MyFigure::Polygon::draw() {
     // Fill color
     Color fillColor = attributes.getFillColor();
-    int fillOpacity = attributes.getFillOpacity() * 255;
+    int fillOpacity = attributes.getFillOpacity() * (int)fillColor.GetA();
     fillColor = Color(fillOpacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
     SolidBrush brush(fillColor);
 
@@ -61,6 +61,7 @@ void MyFigure::Polygon::draw() {
     graphics.FillPolygon(&brush, pointArray.data(), pointArray.size());
 
     // Draw polygon outline
+    cout << "Draw polygon";
     graphics.DrawPolygon(&pen, pointArray.data(), pointArray.size());
 
     // Restore original matrix

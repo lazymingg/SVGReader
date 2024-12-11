@@ -31,7 +31,7 @@ SVGAttributes::SVGAttributes(xml_node<> *shapeNode)
         {
             Attributes["opacity"] = new Ocopacity(value);
         }
-        else if (name == "text")
+        else if (name == "")
         {
             Attributes["text"] = new Text(value);
         }
@@ -50,6 +50,10 @@ SVGAttributes::SVGAttributes(xml_node<> *shapeNode)
         else if (name == "font-style")
         {
             Attributes["font-style"] = new MyFontStyle(value);
+        }
+        else if (name == "text-anchor")
+        {
+            Attributes["text-anchor"] = new TextAnchor(value);
         }
     }
 }
@@ -270,8 +274,29 @@ Gdiplus::FontStyle SVGAttributes::getFontStyle()
     return Gdiplus::FontStyleRegular;
 }
 
+std::string SVGAttributes::getTextAnchor()
+{
+    auto it = Attributes.find("text-anchor");
+    if (it != Attributes.end())
+    {
+        TextAnchor *textAnchor = dynamic_cast<TextAnchor *>(it->second);
+        if (textAnchor != nullptr)
+        {
+            return textAnchor->getTextAnchor();
+        }
+        else
+        {
+            std::cerr << "Error: text-anchor attribute is not of type TextAnchor." << std::endl;
+            return "start"; // Default value for text-anchor
+        }
+    }
+    // Default text-anchor is "start"
+    return "start";
+}
+
 void SVGAttributes::printAttributes()
 {
+	
 }
 
 void SVGAttributes::mergeAttributes(SVGAttributes &attributes)
