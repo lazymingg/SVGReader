@@ -29,47 +29,44 @@ void MyFigure::Polygon::printInfomation()
 		points[i].print();
 	}
 }
-void MyFigure::Polygon::draw()
-{
-	// draw polygon here
-	// draw fill polygon first
+void MyFigure::Polygon::draw() {
+    // Fill color
+    Color fillColor = attributes.getFillColor();
+    int fillOpacity = attributes.getFillOpacity() * 255;
+    fillColor = Color(fillOpacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
+    SolidBrush brush(fillColor);
 
-	Color fillColor = attributes.getFillColor();
-	// ajust opacity
-	int opacity = attributes.getFillOpacity() * 255;
-	fillColor = Color(opacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
-	SolidBrush brush(fillColor);
-	// print color
+    // Stroke color
+    Color strokeColor = attributes.getStrokeColor();
+    int strokeOpacity = attributes.getStrokeOpacity() * 255;
+    strokeColor = Color(strokeOpacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
+    Pen pen(strokeColor, attributes.getStrokeWidth());
 
-	Point *pointArray = new Point[points.size()];
-	for (int i = 0; i < points.size(); i++)
-	{
-		pointArray[i].X = points[i].getX();
-		pointArray[i].Y = points[i].getY();
-	}
-	graphics.FillPolygon(&brush, pointArray, (int)points.size());
-	delete[] pointArray;
+    // Prepare points
+    std::vector<Point> pointArray(points.size());
+    for (size_t i = 0; i < points.size(); i++) {
+        pointArray[i] = Point(points[i].getX(), points[i].getY());
+    }
 
-	// draw stroke
-	Color strokeColor = attributes.getStrokeColor();
-	// ajust opacity
-	opacity = attributes.getStrokeOpacity() * 255;
-	strokeColor = Color(opacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
-	Pen pen(strokeColor, attributes.getStrokeWidth());
-	// print color
+    // Apply transformation
+    Gdiplus::Matrix transformMatrix;
+    attributes.getTransform().transform(transformMatrix);
 
-	graphics.SetSmoothingMode(SmoothingMode::SmoothingModeAntiAlias);
-	Gdiplus::Matrix a;
-	attributes.getTransform().transform(a);
+    Gdiplus::Matrix originalMatrix;
+    graphics.GetTransform(&originalMatrix);
+    graphics.SetTransform(&transformMatrix);
 
-	Gdiplus::Matrix originalMatrix;
-	graphics.GetTransform(&originalMatrix);
-	graphics.SetTransform(&a);
+    // Draw filled polygon
+    graphics.SetSmoothingMode(SmoothingMode::SmoothingModeAntiAlias);
+    graphics.FillPolygon(&brush, pointArray.data(), pointArray.size());
 
-	graphics.FillPolygon(&brush, (Point *)&points[0], points.size());
-	graphics.DrawPolygon(&pen, (Point *)&points[0], points.size());
-	graphics.SetTransform(&originalMatrix);
+    // Draw polygon outline
+    graphics.DrawPolygon(&pen, pointArray.data(), pointArray.size());
+
+    // Restore original matrix
+    graphics.SetTransform(&originalMatrix);
 }
+
 
 void MyFigure::Polygon::applyTransform()
 {

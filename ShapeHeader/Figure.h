@@ -2,12 +2,11 @@
 #define _FIGURE_H_
 
 #include "../extendLib/rapid_xml/rapidxml.hpp"
-#include "../SVGAttributes.h"
+#include "../Transform/SVGAttributes.h"
 #include <windows.h>
 #include <gdiplus.h>
 #include <objidl.h>
 #include <iostream>
-#include "../Transform/Transform.h"
 
 #pragma comment(lib, "Gdiplus.lib")
 

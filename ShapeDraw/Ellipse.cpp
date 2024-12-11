@@ -13,7 +13,7 @@ MyFigure::Ellipse::Ellipse(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : 
     }
     else
     {
-        std::cerr << "Attributes 'rx' or 'ry' not found in ellipse node." << std::endl;
+        std::cout << "Attributes 'rx' or 'ry' not found in ellipse node." << std::endl;
         rx = 0;
         ry = 0;
     }

@@ -242,3 +242,4 @@ Gdiplus::Color SVGAttributes::getStrokeColor() const
 {
 	return strokeColor;
 }
+

@@ -1,36 +1,27 @@
-#ifndef _TRANSFORM_H_
-#define _TRANSFORM_H_
+#ifndef TRANSFORM_H
+#define TRANSFORM_H
 
-#include <iostream>
-#include <string>
 #include <vector>
-#include <sstream>
+#include <Windows.h>
+#include <gdiplus.h>
 #include "TransformStragetry.h"
+#include "Attribute.h"
 
-using namespace std;
-
-class Transform
+class Transform : public Attribute
 {
-    private:
-        vector<TransformStragetry *>stragetry;        
-    public:
-        Transform();
-        Transform(string str);
-        //copy constructor
-        Transform(const Transform &transform);
-        /**
-         * @brief Transform the tag using mutiple matrix 
-         * 
-         * @param matrix the matrix to transform
-         * 
-         * @return void
-         * 
-         */
-        void transform(Gdiplus::Matrix &matrix);
-        Transform &operator=(const Transform &transform);
-        //void setTransform(string str);
-        void addStragetry(Transform transform);
-        ~Transform();
+private:
+    std::vector<TransformStragetry *> stragetry;
+
+public:
+    Transform();
+    Transform(std::string str);
+    Transform(const Transform &transform);
+    void transform(Gdiplus::Matrix &matrix);
+    Transform &operator=(const Transform &transform);
+    void addStragetry(Transform transform);
+    Attribute* clone() override;
+    void mergeData(Attribute* attribute) override;
+    ~Transform();
 };
 
-#endif
+#endif // TRANSFORM_H
