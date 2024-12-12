@@ -14,7 +14,9 @@
     <!-- Thân nhà -->
     <rect x="200" y="200" width="150" height="150" fill="rgb(160,82,45)" stroke="rgb(0,0,0)"/>
     <!-- Mái nhà -->
-    <polygon points="200,200,275,150,350,200" fill="rgb(165,42,42)" stroke="rgb(0,0,0)"/>
+    <polygon points="200,200 275,150 350,200" fill="rgb(165,42,42)" stroke="rgb(4,4,4)"/>
+
+    <polygon points="200,200,275,150,350,200" fill="rgb(165,42,42)" stroke="rgb(4,4,4)"/>
     <!-- Cửa sổ bên trái -->
     <rect x="215" y="220" width="40" height="40" fill="rgb(255,255,255)" stroke="rgb(0,0,0)"/>
     <line x1="215" y1="240" x2="255" y2="240" stroke="rgb(0,0,0)"/>

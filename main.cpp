@@ -8,10 +8,10 @@ VOID OnPaint(HDC hdc)
 {
     Graphics graphics(hdc);
     FigureDraw FigureDraw(graphics);
-    string filename = "";
-    cout << "Enter the file name: ";
-    getline(cin, filename);
-    FigureDraw.loadSVGFile(filename);
+    // string filename = "";
+    // cout << "Enter the file name: ";
+    // getline(cin, filename);
+    FigureDraw.loadSVGFile("TestSVG/sample.svg");
     FigureDraw.draw();
 }
 

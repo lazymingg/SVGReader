@@ -65,6 +65,9 @@ void MyFigure::Polygon::draw() {
 
     // Restore original matrix
     graphics.SetTransform(&originalMatrix);
+
+    // print all attributes
+    attributes.printAttributes();
 }
 
 
