@@ -1,37 +1,5 @@
 #include "../ShapeHeader/Path.h"
 
-bool isDigit(const char &c)
-{
-    return c >= '0' && c <= '9';
-}
-
-bool isAlpha(const char &c)
-{
-    return c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z';
-}
-
-float extractNumber(const std::string &data, int &i)
-{
-    std::string numb = "";
-    int len = data.length();
-    if (len == 0) return 0;
-
-    while (i < len && (data[i] == ',' || data[i] == ' '))
-        ++i;
-
-    if (i < len && data[i] == '-')
-        numb += data[i++];
-    while (i < len && (isDigit(data[i]) || data[i] == '.'))
-        numb += data[i++];
-
-    try {
-        return !numb.empty() ? stof(numb) : 0;
-    } catch (const std::invalid_argument &) {
-        std::cerr << "Invalid number in path data: " << numb << std::endl;
-        return 0;
-    }
-}
-
 float MyFigure::Path::CalculateVectorAngle(float ux, float uy, float vx, float vy)
 {
     float ta = atan2(uy, ux);
@@ -62,10 +30,11 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
             if (isalpha(data[i]))
                 curCommand = data[i++];
 
-            while (i < len && data[i] == ' ')
+            while (i < len && (data[i] == ' ' || data[i] == '\n'))
                 ++i;
 
-            cout << "Current command: " << curCommand << endl;
+            cout << "Current command: " << curCommand << " - prev command: " << prevCommand << endl;
+
             switch (curCommand)
             {
                 // Move-to commands
@@ -77,7 +46,10 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
             
                 case 'm':
                 {
-                    startPoint = currentPoint = {currentPoint.getX() + extractNumber(data, i), currentPoint.getY() + extractNumber(data, i)};
+                    if (prevCommand == '\0')
+                        startPoint = currentPoint = {extractNumber(data, i), extractNumber(data, i)};
+                    else
+                        startPoint = currentPoint = {currentPoint.getX() + extractNumber(data, i), currentPoint.getY() + extractNumber(data, i)};
                     break;
                 }
 
@@ -478,15 +450,16 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
 
                 default:
                 {
-                    cout << "Invalide Path's command\n";
+                    cout << "Invalid Path's command\n";
                     break;
                 }
             }
 
-            --i;
-            while (i < len && (data[i] == ',' || data[i] == ' '))
+            while (i < len && (data[i] == ',' || data[i] == ' ' || data[i] == '\n'))
                 ++i;
             
+            --i;
+
             prevCommand = curCommand;
         }
     }
@@ -543,8 +516,21 @@ void MyFigure::Path::draw()
 
     cout << int(attributes.getFillColor().GetAlpha()) << ", " << int(attributes.getFillColor().GetRed()) << ", " << int(attributes.getFillColor().GetGreen()) << ", " << int(attributes.getFillColor().GetBlue()) << endl;
     cout << int(attributes.getStrokeColor().GetAlpha()) << ", " << int(attributes.getStrokeColor().GetRed()) << ", " << int(attributes.getStrokeColor().GetGreen()) << ", " << int(attributes.getStrokeColor().GetBlue()) << endl;
-    SolidBrush fillBrush(attributes.getFillColor());
-    Pen strokePen(attributes.getStrokeColor(), attributes.getStrokeWidth());
+    Color fillColor = attributes.getFillColor();
+    int fillOpacity = attributes.getFillOpacity() * 255;
+    if (fillColor.GetA() == 0 && fillColor.GetR() == 0 && fillColor.GetG() == 0 && fillColor.GetB() == 0)
+    {
+        fillOpacity = 0;
+    }
+    fillColor = Color(fillOpacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
+    SolidBrush fillBrush(fillColor);
+
+    Color strokeColor = attributes.getStrokeColor();
+    int strokeOpacity = attributes.getStrokeOpacity() * 255;
+
+    strokeColor = Color(strokeOpacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
+    Pen strokePen(strokeColor, attributes.getStrokeWidth());
+
     graphics.SetSmoothingMode(SmoothingModeAntiAlias);
 
     Gdiplus::Matrix a;
@@ -561,8 +547,4 @@ void MyFigure::Path::draw()
 
     delete[] points;
     delete[] pathTypes;
-}
-
-void MyFigure::Path::applyTransform()
-{
 }

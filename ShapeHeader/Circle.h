@@ -22,9 +22,7 @@ namespace MyFigure
         // Phương thức vẽ Circle
         //void drawCircle(Graphics& graphics);
         void draw() override;
-        //void checksth();
-        void applyTransform() override;
-        
+        //void checksth();        
     };
 }
 

@@ -22,7 +22,6 @@ namespace MyFigure
 		//to string
 		void printInfomation();
 		void draw() override;
-		void applyTransform() override;
 	};
 }
 

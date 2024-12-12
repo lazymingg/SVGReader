@@ -71,9 +71,7 @@
     "xutility": "cpp",
     "bitset": "cpp",
     "map": "cpp",
-    "regex": "cpp",
-    "xutility": "cpp",
-    "map": "cpp"
+    "regex": "cpp"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

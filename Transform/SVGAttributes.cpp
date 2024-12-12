@@ -31,10 +31,6 @@ SVGAttributes::SVGAttributes(xml_node<> *shapeNode)
         {
             Attributes["opacity"] = new Ocopacity(value);
         }
-        else if (name == "text")
-        {
-            Attributes["text"] = new Text(value);
-        }
         else if (name == "transform")
         {
             Attributes["transform"] = new Transform(value);
@@ -50,6 +46,10 @@ SVGAttributes::SVGAttributes(xml_node<> *shapeNode)
         else if (name == "font-style")
         {
             Attributes["font-style"] = new MyFontStyle(value);
+        }
+        else if (name == "text-anchor")
+        {
+            Attributes["text-anchor"] = new TextAnchor(value);
         }
     }
 }
@@ -188,27 +188,6 @@ float SVGAttributes::getOpacity()
 	return 1.0f;
 }
 
-std::string SVGAttributes::getText()
-{
-	auto it = Attributes.find("text");
-	if (it != Attributes.end())
-	{
-		Text *text = dynamic_cast<Text *>(it->second);
-
-		if (text != nullptr)
-		{
-			return text->getText();
-		}
-		else
-		{
-			std::cerr << "Error: text attribute is not of type Text." << std::endl;
-			return "";
-		}
-	}
-	// Default text is empty
-	return "";
-}
-
 float SVGAttributes::getFontSize()
 {
     auto it = Attributes.find("font-size");
@@ -222,11 +201,11 @@ float SVGAttributes::getFontSize()
         else
         {
             std::cerr << "Error: font-size attribute is not of type FontSize." << std::endl;
-            return 0.0f;
+            return 16.0f;
         }
     }
     // Default font size is 0.0
-    return 0.0f;
+    return 16.0f;
 }
 
 Gdiplus::FontFamily* SVGAttributes::getFontFamily()
@@ -269,13 +248,29 @@ Gdiplus::FontStyle SVGAttributes::getFontStyle()
     return Gdiplus::FontStyleRegular;
 }
 
+std::string SVGAttributes::getTextAnchor()
+{
+    auto it = Attributes.find("text-anchor");
+    if (it != Attributes.end())
+    {
+        TextAnchor *textAnchor = dynamic_cast<TextAnchor *>(it->second);
+        if (textAnchor != nullptr)
+        {
+            return textAnchor->getTextAnchor();
+        }
+        else
+        {
+            std::cerr << "Error: text-anchor attribute is not of type TextAnchor." << std::endl;
+            return "start"; // Default value for text-anchor
+        }
+    }
+    // Default text-anchor is "start"
+    return "start";
+}
+
 void SVGAttributes::printAttributes()
 {
-	for (auto &attr : Attributes)
-	{
-		std::cout << attr.first << ": ";
-		// attr.second->printData();
-	}
+	
 }
 
 void SVGAttributes::mergeAttributes(SVGAttributes &attributes)

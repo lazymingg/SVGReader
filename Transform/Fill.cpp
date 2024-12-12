@@ -1,11 +1,6 @@
 #include "Fill.h"
 #include "Attribute.h"
 
-// Helper function to convert HEX to Gdiplus::Color
-Gdiplus::Color hexToColor(const std::string &hex);
-
-Gdiplus::Color getColor(const std::string &value);
-
 // Constructor
 Fill::Fill() {}
 
