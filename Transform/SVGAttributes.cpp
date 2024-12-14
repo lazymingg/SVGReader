@@ -97,11 +97,11 @@ Gdiplus::Color SVGAttributes::getStrokeColor()
 		else
 		{
 			std::cerr << "Error: stroke attribute is not of type Stroke." << std::endl;
-			return Gdiplus::Color();
+			return Gdiplus::Color(0, 0, 0, 0);
 		}
 	}
-	// Default stroke color is black
-	return Gdiplus::Color();
+	// no drawing color
+	return Gdiplus::Color(0, 0, 0, 0);
 }
 
 Gdiplus::Color SVGAttributes::getFillColor()
@@ -122,7 +122,6 @@ Gdiplus::Color SVGAttributes::getFillColor()
 			return Gdiplus::Color();
 		}
 	}
-	// Default fill color is black
 	return Gdiplus::Color();
 }
 

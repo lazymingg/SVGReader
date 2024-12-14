@@ -4,7 +4,10 @@
 Text::Text() : text("") {}
 
 // Constructor with text value
-Text::Text(std::string text) : text(text) {}
+Text::Text(std::string text)
+{
+    this->text = text;
+}
 
 // Getter for text
 std::string Text::getText()
