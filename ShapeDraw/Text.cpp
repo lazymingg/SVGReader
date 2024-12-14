@@ -24,13 +24,13 @@ void MyFigure::Text::draw()
 {
     // Get fill color and adjust opacity
     Color fillColor = static_cast<Fill *>(attributes.getAttributes("fill"))->getFill();
-    int fillOpacity = static_cast<int>(static_cast<FillOpacity *>(attributes.getAttributes("fill-opacity"))->getFillOpacity() * 255);
+    int fillOpacity = static_cast<int>(static_cast<FillOpacity *>(attributes.getAttributes("fill-opacity"))->getFillOpacity() * fillColor.GetA());
     fillColor = Color(fillOpacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
     SolidBrush brush(fillColor);
 
     // Get stroke color and adjust opacity
     Color strokeColor = static_cast<Stroke *>(attributes.getAttributes("stroke"))->getStroke();
-    int strokeOpacity = static_cast<int>(static_cast<StrokeOpacity *>(attributes.getAttributes("stroke-opacity"))->getStrokeOpacity() * 255);
+    int strokeOpacity = static_cast<int>(static_cast<StrokeOpacity *>(attributes.getAttributes("stroke-opacity"))->getStrokeOpacity() * strokeColor.GetA());
     if (fillColor.GetR() == 255 && fillColor.GetG() == 255 && fillColor.GetB() == 255)
     {
         strokeOpacity = 0;

@@ -518,7 +518,7 @@ void MyFigure::Path::draw()
     // cout << int(attributes.getStrokeColor().GetAlpha()) << ", " << int(attributes.getStrokeColor().GetRed()) << ", " << int(attributes.getStrokeColor().GetGreen()) << ", " << int(attributes.getStrokeColor().GetBlue()) << endl;
     
     Color fillColor = static_cast<Fill*>(attributes.getAttributes("fill"))->getFill();
-    int fillOpacity = static_cast<FillOpacity*>(attributes.getAttributes("fill-opacity"))->getFillOpacity() * 255;
+    int fillOpacity = static_cast<FillOpacity*>(attributes.getAttributes("fill-opacity"))->getFillOpacity() * fillColor.GetA();
     if (fillColor.GetA() == 0 && fillColor.GetR() == 0 && fillColor.GetG() == 0 && fillColor.GetB() == 0)
     {
         fillOpacity = 0;
@@ -527,7 +527,7 @@ void MyFigure::Path::draw()
     SolidBrush fillBrush(fillColor);
 
     Color strokeColor = static_cast<Stroke*>(attributes.getAttributes("stroke"))->getStroke();
-    int strokeOpacity = static_cast<StrokeOpacity*>(attributes.getAttributes("stroke-opacity"))->getStrokeOpacity() * 255;
+    int strokeOpacity = static_cast<StrokeOpacity*>(attributes.getAttributes("stroke-opacity"))->getStrokeOpacity() * strokeColor.GetA();
     strokeColor = Color(strokeOpacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
     Pen strokePen(strokeColor, static_cast<StrokeWidth*>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
 

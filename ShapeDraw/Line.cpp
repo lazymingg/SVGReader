@@ -32,7 +32,7 @@ void MyFigure::Line::draw()
     // Get fill color and adjust opacity
     Color strokeColor = static_cast<Stroke *>(attributes.getAttributes("stroke"))->getStroke();
     // ajust opacity
-    int opacity = static_cast<StrokeOpacity *>(attributes.getAttributes("stroke-opacity"))->getStrokeOpacity() * 255;
+    int opacity = static_cast<StrokeOpacity *>(attributes.getAttributes("stroke-opacity"))->getStrokeOpacity() * strokeColor.GetA();
     strokeColor = Color(opacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
     Pen pen(strokeColor, static_cast<StrokeWidth *>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
     graphics.SetSmoothingMode(SmoothingMode::SmoothingModeAntiAlias);

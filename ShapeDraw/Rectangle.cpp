@@ -33,11 +33,7 @@ void MyFigure::Rectangle::draw()
 
 	Color fillColor = static_cast<Fill *>(attributes.getAttributes("fill"))->getFill();
 	// ajust opacity
-	int opacity = static_cast<FillOpacity *>(attributes.getAttributes("fill-opacity"))->getFillOpacity() * 255;
-	if (fillColor.GetA() == 0 && fillColor.GetR() == 0 && fillColor.GetG() == 0 && fillColor.GetB() == 0)
-	{
-		opacity = 0;
-	}
+	int opacity = static_cast<FillOpacity *>(attributes.getAttributes("fill-opacity"))->getFillOpacity() * fillColor.GetA();
 	fillColor = Color(opacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
 	SolidBrush brush(fillColor);
 
@@ -46,7 +42,7 @@ void MyFigure::Rectangle::draw()
 	// {
 	Color strokeColor = static_cast<Stroke *>(attributes.getAttributes("stroke"))->getStroke();
 	// ajust opacity
-	opacity = static_cast<StrokeOpacity *>(attributes.getAttributes("stroke-opacity"))->getStrokeOpacity() * 255;
+	opacity = static_cast<StrokeOpacity *>(attributes.getAttributes("stroke-opacity"))->getStrokeOpacity() * strokeColor.GetA();
 	strokeColor = Color(opacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
 	Pen pen(strokeColor, static_cast<StrokeWidth *>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
 	// print color

@@ -4,7 +4,7 @@
 // Constructor
 Fill::Fill()
 {
-    color = Gdiplus::Color(0, 0, 0, 0);
+    color = Gdiplus::Color();
 }
 
 // Constructor with value
