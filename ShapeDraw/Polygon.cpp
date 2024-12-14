@@ -45,14 +45,14 @@ void MyFigure::Polygon::draw()
     int fillOpacity = static_cast<FillOpacity *>(attributes.getAttributes("fill-opacity"))->getFillOpacity() * fillColor.GetA();
 
     fillColor = Color(fillOpacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
-    SolidBrush brush(fillColor);
+    SolidBrush *brush = new SolidBrush(fillColor);
 
     // Stroke color
     Color strokeColor = static_cast<Stroke *>(attributes.getAttributes("stroke"))->getStroke();
     int strokeOpacity = static_cast<StrokeOpacity *>(attributes.getAttributes("stroke-opacity"))->getStrokeOpacity() * strokeColor.GetA();
 
     strokeColor = Color(strokeOpacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
-    Pen pen(strokeColor, static_cast<StrokeWidth *>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
+    Pen *pen = new Pen(strokeColor, static_cast<StrokeWidth *>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
     // Prepare points
     std::vector<Point> pointArray(points.size());
     for (size_t i = 0; i < points.size(); i++)
@@ -70,12 +70,14 @@ void MyFigure::Polygon::draw()
 
     // Draw filled polygon
     graphics.SetSmoothingMode(SmoothingMode::SmoothingModeAntiAlias);
-    graphics.FillPolygon(&brush, pointArray.data(), pointArray.size());
+    graphics.FillPolygon(brush, pointArray.data(), pointArray.size());
 
     // Draw polygon outline
     cout << "Draw polygon";
-    graphics.DrawPolygon(&pen, pointArray.data(), pointArray.size());
+    graphics.DrawPolygon(pen, pointArray.data(), pointArray.size());
 
     // Restore original matrix
     graphics.SetTransform(&originalMatrix);
+    delete pen;
+    delete brush;
 }

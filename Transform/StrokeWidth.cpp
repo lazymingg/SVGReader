@@ -7,6 +7,7 @@ StrokeWidth::StrokeWidth() : width(1.0f) {}
 // Constructor with width
 StrokeWidth::StrokeWidth(std::string width)
 {
+    cout << width;
     this->width = std::stof(width);
 }
 

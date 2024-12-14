@@ -26,17 +26,14 @@ void MyFigure::Text::draw()
     Color fillColor = static_cast<Fill *>(attributes.getAttributes("fill"))->getFill();
     int fillOpacity = static_cast<int>(static_cast<FillOpacity *>(attributes.getAttributes("fill-opacity"))->getFillOpacity() * fillColor.GetA());
     fillColor = Color(fillOpacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
-    SolidBrush brush(fillColor);
+    SolidBrush *brush = new SolidBrush(fillColor);
 
     // Get stroke color and adjust opacity
     Color strokeColor = static_cast<Stroke *>(attributes.getAttributes("stroke"))->getStroke();
     int strokeOpacity = static_cast<int>(static_cast<StrokeOpacity *>(attributes.getAttributes("stroke-opacity"))->getStrokeOpacity() * strokeColor.GetA());
-    if (fillColor.GetR() == 255 && fillColor.GetG() == 255 && fillColor.GetB() == 255)
-    {
-        strokeOpacity = 0;
-    }
     strokeColor = Color(strokeOpacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
-    Pen pen(strokeColor, static_cast<StrokeWidth *>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
+
+    Pen *pen = new Pen(strokeColor, static_cast<StrokeWidth *>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
 
     // Get font size, family, and style
     float fontSize = static_cast<FontSize *>(attributes.getAttributes("font-size"))->getFontSize();
@@ -93,9 +90,8 @@ void MyFigure::Text::draw()
 
     textToPath.AddString(wideText.c_str(), static_cast<INT>(wideText.length()),
                          fontFamily, fontStyle, fontSize, pointF, &format);
-
-    graphics.FillPath(&brush, &textToPath);
-    graphics.DrawPath(&pen, &textToPath);
+    graphics.FillPath(brush, &textToPath);
+    graphics.DrawPath(pen, &textToPath);
 
     // Restore the original transform
     graphics.SetTransform(&originalMatrix);
@@ -105,4 +101,6 @@ void MyFigure::Text::draw()
     {
         delete fontFamily;
     }
+    delete brush;
+    delete pen;
 }

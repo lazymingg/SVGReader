@@ -48,7 +48,7 @@ void MyFigure::Polyline::draw()
     int opacity = static_cast<FillOpacity *>(attributes.getAttributes("fill-opacity"))->getFillOpacity() * fillColor.GetA();
 
     fillColor = Color(opacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
-    SolidBrush brush(fillColor);
+    SolidBrush *brush = new SolidBrush(fillColor);
 
     // create point array
     int numPoints = points.size();
@@ -62,7 +62,7 @@ void MyFigure::Polyline::draw()
     }
 
     // fill polygon
-    graphics.FillPolygon(&brush, pointArray, numPoints);
+    graphics.FillPolygon(brush, pointArray, numPoints);
 
     // free memory
     delete[] pointArray;
@@ -74,7 +74,7 @@ void MyFigure::Polyline::draw()
     opacity = static_cast<StrokeOpacity *>(attributes.getAttributes("stroke-opacity"))->getStrokeOpacity() * strokeColor.GetA();
 
     strokeColor = Color(opacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
-    Pen pen(strokeColor, static_cast<StrokeWidth *>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
+    Pen *pen = new Pen(strokeColor, static_cast<StrokeWidth *>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
     // create point array
     numPoints = points.size();
     pointArray = new Point[numPoints];
@@ -93,10 +93,12 @@ void MyFigure::Polyline::draw()
     graphics.GetTransform(&originalMatrix);
     graphics.SetTransform(&a);
 
-    graphics.DrawLines(&pen, pointArray, numPoints);
+    graphics.DrawLines(pen, pointArray, numPoints);
     graphics.SetTransform(&originalMatrix);
 
     // free memory
     delete[] pointArray;
     // }
+    delete pen;
+    delete brush;
 }

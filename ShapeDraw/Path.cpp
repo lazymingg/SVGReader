@@ -519,17 +519,14 @@ void MyFigure::Path::draw()
     
     Color fillColor = static_cast<Fill*>(attributes.getAttributes("fill"))->getFill();
     int fillOpacity = static_cast<FillOpacity*>(attributes.getAttributes("fill-opacity"))->getFillOpacity() * fillColor.GetA();
-    if (fillColor.GetA() == 0 && fillColor.GetR() == 0 && fillColor.GetG() == 0 && fillColor.GetB() == 0)
-    {
-        fillOpacity = 0;
-    }
+
     fillColor = Color(fillOpacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
-    SolidBrush fillBrush(fillColor);
+    SolidBrush *fillBrush = new SolidBrush(fillColor);
 
     Color strokeColor = static_cast<Stroke*>(attributes.getAttributes("stroke"))->getStroke();
     int strokeOpacity = static_cast<StrokeOpacity*>(attributes.getAttributes("stroke-opacity"))->getStrokeOpacity() * strokeColor.GetA();
     strokeColor = Color(strokeOpacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
-    Pen strokePen(strokeColor, static_cast<StrokeWidth*>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
+    Pen *strokePen = new Pen(strokeColor, static_cast<StrokeWidth*>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
 
     graphics.SetSmoothingMode(SmoothingModeAntiAlias);
 
@@ -540,11 +537,13 @@ void MyFigure::Path::draw()
     graphics.GetTransform(&originalMatrix);
     graphics.SetTransform(&a);
 
-    graphics.FillPath(&fillBrush, &path);
+    graphics.FillPath(fillBrush, &path);
 
-    graphics.DrawPath(&strokePen, &path);
+    graphics.DrawPath(strokePen, &path);
     graphics.SetTransform(&originalMatrix);
 
     delete[] points;
     delete[] pathTypes;
+    delete fillBrush;
+    delete strokePen;
 }

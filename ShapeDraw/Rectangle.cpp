@@ -35,7 +35,7 @@ void MyFigure::Rectangle::draw()
 	// ajust opacity
 	int opacity = static_cast<FillOpacity *>(attributes.getAttributes("fill-opacity"))->getFillOpacity() * fillColor.GetA();
 	fillColor = Color(opacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
-	SolidBrush brush(fillColor);
+	SolidBrush *brush= new SolidBrush(fillColor);
 
 	// draw stroke
 	// if (attributes.getStroke() != "none")
@@ -44,7 +44,7 @@ void MyFigure::Rectangle::draw()
 	// ajust opacity
 	opacity = static_cast<StrokeOpacity *>(attributes.getAttributes("stroke-opacity"))->getStrokeOpacity() * strokeColor.GetA();
 	strokeColor = Color(opacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
-	Pen pen(strokeColor, static_cast<StrokeWidth *>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
+	Pen *pen = new Pen(strokeColor, static_cast<StrokeWidth *>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
 	// print color
 	graphics.SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeAntiAlias);
 	Gdiplus::Matrix a;
@@ -55,8 +55,10 @@ void MyFigure::Rectangle::draw()
 	graphics.SetTransform(&a);
 
 	// Draw the rectangle with the pen and brush
-	graphics.DrawRectangle(&pen, point.getX(), point.getY(), width, height);
-	graphics.FillRectangle(&brush, point.getX(), point.getY(), width, height);
+	graphics.DrawRectangle(pen, point.getX(), point.getY(), width, height);
+	graphics.FillRectangle(brush, point.getX(), point.getY(), width, height);
 
 	graphics.SetTransform(&originalMatrix);
+	delete pen;
+	delete brush;
 }
