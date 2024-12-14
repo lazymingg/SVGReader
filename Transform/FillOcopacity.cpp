@@ -5,7 +5,7 @@
 FillOpacity::FillOpacity() : value(1.0f) {}
 
 // Constructor with value
-FillOpacity::FillOpacity(std::string &getValue)
+FillOpacity::FillOpacity(std::string getValue)
 {
     std::regex percentageRegex(R"(^([0-9]+)%$)");
     std::regex decimalRegex(R"(^([0-9]*\.?[0-9]+)$)");
@@ -31,6 +31,11 @@ float FillOpacity::getFillOpacity()
 Attribute* FillOpacity::clone()
 {
     return new FillOpacity(*this);
+}
+
+Attribute *FillOpacity::clone(string value)
+{
+    return new FillOpacity(value);
 }
 
 void FillOpacity::mergeData(Attribute *attribute)

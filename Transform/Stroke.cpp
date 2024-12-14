@@ -22,6 +22,11 @@ Attribute* Stroke::clone()
     return new Stroke(*this);
 }
 
+Attribute *Stroke::clone(string value)
+{
+    return new Stroke(value);
+}
+
 void Stroke::mergeData(Attribute *attribute)
 {
     // do nothing

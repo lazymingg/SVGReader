@@ -90,6 +90,11 @@ Attribute *Transform::clone()
 	return new Transform(*this);
 }
 
+Attribute *Transform::clone(string value)
+{
+	return new Transform(value);
+}
+
 Transform::~Transform()
 {
 	for (auto &stragetry : stragetry)

@@ -32,10 +32,10 @@ MyFigure::Polyline::Polyline(xml_node<> *rootNode, Gdiplus::Graphics &graphics) 
 
 void MyFigure::Polyline::printInfomation()
 {
-    cout << "Polyline:" << endl;
-    for (int i = 0; i < points.size(); i++)
-        points[i].print();
-    attributes.printAttributes();
+//     cout << "Polyline:" << endl;
+//     for (int i = 0; i < points.size(); i++)
+//         points[i].print();
+//     attributes.printAttributes();
 }
 
 void MyFigure::Polyline::draw()
@@ -43,9 +43,9 @@ void MyFigure::Polyline::draw()
     // draw polygon here
     // draw fill polygon first
 
-    Color fillColor = attributes.getFillColor();
+    Color fillColor = static_cast<Fill *>(attributes.getAttributes("fill"))->getFill();
     // adjust opacity
-    int opacity = attributes.getFillOpacity() * 255;
+    int opacity = static_cast<FillOpacity *>(attributes.getAttributes("fill-opacity"))->getFillOpacity() * 255;
     if (fillColor.GetA() == 0 && fillColor.GetR() == 0 && fillColor.GetG() == 0 && fillColor.GetB() == 0)
     {
         opacity = 0;
@@ -73,12 +73,11 @@ void MyFigure::Polyline::draw()
     // }
 
     // draw stroke
-
-    Color strokeColor = attributes.getStrokeColor();
+    Color strokeColor = static_cast<Stroke *>(attributes.getAttributes("stroke"))->getStroke();
     // adjust opacity
-    opacity = attributes.getStrokeOpacity() * 255;
+    opacity = static_cast<StrokeOpacity *>(attributes.getAttributes("stroke-opacity"))->getStrokeOpacity() * 255;
     strokeColor = Color(opacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
-    Pen pen(strokeColor, attributes.getStrokeWidth());
+    Pen pen(strokeColor, static_cast<StrokeWidth *>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
 
     // create point array
     numPoints = points.size();
@@ -92,7 +91,7 @@ void MyFigure::Polyline::draw()
     // draw polyline
     graphics.SetSmoothingMode(SmoothingMode::SmoothingModeAntiAlias);
     Gdiplus::Matrix a;
-    attributes.getTransform().transform(a);
+    static_cast<Transform *>(attributes.getAttributes("transform"))->transform(a);
 
     Gdiplus::Matrix originalMatrix;
     graphics.GetTransform(&originalMatrix);

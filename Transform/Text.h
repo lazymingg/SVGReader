@@ -15,6 +15,7 @@ public:
     Text(std::string text);
     std::string getText();
     Attribute* clone() override;
+    Attribute* clone(string value) override;
     void mergeData(Attribute* attribute) override;
     ~Text();
 };

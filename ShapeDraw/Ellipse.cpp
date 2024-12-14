@@ -21,8 +21,9 @@ MyFigure::Ellipse::Ellipse(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : 
 
 void MyFigure::Ellipse::drawEllipse(Graphics &graphics)
 {
-   Color fillColor = attributes.getFillColor();
-    int fillOpacity = attributes.getFillOpacity() * 255;
+    Color fillColor = static_cast<Fill*>(attributes.getAttributes("fill"))->getFill();
+    int fillOpacity = static_cast<FillOpacity*>(attributes.getAttributes("fill-opacity"))->getFillOpacity() * 255;
+
     if (fillColor.GetA() == 0 && fillColor.GetR() == 0 && fillColor.GetG() == 0 && fillColor.GetB() == 0)
     {
         fillOpacity = 0;
@@ -30,15 +31,15 @@ void MyFigure::Ellipse::drawEllipse(Graphics &graphics)
     fillColor = Color(fillOpacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
     SolidBrush fillBrush(fillColor);
 
-    Color strokeColor = attributes.getStrokeColor();
-    int strokeOpacity = attributes.getStrokeOpacity() * 255;
+    Color strokeColor = static_cast<Stroke*>(attributes.getAttributes("stroke"))->getStroke();
+    int strokeOpacity = static_cast<StrokeOpacity*>(attributes.getAttributes("stroke-opacity"))->getStrokeOpacity() * 255;
 
     strokeColor = Color(strokeOpacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
-    Pen strokePen(strokeColor, attributes.getStrokeWidth());
-
+    Pen strokePen(strokeColor, static_cast<StrokeWidth*>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
+    
     std::cout << "rx = " << rx << ", ry = " << ry << std::endl;
     Gdiplus::Matrix a;
-    attributes.getTransform().transform(a);
+    static_cast<Transform*>(attributes.getAttributes("transform"))->transform(a);
 
     Gdiplus::Matrix originalMatrix;
     graphics.GetTransform(&originalMatrix);

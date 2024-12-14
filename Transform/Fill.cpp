@@ -22,6 +22,11 @@ Attribute* Fill::clone()
     return new Fill(*this);
 }
 
+Attribute *Fill::clone(string value)
+{
+    return new Fill(value);
+}
+
 //this funtion will be call if the attribute is allready exist
 void Fill::mergeData(Attribute *attribute)
 {

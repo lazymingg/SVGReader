@@ -18,6 +18,7 @@ public:
     MyFontStyle(std::string value);
     Gdiplus::FontStyle getFontStyle() const;
     Attribute* clone() override;
+    Attribute* clone(string value) override;
     void mergeData(Attribute* attribute) override;
     ~MyFontStyle();
 };

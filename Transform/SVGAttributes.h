@@ -25,28 +25,33 @@
 
 using namespace rapidxml;
 
-class SVGAttributes
+
+class AttributeFactory
 {
 private:
     std::map<std::string, Attribute*> Attributes;
+public:
+    AttributeFactory();
+    void registerAttribute(const std::string &name, Attribute* attribute);
+    Attribute* createAttribute(const std::string &name, const std::string &value);
+    Attribute* createAttribute(const std::string &name);
+    Attribute* getAttribute(const std::string &name);
+    ~AttributeFactory();
+};
+
+class SVGAttributes
+{
+private:
+    std::map<std::string, Attribute*> Attributes;\
+    AttributeFactory factory;
 
 public:
     SVGAttributes(xml_node<> *shapeNode);
     SVGAttributes(const SVGAttributes &attributes);
-    float getStrokeWidth();
-    float getOpacity();
-    float getFillOpacity();
-    float getStrokeOpacity();
-    Transform getTransform();
-    Gdiplus::Color getFillColor();
-    Gdiplus::Color getStrokeColor();
-    float getFontSize();
-    Gdiplus::FontFamily* getFontFamily();
-    Gdiplus::FontStyle getFontStyle();
-    std::string getTextAnchor();
-    void printAttributes();
+    Attribute* getAttributes(std::string name);
     void mergeAttributes(SVGAttributes &attributes);
     ~SVGAttributes();
 };
+
 
 #endif // SVG_ATTRIBUTES_H

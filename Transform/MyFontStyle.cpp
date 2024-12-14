@@ -46,6 +46,11 @@ Attribute* MyFontStyle::clone()
     return new MyFontStyle(*this);
 }
 
+Attribute* MyFontStyle::clone(string value)
+{
+    return new MyFontStyle(value);
+}
+
 // This function will be called if the attribute already exists
 void MyFontStyle::mergeData(Attribute *attribute)
 {

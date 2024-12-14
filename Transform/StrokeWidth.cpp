@@ -27,5 +27,10 @@ void StrokeWidth::mergeData(Attribute *attribute)
     // do nothing
 }
 
+Attribute *StrokeWidth::clone(string value)
+{
+    return new StrokeWidth(value);
+}
+
 // Destructor
 StrokeWidth::~StrokeWidth() {}

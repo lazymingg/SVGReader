@@ -21,22 +21,19 @@ MyFigure::Rectangle::Rectangle(xml_node<> *rootNode, Gdiplus::Graphics &graphics
 
 void MyFigure::Rectangle::printInfomation()
 {
-	cout << "Rectangle" << endl;
-	point.print();
-	cout << width << " " << height << '\n';
-	attributes.printAttributes();
+// 	cout << "Rectangle" << endl;
+// 	point.print();
+// 	cout << width << " " << height << '\n';
+// 	attributes.printAttributes();
 }
 
 void MyFigure::Rectangle::draw()
 {
 
-	// Draw the Rectangle
-	// Fill rectangle first
-	// if (attributes.getFill() != "none")
-	// {
-	Color fillColor = attributes.getFillColor();
+
+	Color fillColor = static_cast<Fill *>(attributes.getAttributes("fill"))->getFill();
 	// ajust opacity
-	int opacity = attributes.getFillOpacity() * 255;
+	int opacity = static_cast<FillOpacity *>(attributes.getAttributes("fill-opacity"))->getFillOpacity() * 255;
 	if (fillColor.GetA() == 0 && fillColor.GetR() == 0 && fillColor.GetG() == 0 && fillColor.GetB() == 0)
 	{
 		opacity = 0;
@@ -47,15 +44,15 @@ void MyFigure::Rectangle::draw()
 	// draw stroke
 	// if (attributes.getStroke() != "none")
 	// {
-	Color strokeColor = attributes.getStrokeColor();
+	Color strokeColor = static_cast<Stroke *>(attributes.getAttributes("stroke"))->getStroke();
 	// ajust opacity
-	opacity = attributes.getStrokeOpacity() * 255;
+	opacity = static_cast<StrokeOpacity *>(attributes.getAttributes("stroke-opacity"))->getStrokeOpacity() * 255;
 	strokeColor = Color(opacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
-	Pen pen(strokeColor, attributes.getStrokeWidth());
+	Pen pen(strokeColor, static_cast<StrokeWidth *>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
 	// print color
 	graphics.SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeAntiAlias);
 	Gdiplus::Matrix a;
-	attributes.getTransform().transform(a);
+	static_cast<Transform *>(attributes.getAttributes("transform"))->transform(a);
 
 	Gdiplus::Matrix originalMatrix;
 	graphics.GetTransform(&originalMatrix);

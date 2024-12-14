@@ -33,6 +33,11 @@ Attribute* StrokeOpacity::clone()
     return new StrokeOpacity(*this);
 }
 
+Attribute *StrokeOpacity::clone(string value)
+{
+    return new StrokeOpacity(value);
+}
+
 void StrokeOpacity::mergeData(Attribute *attribute)
 {
     StrokeOpacity *strokeOpacity = dynamic_cast<StrokeOpacity *>(attribute);

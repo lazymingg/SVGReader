@@ -33,6 +33,11 @@ Attribute* Ocopacity::clone()
     return new Ocopacity(*this);
 }
 
+Attribute *Ocopacity::clone(string value)
+{
+    return new Ocopacity(value);
+}
+
 void Ocopacity::mergeData(Attribute *attribute)
 {
     Ocopacity *ocopacity = dynamic_cast<Ocopacity *>(attribute);

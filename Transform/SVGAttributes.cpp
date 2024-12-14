@@ -6,51 +6,11 @@ SVGAttributes::SVGAttributes(xml_node<> *shapeNode)
     {
         std::string name = attr->name();
         std::string value = attr->value();
-
-        if (name == "stroke")
-        {
-            Attributes["stroke"] = new Stroke(value);
-        }
-        else if (name == "stroke-width")
-        {
-            Attributes["stroke-width"] = new StrokeWidth(value);
-        }
-        else if (name == "fill")
-        {
-            Attributes["fill"] = new Fill(value);
-        }
-        else if (name == "fill-opacity")
-        {
-            Attributes["fill-opacity"] = new FillOpacity(value);
-        }
-        else if (name == "stroke-opacity")
-        {
-            Attributes["stroke-opacity"] = new StrokeOpacity(value);
-        }
-        else if (name == "opacity")
-        {
-            Attributes["opacity"] = new Ocopacity(value);
-        }
-        else if (name == "transform")
-        {
-            Attributes["transform"] = new Transform(value);
-        }
-        else if (name == "font-size")
-        {
-            Attributes["font-size"] = new FontSize(value);
-        }
-        else if (name == "font-family")
-        {
-            Attributes["font-family"] = new MyFontFamily(value);
-        }
-        else if (name == "font-style")
-        {
-            Attributes["font-style"] = new MyFontStyle(value);
-        }
-        else if (name == "text-anchor")
-        {
-            Attributes["text-anchor"] = new TextAnchor(value);
-        }
+		Attribute *attribute = this->factory.createAttribute(name, value);
+		if (attribute == nullptr)
+		{
+			cout << "invalid attribute: " << name << endl;
+		}
     }
 }
 
@@ -62,254 +22,78 @@ SVGAttributes::SVGAttributes(const SVGAttributes &attributes)
 	}
 }
 
-float SVGAttributes::getStrokeWidth()
+
+Attribute *SVGAttributes::getAttributes(std::string name)
 {
-	auto it = Attributes.find("stroke-width");
+	auto it = Attributes.find(name);
 	if (it != Attributes.end())
 	{
-
-		StrokeWidth *strokeWidth = dynamic_cast<StrokeWidth *>(it->second);
-
-		if (strokeWidth != nullptr)
-		{
-			return strokeWidth->getStrokeWidth();
-		}
-		else
-		{
-			std::cerr << "Error: stroke-width attribute is not of type StrokeWidth." << std::endl;
-			return 0.0f;
-		}
+		return it->second;
 	}
-	return 0.0f;
-}
-
-Gdiplus::Color SVGAttributes::getStrokeColor()
-{
-	auto it = Attributes.find("stroke");
-	if (it != Attributes.end())
-	{
-		Stroke *stroke = dynamic_cast<Stroke *>(it->second);
-
-		if (stroke != nullptr)
-		{
-			return stroke->getStroke();
-		}
-		else
-		{
-			std::cerr << "Error: stroke attribute is not of type Stroke." << std::endl;
-			return Gdiplus::Color(0, 0, 0, 0);
-		}
-	}
-	// no drawing color
-	return Gdiplus::Color(0, 0, 0, 0);
-}
-
-Gdiplus::Color SVGAttributes::getFillColor()
-{
-	auto it = Attributes.find("fill");
-	if (it != Attributes.end())
-	{
-		Fill *fill = dynamic_cast<Fill *>(it->second);
-
-		if (fill != nullptr)
-		{
-			cout << "getFillColor" << endl;
-			return fill->getFill();
-		}
-		else
-		{
-			std::cerr << "Error: fill attribute is not of type Fill." << std::endl;
-			return Gdiplus::Color();
-		}
-	}
-	return Gdiplus::Color();
-}
-
-float SVGAttributes::getFillOpacity()
-{
-	auto it = Attributes.find("fill-opacity");
-	if (it != Attributes.end())
-	{
-		FillOpacity *fillOpacity = dynamic_cast<FillOpacity *>(it->second);
-
-		if (fillOpacity != nullptr)
-		{
-			return fillOpacity->getFillOpacity();
-		}
-		else
-		{
-			std::cerr << "Error: fill-opacity attribute is not of type FillOpacity." << std::endl;
-			return 1.0f;
-		}
-	}
-	// Default fill opacity is 1.0
-	return 1.0f;
-}
-
-float SVGAttributes::getStrokeOpacity()
-{
-	auto it = Attributes.find("stroke-opacity");
-	if (it != Attributes.end())
-	{
-		StrokeOpacity *strokeOpacity = dynamic_cast<StrokeOpacity *>(it->second);
-
-		if (strokeOpacity != nullptr)
-		{
-			return strokeOpacity->getStrokeOpacity();
-		}
-		else
-		{
-			std::cerr << "Error: stroke-opacity attribute is not of type StrokeOpacity." << std::endl;
-			return 1.0f;
-		}
-	}
-	// Default stroke opacity is 1.0
-	return 1.0f;
-}
-
-float SVGAttributes::getOpacity()
-{
-	auto it = Attributes.find("opacity");
-	if (it != Attributes.end())
-	{
-		Ocopacity *opacity = dynamic_cast<Ocopacity *>(it->second);
-
-		if (opacity != nullptr)
-		{
-			return opacity->getOcopacity();
-		}
-		else
-		{
-			std::cerr << "Error: opacity attribute is not of type Ocopacity." << std::endl;
-			return 1.0f;
-		}
-	}
-	// Default opacity is 1.0
-	return 1.0f;
-}
-
-float SVGAttributes::getFontSize()
-{
-    auto it = Attributes.find("font-size");
-    if (it != Attributes.end())
-    {
-        FontSize *fontSize = dynamic_cast<FontSize *>(it->second);
-        if (fontSize != nullptr)
-        {
-            return fontSize->getFontSize();
-        }
-        else
-        {
-            std::cerr << "Error: font-size attribute is not of type FontSize." << std::endl;
-            return 16.0f;
-        }
-    }
-    // Default font size is 0.0
-    return 16.0f;
-}
-
-Gdiplus::FontFamily* SVGAttributes::getFontFamily()
-{
-    auto it = Attributes.find("font-family");
-    if (it != Attributes.end())
-    {
-        MyFontFamily *fontFamily = dynamic_cast<MyFontFamily *>(it->second);
-        if (fontFamily != nullptr)
-        {
-            return fontFamily->getFontFamily();
-        }
-        else
-        {
-            std::cerr << "Error: font-family attribute is not of type MyFontFamily." << std::endl;
-            return nullptr;
-        }
-    }
-    // Default font family is nullptr
-    return nullptr;
-}
-
-Gdiplus::FontStyle SVGAttributes::getFontStyle()
-{
-    auto it = Attributes.find("font-style");
-    if (it != Attributes.end())
-    {
-        MyFontStyle *fontStyle = dynamic_cast<MyFontStyle *>(it->second);
-        if (fontStyle != nullptr)
-        {
-            return fontStyle->getFontStyle();
-        }
-        else
-        {
-            std::cerr << "Error: font-style attribute is not of type MyFontStyle." << std::endl;
-            return Gdiplus::FontStyleRegular;
-        }
-    }
-    // Default font style is regular
-    return Gdiplus::FontStyleRegular;
-}
-
-std::string SVGAttributes::getTextAnchor()
-{
-    auto it = Attributes.find("text-anchor");
-    if (it != Attributes.end())
-    {
-        TextAnchor *textAnchor = dynamic_cast<TextAnchor *>(it->second);
-        if (textAnchor != nullptr)
-        {
-            return textAnchor->getTextAnchor();
-        }
-        else
-        {
-            std::cerr << "Error: text-anchor attribute is not of type TextAnchor." << std::endl;
-            return "start"; // Default value for text-anchor
-        }
-    }
-    // Default text-anchor is "start"
-    return "start";
-}
-
-void SVGAttributes::printAttributes()
-{
-	
-}
-
-void SVGAttributes::mergeAttributes(SVGAttributes &attributes)
-{
-	for (auto &attr : attributes.Attributes)
-	{
-		if (Attributes.find(attr.first) == Attributes.end())
-		{
-			Attributes[attr.first] = attr.second->clone();
-		}
-		else
-		{
-			Attributes[attr.first]->mergeData(attr.second);
-		}
-	}
-}
-
-Transform SVGAttributes::getTransform()
-{
-	auto it = Attributes.find("transform");
-	if (it != Attributes.end())
-	{
-		Transform *transform = dynamic_cast<Transform *>(it->second);
-
-		if (transform != nullptr)
-		{
-			return *transform;
-		}
-		else
-		{
-			std::cerr << "Error: transform attribute is not of type Transform." << std::endl;
-			return Transform();
-		}
-	}
-	// Default transform is identity matrix
-	return Transform();
+	// return an object with default value
+	return this->factory.createAttribute(name);
 }
 
 SVGAttributes::~SVGAttributes()
+{
+	for (auto &attr : Attributes)
+	{
+		delete attr.second;
+	}
+}
+
+AttributeFactory::AttributeFactory()
+{
+	registerAttribute("stroke", new Stroke(""));
+	registerAttribute("stroke-width", new StrokeWidth(""));
+	registerAttribute("fill", new Fill(""));
+	registerAttribute("fill-opacity", new FillOpacity(""));
+	registerAttribute("stroke-opacity", new StrokeOpacity(""));
+	registerAttribute("opacity", new Ocopacity(""));
+	registerAttribute("transform", new Transform(""));
+	registerAttribute("font-size", new FontSize(""));
+	registerAttribute("font-family", new MyFontFamily(""));
+	registerAttribute("font-style", new MyFontStyle(""));
+	registerAttribute("text-anchor", new TextAnchor(""));
+}
+
+void AttributeFactory::registerAttribute(const std::string &name, Attribute *attribute)
+{
+	Attributes[name] = attribute;
+}
+
+Attribute *AttributeFactory::createAttribute(const std::string &name, const std::string &value)
+{
+	auto it = Attributes.find(name);
+	if (it != Attributes.end())
+	{
+		return it->second->clone(value);
+	}
+	return nullptr;
+}
+
+Attribute* AttributeFactory::createAttribute(const std::string &name)
+{
+	auto it = Attributes.find(name);
+	if (it != Attributes.end())
+	{
+		return it->second->clone();
+	}
+	return nullptr;
+}
+
+
+Attribute *AttributeFactory::getAttribute(const std::string &name)
+{
+	auto it = Attributes.find(name);
+	if (it != Attributes.end())
+	{
+		return it->second;
+	}
+	return nullptr;
+}
+
+AttributeFactory::~AttributeFactory()
 {
 	for (auto &attr : Attributes)
 	{

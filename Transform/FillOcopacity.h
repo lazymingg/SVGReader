@@ -12,9 +12,10 @@ private:
 
 public:
     FillOpacity();
-    FillOpacity(std::string &getValue);
+    FillOpacity(std::string getValue);
     float getFillOpacity();
     Attribute* clone() override;
+    Attribute* clone(string value) override;
     void mergeData(Attribute* attribute) override;
     ~FillOpacity();
 };

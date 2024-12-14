@@ -33,6 +33,11 @@ Attribute *MyFontFamily::clone()
     return new MyFontFamily(*this);
 }
 
+Attribute *MyFontFamily::clone(string value)
+{
+    return new MyFontFamily(value);
+}
+
 // This function will be called if the attribute already exists
 void MyFontFamily::mergeData(Attribute *attribute)
 {

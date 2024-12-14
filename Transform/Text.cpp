@@ -21,6 +21,11 @@ Attribute* Text::clone()
     return new Text(*this);
 }
 
+Attribute *Text::clone(string value)
+{
+    return new Text(value);
+}
+
 void Text::mergeData(Attribute *attribute)
 {
     // donothings
