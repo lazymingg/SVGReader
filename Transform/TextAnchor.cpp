@@ -16,6 +16,11 @@ Attribute* TextAnchor::clone() {
     return new TextAnchor(*this);
 }
 
+Attribute *TextAnchor::clone(string value)
+{
+    return new TextAnchor(value);
+}
+
 // Merge data from another attribute
 void TextAnchor::mergeData(Attribute* attribute) {
     TextAnchor* textAnchor = dynamic_cast<TextAnchor*>(attribute);

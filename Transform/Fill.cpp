@@ -2,7 +2,10 @@
 #include "Attribute.h"
 
 // Constructor
-Fill::Fill() {}
+Fill::Fill()
+{
+    color = Gdiplus::Color();
+}
 
 // Constructor with value
 Fill::Fill(std::string value)
@@ -20,6 +23,11 @@ Gdiplus::Color Fill::getFill()
 Attribute* Fill::clone()
 {
     return new Fill(*this);
+}
+
+Attribute *Fill::clone(string value)
+{
+    return new Fill(value);
 }
 
 //this funtion will be call if the attribute is allready exist

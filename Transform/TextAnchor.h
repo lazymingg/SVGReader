@@ -15,6 +15,7 @@ public:
     TextAnchor(std::string value);
     std::string getTextAnchor();
     Attribute* clone() override;
+    Attribute* clone(string value) override;
     void mergeData(Attribute* attribute) override;
     ~TextAnchor();
 };

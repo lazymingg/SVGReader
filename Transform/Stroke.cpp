@@ -2,7 +2,10 @@
 #include "Fill.h"
 
 // Constructor
-Stroke::Stroke() {}
+Stroke::Stroke()
+{
+    color = Gdiplus::Color(0, 0, 0, 0);
+}
 
 // Constructor with value
 Stroke::Stroke(std::string value)
@@ -20,6 +23,11 @@ Gdiplus::Color Stroke::getStroke()
 Attribute* Stroke::clone()
 {
     return new Stroke(*this);
+}
+
+Attribute *Stroke::clone(string value)
+{
+    return new Stroke(value);
 }
 
 void Stroke::mergeData(Attribute *attribute)

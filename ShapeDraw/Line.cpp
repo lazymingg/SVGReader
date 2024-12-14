@@ -20,10 +20,9 @@ MyFigure::Line::Line(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
 
 void MyFigure::Line::printInfomation()
 {
-    cout << "Text" << endl;
     start.print();
     end.print();
-    attributes.printAttributes();
+    // attributes.printAttributes();
 }
 
 void MyFigure::Line::draw()
@@ -31,20 +30,22 @@ void MyFigure::Line::draw()
     // Draw the line
 
     // Get fill color and adjust opacity
-    Color strokeColor = attributes.getStrokeColor();
+    Color strokeColor = static_cast<Stroke *>(attributes.getAttributes("stroke"))->getStroke();
     // ajust opacity
-    int opacity = attributes.getStrokeOpacity() * 255;
+    int opacity = static_cast<StrokeOpacity *>(attributes.getAttributes("stroke-opacity"))->getStrokeOpacity() * strokeColor.GetA();
     strokeColor = Color(opacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
-    Pen pen(strokeColor, attributes.getStrokeWidth());
-    // print color
+    Pen pen(strokeColor, static_cast<StrokeWidth *>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
     graphics.SetSmoothingMode(SmoothingMode::SmoothingModeAntiAlias);
+    
     Gdiplus::Matrix a;
-    attributes.getTransform().transform(a);
+    
+    static_cast<Transform *>(attributes.getAttributes("transform"))->transform(a);
 
     Gdiplus::Matrix originalMatrix;
+
     graphics.GetTransform(&originalMatrix);
     graphics.SetTransform(&a);
-
     graphics.DrawLine(&pen, start.getX(), start.getY(), end.getX(), end.getY());
+    
     graphics.SetTransform(&originalMatrix);
 }

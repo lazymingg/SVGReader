@@ -60,6 +60,11 @@ Attribute* FontSize::clone()
     return new FontSize(*this);
 }
 
+Attribute *FontSize::clone(string value)
+{
+    return new FontSize(value);
+}
+
 // This function will be called if the attribute already exists
 void FontSize::mergeData(Attribute *attribute)
 {

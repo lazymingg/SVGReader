@@ -514,10 +514,11 @@ void MyFigure::Path::draw()
         std::cout << std::endl;
     }
 
-    cout << int(attributes.getFillColor().GetAlpha()) << ", " << int(attributes.getFillColor().GetRed()) << ", " << int(attributes.getFillColor().GetGreen()) << ", " << int(attributes.getFillColor().GetBlue()) << endl;
-    cout << int(attributes.getStrokeColor().GetAlpha()) << ", " << int(attributes.getStrokeColor().GetRed()) << ", " << int(attributes.getStrokeColor().GetGreen()) << ", " << int(attributes.getStrokeColor().GetBlue()) << endl;
-    Color fillColor = attributes.getFillColor();
-    int fillOpacity = attributes.getFillOpacity() * 255;
+    // cout << int(attributes.getFillColor().GetAlpha()) << ", " << int(attributes.getFillColor().GetRed()) << ", " << int(attributes.getFillColor().GetGreen()) << ", " << int(attributes.getFillColor().GetBlue()) << endl;
+    // cout << int(attributes.getStrokeColor().GetAlpha()) << ", " << int(attributes.getStrokeColor().GetRed()) << ", " << int(attributes.getStrokeColor().GetGreen()) << ", " << int(attributes.getStrokeColor().GetBlue()) << endl;
+    
+    Color fillColor = static_cast<Fill*>(attributes.getAttributes("fill"))->getFill();
+    int fillOpacity = static_cast<FillOpacity*>(attributes.getAttributes("fill-opacity"))->getFillOpacity() * fillColor.GetA();
     if (fillColor.GetA() == 0 && fillColor.GetR() == 0 && fillColor.GetG() == 0 && fillColor.GetB() == 0)
     {
         fillOpacity = 0;
@@ -525,16 +526,15 @@ void MyFigure::Path::draw()
     fillColor = Color(fillOpacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
     SolidBrush fillBrush(fillColor);
 
-    Color strokeColor = attributes.getStrokeColor();
-    int strokeOpacity = attributes.getStrokeOpacity() * 255;
-
+    Color strokeColor = static_cast<Stroke*>(attributes.getAttributes("stroke"))->getStroke();
+    int strokeOpacity = static_cast<StrokeOpacity*>(attributes.getAttributes("stroke-opacity"))->getStrokeOpacity() * strokeColor.GetA();
     strokeColor = Color(strokeOpacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
-    Pen strokePen(strokeColor, attributes.getStrokeWidth());
+    Pen strokePen(strokeColor, static_cast<StrokeWidth*>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
 
     graphics.SetSmoothingMode(SmoothingModeAntiAlias);
 
     Gdiplus::Matrix a;
-    attributes.getTransform().transform(a);
+    static_cast<Transform*>(attributes.getAttributes("transform"))->transform(a);
 
     Gdiplus::Matrix originalMatrix;
     graphics.GetTransform(&originalMatrix);

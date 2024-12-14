@@ -9,9 +9,13 @@ VOID OnPaint(HDC hdc, string filePath)
 {
     Graphics graphics(hdc);
     FigureDraw FigureDraw(graphics);
+<<<<<<< HEAD
     //FigureDraw.loadSVGFile("TestSVG/svg-03.svg");
     FigureDraw.loadSVGFile(filePath.c_str());
 
+=======
+    FigureDraw.loadSVGFile("testSVG/sample.svg");
+>>>>>>> bef18faa3148289eecbef31b94e2cedcb1c4a9d6
     FigureDraw.draw();
 }
 

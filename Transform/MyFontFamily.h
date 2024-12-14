@@ -16,6 +16,7 @@ public:
     MyFontFamily(std::string value);
     Gdiplus::FontFamily* getFontFamily();
     Attribute* clone() override;
+    Attribute* clone(string value) override;
     void mergeData(Attribute* attribute) override;
     ~MyFontFamily();
 };

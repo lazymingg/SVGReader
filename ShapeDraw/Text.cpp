@@ -15,33 +15,33 @@ MyFigure::Text::Text(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
 
 void MyFigure::Text::printInfomation()
 {
-    cout << "Text" << endl;
-    point.print();
+    // cout << "Text" << endl;
+    // point.print();
 
-    attributes.printAttributes();
+    // attributes.printAttributes();
 }
 void MyFigure::Text::draw()
 {
     // Get fill color and adjust opacity
-    Color fillColor = attributes.getFillColor();
-    int fillOpacity = static_cast<int>(attributes.getFillOpacity() * 255);
+    Color fillColor = static_cast<Fill *>(attributes.getAttributes("fill"))->getFill();
+    int fillOpacity = static_cast<int>(static_cast<FillOpacity *>(attributes.getAttributes("fill-opacity"))->getFillOpacity() * fillColor.GetA());
     fillColor = Color(fillOpacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
     SolidBrush brush(fillColor);
 
     // Get stroke color and adjust opacity
-    Color strokeColor = attributes.getStrokeColor();
-    int strokeOpacity = static_cast<int>(attributes.getStrokeOpacity() * 255);
+    Color strokeColor = static_cast<Stroke *>(attributes.getAttributes("stroke"))->getStroke();
+    int strokeOpacity = static_cast<int>(static_cast<StrokeOpacity *>(attributes.getAttributes("stroke-opacity"))->getStrokeOpacity() * strokeColor.GetA());
     if (fillColor.GetR() == 255 && fillColor.GetG() == 255 && fillColor.GetB() == 255)
     {
         strokeOpacity = 0;
     }
     strokeColor = Color(strokeOpacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
-    Pen pen(strokeColor, attributes.getStrokeWidth());
+    Pen pen(strokeColor, static_cast<StrokeWidth *>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
 
     // Get font size, family, and style
-    float fontSize = attributes.getFontSize();
-    Gdiplus::FontFamily *fontFamily = attributes.getFontFamily();
-    Gdiplus::FontStyle fontStyle = attributes.getFontStyle();
+    float fontSize = static_cast<FontSize *>(attributes.getAttributes("font-size"))->getFontSize();
+    Gdiplus::FontFamily *fontFamily = static_cast<MyFontFamily *>(attributes.getAttributes("font-family"))->getFontFamily();
+    Gdiplus::FontStyle fontStyle = static_cast<MyFontStyle *>(attributes.getAttributes("font-style"))->getFontStyle();
 
     // Set default values if attributes are not found
     bool defaultFontFamilyUsed = false;
@@ -65,7 +65,7 @@ void MyFigure::Text::draw()
     StringFormat format;
 
     // Handle text-anchor attribute
-    std::string textAnchor = attributes.getTextAnchor();
+    std::string textAnchor = static_cast<TextAnchor *>(attributes.getAttributes("text-anchor"))->getTextAnchor();
     if (textAnchor == "middle")
     {
         format.SetAlignment(StringAlignmentCenter); // Center alignment
@@ -85,7 +85,7 @@ void MyFigure::Text::draw()
     // Draw the text with the specified format
     GraphicsPath textToPath;
     Matrix transformMatrix;
-    attributes.getTransform().transform(transformMatrix);
+    static_cast<Transform *>(attributes.getAttributes("transform"))->transform(transformMatrix);
 
     Matrix originalMatrix;
     graphics.GetTransform(&originalMatrix);
