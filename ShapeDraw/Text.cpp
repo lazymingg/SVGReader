@@ -45,18 +45,29 @@ void MyFigure::Text::draw()
     if (fontFamily == nullptr)
     {
         fontFamily = new Gdiplus::FontFamily(L"Times New Roman");
-
         defaultFontFamilyUsed = true;
     }
 
     // Create the font
     Font fontDraw(fontFamily, fontSize, fontStyle, UnitPixel);
 
-    // Convert text content to wide string
-    std::wstring wideText(text.begin(), text.end());
+    // Get dx and dy values
+    std::vector<float> dxValues = static_cast<Dx *>(attributes.getAttributes("dx"))->getDxValues(text.length());
+    std::vector<float> dyValues = static_cast<Dy *>(attributes.getAttributes("dy"))->getDyValues(text.length());
 
-    // Adjust the Y coordinate to move the text up
-    PointF pointF(static_cast<float>(point.getX()), static_cast<float>(point.getY()));
+    // Ensure dx and dy vectors are correctly sized
+    if (dxValues.size() == 1)
+    {
+        dxValues.resize(text.length(), dxValues[0]);
+    }
+    if (dyValues.size() == 1)
+    {
+        dyValues.resize(text.length(), dyValues[0]);
+    }
+
+    // Initial position
+    float x = static_cast<float>(point.getX());
+    float y = static_cast<float>(point.getY());
 
     // Create a StringFormat object
     StringFormat format;
@@ -79,7 +90,7 @@ void MyFigure::Text::draw()
     // Set the vertical alignment to bottom
     format.SetLineAlignment(StringAlignmentFar);
 
-    // Draw the text with the specified format
+    // Draw each glyph individually
     GraphicsPath textToPath;
     Matrix transformMatrix;
     static_cast<Transform *>(attributes.getAttributes("transform"))->transform(transformMatrix);
@@ -88,10 +99,22 @@ void MyFigure::Text::draw()
     graphics.GetTransform(&originalMatrix);
     graphics.SetTransform(&transformMatrix);
 
-    textToPath.AddString(wideText.c_str(), static_cast<INT>(wideText.length()),
-                         fontFamily, fontStyle, fontSize, pointF, &format);
-    graphics.FillPath(brush, &textToPath);
-    graphics.DrawPath(pen, &textToPath);
+    for (size_t i = 0; i < text.length(); ++i)
+    {
+        // Update x and y positions based on dx and dy values
+        x += dxValues[i];
+        y += dyValues[i];
+        
+        PointF pointF(x, y);
+        std::wstring glyph(1, text[i]);
+
+        textToPath.Reset();
+        textToPath.AddString(glyph.c_str(), static_cast<INT>(glyph.length()),
+                             fontFamily, fontStyle, fontSize, pointF, &format);
+        graphics.FillPath(brush, &textToPath);
+        graphics.DrawPath(pen, &textToPath);
+
+    }
 
     // Restore the original transform
     graphics.SetTransform(&originalMatrix);

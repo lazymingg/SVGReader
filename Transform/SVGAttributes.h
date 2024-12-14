@@ -21,7 +21,8 @@
 #include "MyFontStyle.h"
 #include "Ocopacity.h"
 #include "TextAnchor.h"
-
+#include "Dx.h"
+#include "Dy.h"
 
 using namespace rapidxml;
 

@@ -72,6 +72,8 @@ AttributeFactory::AttributeFactory()
 	registerAttribute("font-family", new MyFontFamily());
 	registerAttribute("font-style", new MyFontStyle());
 	registerAttribute("text-anchor", new TextAnchor());
+	registerAttribute("dx", new Dx());
+	registerAttribute("dy", new Dy());
 }
 
 void AttributeFactory::registerAttribute(const std::string &name, Attribute *attribute)
