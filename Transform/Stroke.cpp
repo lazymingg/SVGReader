@@ -2,7 +2,10 @@
 #include "Fill.h"
 
 // Constructor
-Stroke::Stroke() {}
+Stroke::Stroke()
+{
+    color = Gdiplus::Color(0, 0, 0, 0);
+}
 
 // Constructor with value
 Stroke::Stroke(std::string value)

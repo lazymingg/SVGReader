@@ -2,7 +2,10 @@
 #include "Attribute.h"
 
 // Constructor
-Fill::Fill() {}
+Fill::Fill()
+{
+    color = Gdiplus::Color(0, 0, 0, 0);
+}
 
 // Constructor with value
 Fill::Fill(std::string value)

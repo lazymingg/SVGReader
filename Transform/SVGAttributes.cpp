@@ -11,6 +11,8 @@ SVGAttributes::SVGAttributes(xml_node<> *shapeNode)
 		{
 			cout << "invalid attribute: " << name << endl;
 		}
+		// add attribute to map
+		Attributes[name] = attribute;
     }
 }
 
@@ -34,6 +36,21 @@ Attribute *SVGAttributes::getAttributes(std::string name)
 	return this->factory.createAttribute(name);
 }
 
+void SVGAttributes::mergeAttributes(SVGAttributes &attributes)
+{
+	for (auto &attr : attributes.Attributes)
+	{
+		if (Attributes.find(attr.first) == Attributes.end())
+		{
+			Attributes[attr.first] = attr.second->clone();
+		}
+		else
+		{
+			Attributes[attr.first]->mergeData(attr.second);
+		}
+	}
+}
+
 SVGAttributes::~SVGAttributes()
 {
 	for (auto &attr : Attributes)
@@ -44,17 +61,17 @@ SVGAttributes::~SVGAttributes()
 
 AttributeFactory::AttributeFactory()
 {
-	registerAttribute("stroke", new Stroke(""));
-	registerAttribute("stroke-width", new StrokeWidth(""));
-	registerAttribute("fill", new Fill(""));
-	registerAttribute("fill-opacity", new FillOpacity(""));
-	registerAttribute("stroke-opacity", new StrokeOpacity(""));
-	registerAttribute("opacity", new Ocopacity(""));
-	registerAttribute("transform", new Transform(""));
-	registerAttribute("font-size", new FontSize(""));
-	registerAttribute("font-family", new MyFontFamily(""));
-	registerAttribute("font-style", new MyFontStyle(""));
-	registerAttribute("text-anchor", new TextAnchor(""));
+	registerAttribute("stroke", new Stroke());
+	registerAttribute("stroke-width", new StrokeWidth());
+	registerAttribute("fill", new Fill());
+	registerAttribute("fill-opacity", new FillOpacity());
+	registerAttribute("stroke-opacity", new StrokeOpacity());
+	registerAttribute("opacity", new Ocopacity());
+	registerAttribute("transform", new Transform());
+	registerAttribute("font-size", new FontSize());
+	registerAttribute("font-family", new MyFontFamily());
+	registerAttribute("font-style", new MyFontStyle());
+	registerAttribute("text-anchor", new TextAnchor());
 }
 
 void AttributeFactory::registerAttribute(const std::string &name, Attribute *attribute)
