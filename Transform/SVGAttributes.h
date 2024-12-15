@@ -23,6 +23,12 @@
 #include "TextAnchor.h"
 #include "Dx.h"
 #include "Dy.h"
+#include "X.h"
+#include "Y.h"
+#include "X1.h"
+#include "Y1.h"
+#include "X2.h"
+#include "Y2.h"
 
 using namespace rapidxml;
 
