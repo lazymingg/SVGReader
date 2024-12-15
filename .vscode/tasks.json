@@ -9,6 +9,7 @@
                 "-g",
                 "*.cpp",
                 "ShapeDraw/*.cpp",
+                "ShapeDraw/Path/*.cpp",
                 "Transform/*.cpp",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe",

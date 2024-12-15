@@ -9,6 +9,6 @@
 #include "Line.h"
 #include "Polyline.h"
 #include "Circle.h"
-#include "Path.h"
+#include "Path/Path.h"
 #include "Group.h"
 #endif

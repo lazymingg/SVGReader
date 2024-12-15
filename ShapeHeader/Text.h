@@ -3,7 +3,7 @@
 
 #include "Figure.h"
 #include "Point.h"
-#include "Path.h"
+#include "Path/Path.h"
 
 
 using namespace Gdiplus;
