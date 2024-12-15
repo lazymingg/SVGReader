@@ -14,6 +14,8 @@
 using namespace rapidxml;
 
 bool isDigit(const char &c);
+bool isCapitalizedAlpha(const char &c);
+bool isNotCapitalizedAlpha(const char &c);
 bool isAlpha(const char &c);
 float extractNumber(const string &data, int &i);
 

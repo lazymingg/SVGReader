@@ -1,13 +1,24 @@
 #include "../ShapeHeader/Figure.h"
+#include "Figure.h"
 
 bool isDigit(const char &c)
 {
     return c >= '0' && c <= '9';
 }
 
+bool isCapitalizedAlpha(const char &c)
+{
+    return c >= 'A' && c <= 'Z';
+}
+
+bool isNotCapitalizedAlpha(const char &c)
+{
+    return c >= 'a' && c <= 'z';
+}
+
 bool isAlpha(const char &c)
 {
-    return c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z';
+    return isCapitalizedAlpha(c) || isNotCapitalizedAlpha(c);
 }
 
 float extractNumber(const std::string &data, int &i)

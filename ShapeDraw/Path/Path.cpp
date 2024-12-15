@@ -1,17 +1,5 @@
 #include "../../ShapeHeader/Path/Path.h"
 
-float MyFigure::Path::CalculateVectorAngle(float ux, float uy, float vx, float vy)
-{
-    float ta = atan2(uy, ux);
-    float tb = atan2(vy, vx);
-
-    if (tb >= ta) {
-        return tb - ta;
-    }
-
-    return 2.0 * PI - (ta - tb);
-}
-
 MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure(rootNode, graphics)
 {
     if (!rootNode) return;
