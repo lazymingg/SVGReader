@@ -1,5 +1,4 @@
 #include "../../ShapeHeader/Path/EllipticalArcCurveSegment.h"
-#include "EllipticalArcCurveSegment.h"
 
 float EllipticalArcCurveSegment::CalculateVectorAngle(float ux, float uy, float vx, float vy)
 {
@@ -27,7 +26,7 @@ MyPoint::Point EllipticalArcCurveSegment::setSegment(const char &curCommand, con
         return start;
 
     if (radius.getX() == 0 || radius.getY() == 0)
-        segment.AddLine
+        value.AddLine
         (
             start.getX(), start.getY(),
             point1.getX(), point1.getY()
@@ -104,7 +103,7 @@ MyPoint::Point EllipticalArcCurveSegment::setSegment(const char &curCommand, con
                 t * (sinPhi * rX * sinTheta2 - cosPhi * rY * cosTheta2)
             };
 
-            segment.AddBezier
+            value.AddBezier
             (
                 start.getX(), start.getY(),
                 start.getX() + d1.getX(), start.getY() + d1.getY(),

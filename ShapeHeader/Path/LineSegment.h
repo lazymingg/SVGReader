@@ -7,21 +7,21 @@ class LineSegment : public Segment
 {
 public:
     MyPoint::Point setSegment(const char &curCommand, const std::string& data, int& index, MyPoint::Point start);
-    ~LineSegment() { segment.Reset(); }
+    ~LineSegment() { value.Reset(); }
 };
 
 class HorizontalLineSegment : public Segment
 {
 public:
     MyPoint::Point setSegment(const char &curCommand, const std::string& data, int& index, MyPoint::Point start);
-    ~HorizontalLineSegment() { segment.Reset(); }
+    ~HorizontalLineSegment() { value.Reset(); }
 };
 
 class VerticalLineSegment : public Segment
 {
 public:
     MyPoint::Point setSegment(const char &curCommand, const std::string& data, int& index, MyPoint::Point start);
-    ~VerticalLineSegment() { segment.Reset(); }
+    ~VerticalLineSegment() { value.Reset(); }
 };
 
 #endif

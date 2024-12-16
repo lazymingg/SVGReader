@@ -1,5 +1,4 @@
 #include "../../ShapeHeader/Path/Segment.h"
-#include "Segment.h"
 
 float Segment::toAbsoluteX(const char &curCommand, const std::string &data, int &index, MyPoint::Point start)
 {

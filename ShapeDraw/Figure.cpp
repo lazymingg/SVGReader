@@ -1,5 +1,4 @@
 #include "../ShapeHeader/Figure.h"
-#include "Figure.h"
 
 bool isDigit(const char &c)
 {

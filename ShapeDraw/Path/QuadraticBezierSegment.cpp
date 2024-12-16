@@ -17,7 +17,7 @@ MyPoint::Point QuadraticBezierSegment::setSegment(const char &curCommand, const 
         point2.getY() + 2.0f / 3 * (point1.getY() - point2.getY()),
     };
 
-    segment.AddBezier
+    value.AddBezier
     (
         start.getX(), start.getY(),
         control1.getX(), control1.getY(),
@@ -54,7 +54,7 @@ MyPoint::Point SmoothQuadraticBezierSegment::setSegment(const char &curCommand, 
         point2.getY() + 2.0f / 3 * (point1.getY() - point2.getY()),
     };
 
-    segment.AddBezier
+    value.AddBezier
     (
         start.getX(), start.getY(),
         control1.getX(), control1.getY(),

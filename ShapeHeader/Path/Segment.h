@@ -13,14 +13,14 @@
 class Segment
 {
 protected:
-    Gdiplus::GraphicsPath segment;
+    Gdiplus::GraphicsPath value;
 public:
     float toAbsoluteX(const char &curCommand, const std::string &data, int &index, MyPoint::Point start);
     float toAbsoluteY(const char &curCommand, const std::string &data, int &index, MyPoint::Point start);
     MyPoint::Point toAbsolute(const char &curCommand, const std::string &data, int &index, MyPoint::Point start);
 
-    Gdiplus::GraphicsPath* getSegment() { return &segment; }
-    virtual ~Segment() { segment.Reset(); }
+    Gdiplus::GraphicsPath& getSegment() { return value; }
+    virtual ~Segment() { value.Reset(); }
 };
 
 #endif

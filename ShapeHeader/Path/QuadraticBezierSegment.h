@@ -7,21 +7,21 @@ class QuadraticBezierSegment : public Segment
 {
 public:
     MyPoint::Point setSegment(const char &curCommand, const std::string& data, int& index, MyPoint::Point start, MyPoint::Point &point1, MyPoint::Point &point2);
-    ~QuadraticBezierSegment() { segment.Reset(); }
+    ~QuadraticBezierSegment() { value.Reset(); }
 };
 
 class SmoothQuadraticBezierSegment : public Segment
 {
 public:
     MyPoint::Point setSegment(const char &curCommand, const char &prevCommand, const std::string& data, int& index, MyPoint::Point start, MyPoint::Point &point1, MyPoint::Point &point2);
-    ~SmoothQuadraticBezierSegment() { segment.Reset(); }
+    ~SmoothQuadraticBezierSegment() { value.Reset(); }
 };
 
 class QuadraticBezierSegment_t : public Segment
 {
 public:
     MyPoint::Point setSegment(const char &prevCommand, const std::string& data, int& index, MyPoint::Point start, MyPoint::Point &point1, MyPoint::Point &point2);
-    ~QuadraticBezierSegment_t() { segment.Reset(); }
+    ~QuadraticBezierSegment_t() { value.Reset(); }
 };
 
 #endif

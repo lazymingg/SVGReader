@@ -5,9 +5,10 @@
 
 class EllipticalArcCurveSegment : public Segment
 {
+public:
     float CalculateVectorAngle(float ux, float uy, float vx, float vy);
     MyPoint::Point setSegment(const char &curCommand, const std::string& data, int& index, MyPoint::Point start, MyPoint::Point &point1);
-    virtual ~EllipticalArcCurveSegment() { segment.Reset(); }
+    virtual ~EllipticalArcCurveSegment() { value.Reset(); }
 };
 
 #endif

@@ -6,7 +6,7 @@ MyPoint::Point CubicBezierSegment::setSegment(const char &curCommand, const std:
     point2 = toAbsolute(curCommand, data, index, start);
     point3 = toAbsolute(curCommand, data, index, start);
 
-    segment.AddBezier
+    value.AddBezier
     (
         start.getX(), start.getY(), 
         point1.getX(), point1.getY(),
@@ -28,7 +28,7 @@ MyPoint::Point SmoothCubicBezierSegment::setSegment(const char &curCommand, cons
     point2 = toAbsolute(curCommand, data, index, start);
     point3 = toAbsolute(curCommand, data, index, start);
 
-    segment.AddBezier
+    value.AddBezier
     (
         start.getX(), start.getY(),
         point1.getX(), point1.getY(),
