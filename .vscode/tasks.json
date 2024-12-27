@@ -8,6 +8,7 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 "*.cpp",
+                "StringHandling/*.cpp",
                 "ShapeDraw/*.cpp",
                 "ShapeDraw/Path/*.cpp",
                 "Transform/*.cpp",
