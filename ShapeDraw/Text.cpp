@@ -6,11 +6,16 @@ using namespace rapidxml;
 
 MyFigure::Text::Text(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure(rootNode, graphics)
 {
-    string getX = rootNode->first_attribute("x")->value();
-    string getY = rootNode->first_attribute("y")->value();
     text = rootNode->value();
-    this->point.setX(stof(getX));
-    this->point.setY(stof(getY));
+    // float getX = static_cast<float>(static_cast<X*>(attributes.getAttributes("x"))->getX());
+    // float getY = static_cast<float>(static_cast<Y*>(attributes.getAttributes("y"))->getY());
+    //Use like before, rootNote->first_node("x")->value() to get the value of x
+    float getX = stof(rootNode->first_node("x")->value());
+    float getY = stof(rootNode->first_node("y")->value());
+
+
+    this->point.setX(getX);
+    this->point.setY(getY);
 }
 
 void MyFigure::Text::printInfomation()
