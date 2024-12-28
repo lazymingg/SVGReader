@@ -20,7 +20,7 @@ private:
 public:
     SVGParser(const string& filename);
     ~SVGParser();
-	xml_node<>* getRootNodeName(string nodeName);
+	xml_node<>* getRootNodeByName(string nodeName);
 	xml_node<>* getRootNode();
     void print();
 };

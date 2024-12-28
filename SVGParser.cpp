@@ -63,7 +63,7 @@ SVGParser::~SVGParser()
     }
 }
 
-xml_node<> *SVGParser::getRootNodeName(string nodeName)
+xml_node<> *SVGParser::getRootNodeByName(string nodeName)
 {
     xml_node<> *tempNode;
     tempNode = root_node->first_node(nodeName.c_str());
