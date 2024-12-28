@@ -8,7 +8,7 @@
 // Stroke class for handling stroke color attributes
 class Stroke : public Attribute
 {
-private:
+protected:
     Gdiplus::Color color;
 
 public:

@@ -4,6 +4,9 @@ using namespace Gdiplus;
 
 #pragma comment(lib, "Gdiplus.lib")
 
+// khởi tạo singleton của AttributeFactory
+AttributeFactory *AttributeFactory::instance = nullptr;
+
 VOID OnPaint(HDC hdc)
 {
     Graphics graphics(hdc);

@@ -4,9 +4,11 @@ SVGAttributes::SVGAttributes(xml_node<> *shapeNode)
 {
     for (xml_attribute<> *attr = shapeNode->first_attribute(); attr; attr = attr->next_attribute())
     {
+		// get instance of attribute factory
+		AttributeFactory *factory = AttributeFactory::getInstance();
         std::string name = attr->name();
         std::string value = attr->value();
-		Attribute *attribute = this->factory.createAttribute(name, value);
+		Attribute *attribute = factory->createAttribute(name, value);
 		if (attribute == nullptr)
 		{
 			cout << "invalid attribute: " << name << endl;
@@ -27,13 +29,15 @@ SVGAttributes::SVGAttributes(const SVGAttributes &attributes)
 
 Attribute *SVGAttributes::getAttributes(std::string name)
 {
+	// get instance of attribute factory
+	AttributeFactory *factory = AttributeFactory::getInstance();
 	auto it = Attributes.find(name);
 	if (it != Attributes.end())
 	{
 		return it->second;
 	}
 	// return an object with default value
-	return this->factory.createAttribute(name);
+	return factory->createAttribute(name);
 }
 
 void SVGAttributes::mergeAttributes(SVGAttributes &attributes)
@@ -74,6 +78,22 @@ AttributeFactory::AttributeFactory()
 	registerAttribute("text-anchor", new TextAnchor());
 	registerAttribute("dx", new Dx());
 	registerAttribute("dy", new Dy());
+	registerAttribute("x1", new X1());
+	registerAttribute("x2", new X2());
+	registerAttribute("y1", new Y1());
+	registerAttribute("y2", new Y2());
+	registerAttribute("id", new Id());
+	registerAttribute("offset", new OffSet());
+	registerAttribute("stop-color", new StopColor());
+}
+
+AttributeFactory *AttributeFactory::getInstance()
+{
+	if (instance == nullptr)
+	{
+		instance = new AttributeFactory();
+	}
+	return instance;
 }
 
 void AttributeFactory::registerAttribute(const std::string &name, Attribute *attribute)

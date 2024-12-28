@@ -23,16 +23,24 @@
 #include "TextAnchor.h"
 #include "Dx.h"
 #include "Dy.h"
-
+#include "X1.h"
+#include "X2.h"
+#include "Y1.h"
+#include "Y2.h"
+#include "Id.h"
+#include "OffSet.h"
+#include "StopColor.h"
 using namespace rapidxml;
 
-
+// singleton class for creating attributes
 class AttributeFactory
 {
 private:
+    static AttributeFactory* instance;
     std::map<std::string, Attribute*> Attributes;
-public:
     AttributeFactory();
+public:
+    static AttributeFactory* getInstance();
     void registerAttribute(const std::string &name, Attribute* attribute);
     Attribute* createAttribute(const std::string &name, const std::string &value);
     Attribute* createAttribute(const std::string &name);
@@ -43,9 +51,7 @@ public:
 class SVGAttributes
 {
 private:
-    std::map<std::string, Attribute*> Attributes;\
-    AttributeFactory factory;
-
+    std::map<std::string, Attribute*> Attributes;
 public:
     SVGAttributes(xml_node<> *shapeNode);
     SVGAttributes(const SVGAttributes &attributes);
