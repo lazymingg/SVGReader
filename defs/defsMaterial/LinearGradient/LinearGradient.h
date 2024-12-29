@@ -1,6 +1,6 @@
 #ifndef _LINEAR_GRADIENT_H_
 #define _LINEAR_GRADIENT_H_
-#include "../defsTag.h"
+#include "../DefsTag.h"
 #include "Stop/Stop.h"
 #include <vector>
 class LinearGradient : public DefsTag

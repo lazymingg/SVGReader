@@ -1,7 +1,7 @@
 #ifndef _STOP_H_
 #define _STOP_H_
-#include "../../../Transform/SVGAttributes.h"
-#include "../../../extendLib/rapid_xml/rapidxml.hpp"
+#include "../../../../Attributes/SVGAttributes.h"
+#include "../../../../extendLib/rapid_xml/rapidxml.hpp"
 class Stop
 {
 private:

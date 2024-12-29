@@ -10,3 +10,11 @@ Defs * Defs::getInstance()
     }
     return instance;
 }
+
+void Defs::read()
+{
+}
+
+void Defs::print()
+{
+}
