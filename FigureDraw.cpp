@@ -1,8 +1,36 @@
 #include "FigureDraw.h"
 #include <iostream>
 
-FigureDraw::FigureDraw(Graphics &graphics) : graphics(graphics) {}
+//FigureDraw::FigureDraw(Graphics &graphics) : graphics(graphics) {}
+FigureDraw::FigureDraw(Graphics &graphics):graphics(graphics), svgWidth(0), svgHeight(0), svgViewBox("") {}
 
+std::array<double, 4> FigureDraw::parseViewBox(const std::string &viewBoxStr)
+{
+    std::array<double, 4> viewBox = {0, 0, 0, 0}; // Giá trị mặc định là 0
+    std::stringstream ss(viewBoxStr);
+    for (int i = 0; i < 4; ++i)
+    {
+        std::string value;
+        if (std::getline(ss, value, ' '))
+        {
+            try
+            {
+                viewBox[i] = std::stod(value); // Chuyển đổi string thành double
+            }
+            catch (const std::invalid_argument &)
+            {
+                std::cerr << "Invalid value in viewBox string: " << value << std::endl;
+                viewBox[i] = 0; // Gán giá trị mặc định nếu không hợp lệ
+            }
+            catch (const std::out_of_range &)
+            {
+                std::cerr << "Value out of range in viewBox string: " << value << std::endl;
+                viewBox[i] = 0; // Gán giá trị mặc định nếu vượt quá giới hạn
+            }
+        }
+    }
+    return viewBox;
+}
 FigureDraw::~FigureDraw()
 {
     for (Figure *figure : figures)

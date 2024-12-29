@@ -9,6 +9,7 @@
 #include <objidl.h>
 #include <vector>
 #include "defs/Defs.h"
+#include <array>
 class FigureDraw
 {
 private:
