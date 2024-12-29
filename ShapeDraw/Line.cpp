@@ -27,6 +27,9 @@ void MyFigure::Line::printInfomation()
 
 void MyFigure::Line::draw()
 {
+    // Lấy giá trị `viewBox` scale từ `graphics`
+    Gdiplus::Matrix currentMatrix;
+    graphics.GetTransform(&currentMatrix);
     // Draw the line
 
     // Get fill color and adjust opacity
@@ -38,14 +41,12 @@ void MyFigure::Line::draw()
     graphics.SetSmoothingMode(SmoothingMode::SmoothingModeAntiAlias);
     
     Gdiplus::Matrix a;
-    
     static_cast<Transform *>(attributes.getAttributes("transform"))->transform(a);
-
-    Gdiplus::Matrix originalMatrix;
-
-    graphics.GetTransform(&originalMatrix);
-    graphics.SetTransform(&a);
+    graphics.MultiplyTransform(&a);
+    // Gdiplus::Matrix originalMatrix;
+    // graphics.GetTransform(&originalMatrix);
+    // graphics.SetTransform(&a);
     graphics.DrawLine(&pen, start.getX(), start.getY(), end.getX(), end.getY());
     
-    graphics.SetTransform(&originalMatrix);
+    graphics.SetTransform(&currentMatrix);
 }

@@ -22,6 +22,9 @@ void MyFigure::Text::printInfomation()
 }
 void MyFigure::Text::draw()
 {
+    // Lấy giá trị `viewBox` scale từ `graphics`
+    Gdiplus::Matrix currentMatrix;
+    graphics.GetTransform(&currentMatrix);
     // Get fill color and adjust opacity
     Color fillColor = static_cast<Fill *>(attributes.getAttributes("fill"))->getFill();
     int fillOpacity = static_cast<int>(static_cast<FillOpacity *>(attributes.getAttributes("fill-opacity"))->getFillOpacity() * fillColor.GetA());
@@ -94,10 +97,11 @@ void MyFigure::Text::draw()
     GraphicsPath textToPath;
     Matrix transformMatrix;
     static_cast<Transform *>(attributes.getAttributes("transform"))->transform(transformMatrix);
+    graphics.MultiplyTransform(&transformMatrix);
 
-    Matrix originalMatrix;
-    graphics.GetTransform(&originalMatrix);
-    graphics.SetTransform(&transformMatrix);
+    // Matrix originalMatrix;
+    // graphics.GetTransform(&originalMatrix);
+    // graphics.SetTransform(&transformMatrix);
 
     for (size_t i = 0; i < text.length(); ++i)
     {
@@ -117,7 +121,7 @@ void MyFigure::Text::draw()
     }
 
     // Restore the original transform
-    graphics.SetTransform(&originalMatrix);
+    graphics.SetTransform(&currentMatrix);
 
     // Clean up if default font family was used
     if (defaultFontFamilyUsed)

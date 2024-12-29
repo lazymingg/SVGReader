@@ -14,10 +14,14 @@ class FigureDraw
 private:
     Graphics &graphics;
     vector<Figure *> figures;
+    double svgWidth;            // Chiều rộng của SVG
+    double svgHeight;           // Chiều cao của SVG
+    string svgViewBox;     // Chuỗi viewBox của SVG
 public:
     FigureDraw(Graphics &graphics);
     ~FigureDraw();
     void loadSVGFile(const string& filename);
+    array<double, 4> parseViewBox(const std::string &viewBoxStr);
     void draw();
 };
 #endif
