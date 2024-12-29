@@ -8,7 +8,7 @@
 #include <gdiplus.h>
 #include <objidl.h>
 #include <vector>
-
+#include "defs/Defs.h"
 class FigureDraw
 {
 private:

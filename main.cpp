@@ -4,12 +4,29 @@ using namespace Gdiplus;
 
 #pragma comment(lib, "Gdiplus.lib")
 
+// khởi tạo singleton của AttributeFactory
+AttributeFactory *AttributeFactory::instance = nullptr;
+Defs *Defs::instance = nullptr;
 VOID OnPaint(HDC hdc)
 {
     Graphics graphics(hdc);
     FigureDraw FigureDraw(graphics);
+<<<<<<< HEAD
     FigureDraw.loadSVGFile("testSVG/svg-10.svg");
+=======
+    FigureDraw.loadSVGFile("testSVG/23127043_23127025_23127448_23127384_1.svg");
+>>>>>>> main
     FigureDraw.draw();
+    // test load defs
+    //get instance
+    Defs *defs = Defs::getInstance();
+    std::map<std::string, DefsTag *> defsMap = defs->getDefsMap();
+    for (auto &tag : defsMap)
+    {
+        std::cout << tag.first << std::endl;
+        cout << tag.second->toString() << endl;
+    }
+
 }
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);

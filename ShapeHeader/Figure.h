@@ -2,7 +2,7 @@
 #define _FIGURE_H_
 
 #include "../extendLib/rapid_xml/rapidxml.hpp"
-#include "../Transform/SVGAttributes.h"
+#include "../Attributes/SVGAttributes.h"
 #include "../StringHandling/StringHandling.h"
 #include <windows.h>
 #include <gdiplus.h>
