@@ -99,6 +99,7 @@ AttributeFactory::AttributeFactory()
 	registerAttribute("id", new Id());
 	registerAttribute("offset", new OffSet());
 	registerAttribute("stop-color", new StopColor());
+	registerAttribute("font-weight", new FontWeight());
 }
 
 AttributeFactory *AttributeFactory::getInstance()

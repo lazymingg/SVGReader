@@ -11,7 +11,7 @@ VOID OnPaint(HDC hdc)
 {
     Graphics graphics(hdc);
     FigureDraw FigureDraw(graphics);
-    FigureDraw.loadSVGFile("testSVG/svg-06.svg");
+    FigureDraw.loadSVGFile("testSVG/sample.svg");
     FigureDraw.draw();
     // test load defs
     //get instance

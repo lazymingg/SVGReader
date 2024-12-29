@@ -30,8 +30,9 @@ void MyFigure::Rectangle::printInfomation()
 
 void MyFigure::Rectangle::draw()
 {
-
-
+	// Lấy giá trị `viewBox` scale từ `graphics`
+    Gdiplus::Matrix currentMatrix;
+    graphics.GetTransform(&currentMatrix);
 	Color fillColor = static_cast<Fill *>(attributes.getAttributes("fill"))->getFill();
 	// ajust opacity
 	int opacity = static_cast<FillOpacity *>(attributes.getAttributes("fill-opacity"))->getFillOpacity() * fillColor.GetA();
@@ -50,16 +51,17 @@ void MyFigure::Rectangle::draw()
 	graphics.SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeAntiAlias);
 	Gdiplus::Matrix a;
 	static_cast<Transform *>(attributes.getAttributes("transform"))->transform(a);
+	graphics.MultiplyTransform(&a);
 
-	Gdiplus::Matrix originalMatrix;
-	graphics.GetTransform(&originalMatrix);
-	graphics.SetTransform(&a);
+	// Gdiplus::Matrix originalMatrix;
+	// graphics.GetTransform(&originalMatrix);
+	// graphics.SetTransform(&a);
 
 	// Draw the rectangle with the pen and brush
 	graphics.DrawRectangle(pen, point.getX(), point.getY(), width, height);
 	graphics.FillRectangle(brush, point.getX(), point.getY(), width, height);
 
-	graphics.SetTransform(&originalMatrix);
+	graphics.SetTransform(&currentMatrix);
 	delete pen;
 	delete brush;
 }

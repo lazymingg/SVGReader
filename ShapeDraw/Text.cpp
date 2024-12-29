@@ -30,6 +30,9 @@ void MyFigure::Text::printInfomation()
 
 void MyFigure::Text::draw()
 {
+    // Lấy giá trị `viewBox` scale từ `graphics`
+    Gdiplus::Matrix currentMatrix;
+    graphics.GetTransform(&currentMatrix);
     // Get fill color and adjust opacity
     Color fillColor = static_cast<Fill *>(attributes.getAttributes("fill"))->getFill();
     int fillOpacity = static_cast<int>(static_cast<FillOpacity *>(attributes.getAttributes("fill-opacity"))->getFillOpacity() * fillColor.GetA());
@@ -47,6 +50,11 @@ void MyFigure::Text::draw()
     float fontSize = static_cast<FontSize *>(attributes.getAttributes("font-size"))->getFontSize();
     Gdiplus::FontFamily *fontFamily = static_cast<MyFontFamily *>(attributes.getAttributes("font-family"))->getFontFamily();
     Gdiplus::FontStyle fontStyle = static_cast<MyFontStyle *>(attributes.getAttributes("font-style"))->getFontStyle();
+    // Get font weight
+    std::string fontWeightStr = static_cast<string>(static_cast<FontWeight *>(attributes.getAttributes("font-weight"))->getFontWeight());
+    if (fontWeightStr == "bold" || fontWeightStr == "bolder" || fontWeightStr == "700" || fontWeightStr == "800" || fontWeightStr == "900") {
+        fontStyle = static_cast<Gdiplus::FontStyle>(fontStyle | Gdiplus::FontStyleBold);
+    }
 
     // Set default values if attributes are not found
     bool defaultFontFamilyUsed = false;
@@ -69,6 +77,7 @@ void MyFigure::Text::draw()
     // Create a StringFormat object
     StringFormat format;
 
+    
     // Handle text-anchor attribute
     std::string textAnchor = static_cast<TextAnchor *>(attributes.getAttributes("text-anchor"))->getTextAnchor();
     if (textAnchor == "middle")
@@ -95,10 +104,11 @@ void MyFigure::Text::draw()
     GraphicsPath textToPath;
     Matrix transformMatrix;
     static_cast<Transform *>(attributes.getAttributes("transform"))->transform(transformMatrix);
+    graphics.MultiplyTransform(&transformMatrix);
 
-    Matrix originalMatrix;
-    graphics.GetTransform(&originalMatrix);
-    graphics.SetTransform(&transformMatrix);
+    // Matrix originalMatrix;
+    // graphics.GetTransform(&originalMatrix);
+    // graphics.SetTransform(&transformMatrix);
 
     textToPath.AddString(wideText.c_str(), static_cast<INT>(wideText.length()),
                          fontFamily, fontStyle, fontSize, pointF, &format);
@@ -107,7 +117,7 @@ void MyFigure::Text::draw()
     graphics.DrawPath(pen, &textToPath);
 
     // Restore the original transform
-    graphics.SetTransform(&originalMatrix);
+    graphics.SetTransform(&currentMatrix);
 
     // Clean up if default font family was used
     if (defaultFontFamilyUsed)

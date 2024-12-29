@@ -21,6 +21,10 @@ MyFigure::Ellipse::Ellipse(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : 
 
 void MyFigure::Ellipse::drawEllipse(Graphics &graphics)
 {
+
+    // Lấy giá trị `viewBox` scale từ `graphics`
+    Gdiplus::Matrix currentMatrix;
+    graphics.GetTransform(&currentMatrix);
     Color fillColor = static_cast<Fill*>(attributes.getAttributes("fill"))->getFill();
     int fillOpacity = static_cast<FillOpacity*>(attributes.getAttributes("fill-opacity"))->getFillOpacity() * fillColor.GetA();
 
@@ -40,15 +44,16 @@ void MyFigure::Ellipse::drawEllipse(Graphics &graphics)
     std::cout << "rx = " << rx << ", ry = " << ry << std::endl;
     Gdiplus::Matrix a;
     static_cast<Transform*>(attributes.getAttributes("transform"))->transform(a);
+    graphics.MultiplyTransform(&a);
 
-    Gdiplus::Matrix originalMatrix;
-    graphics.GetTransform(&originalMatrix);
-    graphics.SetTransform(&a);
+    // Gdiplus::Matrix originalMatrix;
+    // graphics.GetTransform(&originalMatrix);
+    // graphics.SetTransform(&a);
 
     graphics.FillEllipse(fillBrush, center.getX() - rx, center.getY() - ry, rx * 2, ry * 2);
     graphics.DrawEllipse(strokePen, center.getX() - rx, center.getY() - ry, rx * 2, ry * 2);
 
-    graphics.SetTransform(&originalMatrix);
+    graphics.SetTransform(&currentMatrix);
     delete fillBrush;
     delete strokePen;
 }
