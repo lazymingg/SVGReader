@@ -40,6 +40,9 @@ void MyFigure::Polygon::printInfomation()
 }
 void MyFigure::Polygon::draw()
 {
+    // Lấy giá trị `viewBox` scale từ `graphics`
+    Gdiplus::Matrix currentMatrix;
+    graphics.GetTransform(&currentMatrix);
     // Fill color
     Color fillColor = static_cast<Fill *>(attributes.getAttributes("fill"))->getFill();
     int fillOpacity = static_cast<FillOpacity *>(attributes.getAttributes("fill-opacity"))->getFillOpacity() * fillColor.GetA();
@@ -63,10 +66,11 @@ void MyFigure::Polygon::draw()
     // Apply transformation
     Gdiplus::Matrix transformMatrix;
     static_cast<Transform *>(attributes.getAttributes("transform"))->transform(transformMatrix);
+    graphics.MultiplyTransform(&transformMatrix);
 
-    Gdiplus::Matrix originalMatrix;
-    graphics.GetTransform(&originalMatrix);
-    graphics.SetTransform(&transformMatrix);
+    // Gdiplus::Matrix originalMatrix;
+    // graphics.GetTransform(&originalMatrix);
+    // graphics.SetTransform(&transformMatrix);
 
     // Draw filled polygon
     graphics.SetSmoothingMode(SmoothingMode::SmoothingModeAntiAlias);
@@ -77,7 +81,7 @@ void MyFigure::Polygon::draw()
     graphics.DrawPolygon(pen, pointArray.data(), pointArray.size());
 
     // Restore original matrix
-    graphics.SetTransform(&originalMatrix);
+    graphics.SetTransform(&currentMatrix);
     delete pen;
     delete brush;
 }

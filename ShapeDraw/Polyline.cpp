@@ -6,6 +6,7 @@ using namespace rapidxml;
 
 MyFigure::Polyline::Polyline(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure(rootNode, graphics)
 {
+
     // Đặt các điểm từ thuộc tính "points"
     string points = rootNode->first_attribute("points")->value();
     float x, y;
@@ -40,6 +41,9 @@ void MyFigure::Polyline::printInfomation()
 
 void MyFigure::Polyline::draw()
 {
+    // Lấy giá trị `viewBox` scale từ `graphics`
+    Gdiplus::Matrix currentMatrix;
+    graphics.GetTransform(&currentMatrix);
     // draw polygon here
     // draw fill polygon first
 
@@ -88,13 +92,14 @@ void MyFigure::Polyline::draw()
     graphics.SetSmoothingMode(SmoothingMode::SmoothingModeAntiAlias);
     Gdiplus::Matrix a;
     static_cast<Transform *>(attributes.getAttributes("transform"))->transform(a);
+    graphics.MultiplyTransform(&a);
 
-    Gdiplus::Matrix originalMatrix;
-    graphics.GetTransform(&originalMatrix);
-    graphics.SetTransform(&a);
+    // Gdiplus::Matrix originalMatrix;
+    // graphics.GetTransform(&originalMatrix);
+    // graphics.SetTransform(&a);
 
     graphics.DrawLines(pen, pointArray, numPoints);
-    graphics.SetTransform(&originalMatrix);
+    graphics.SetTransform(&currentMatrix);
 
     // free memory
     delete[] pointArray;
