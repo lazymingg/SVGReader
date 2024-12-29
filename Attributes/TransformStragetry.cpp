@@ -5,6 +5,10 @@ Translate::Translate(string str)
     size_t openBracket = str.find("(");
     size_t closeBracket = str.find(")");
     size_t comma = str.find(",");
+
+    //find " " if there is no comma
+    if (comma == string::npos) comma = str.find(" ");
+    
     if (comma == string::npos)
     {
         dx = stod(str.substr(openBracket + 1, closeBracket - openBracket - 1));

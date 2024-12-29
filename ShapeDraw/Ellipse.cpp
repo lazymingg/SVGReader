@@ -29,13 +29,13 @@ void MyFigure::Ellipse::drawEllipse(Graphics &graphics)
     //     fillOpacity = 0;
     // }
     fillColor = Color(fillOpacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
-    SolidBrush fillBrush(fillColor);
+    SolidBrush* fillBrush = new SolidBrush(fillColor);
 
     Color strokeColor = static_cast<Stroke*>(attributes.getAttributes("stroke"))->getStroke();
     int strokeOpacity = static_cast<StrokeOpacity*>(attributes.getAttributes("stroke-opacity"))->getStrokeOpacity() * strokeColor.GetA();
 
     strokeColor = Color(strokeOpacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
-    Pen strokePen(strokeColor, static_cast<StrokeWidth*>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
+    Pen* strokePen = new Pen(strokeColor, static_cast<StrokeWidth*>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
     
     std::cout << "rx = " << rx << ", ry = " << ry << std::endl;
     Gdiplus::Matrix a;
@@ -45,10 +45,12 @@ void MyFigure::Ellipse::drawEllipse(Graphics &graphics)
     graphics.GetTransform(&originalMatrix);
     graphics.SetTransform(&a);
 
-    graphics.FillEllipse(&fillBrush, center.getX() - rx, center.getY() - ry, rx * 2, ry * 2);
-    graphics.DrawEllipse(&strokePen, center.getX() - rx, center.getY() - ry, rx * 2, ry * 2);
+    graphics.FillEllipse(fillBrush, center.getX() - rx, center.getY() - ry, rx * 2, ry * 2);
+    graphics.DrawEllipse(strokePen, center.getX() - rx, center.getY() - ry, rx * 2, ry * 2);
 
     graphics.SetTransform(&originalMatrix);
+    delete fillBrush;
+    delete strokePen;
 }
 
 void MyFigure::Ellipse::draw()

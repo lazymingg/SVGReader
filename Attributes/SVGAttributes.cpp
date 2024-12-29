@@ -90,6 +90,8 @@ AttributeFactory::AttributeFactory()
 	registerAttribute("text-anchor", new TextAnchor());
 	registerAttribute("dx", new Dx());
 	registerAttribute("dy", new Dy());
+	registerAttribute("x", new X());
+	registerAttribute("y", new Y());
 	registerAttribute("x1", new X1());
 	registerAttribute("x2", new X2());
 	registerAttribute("y1", new Y1());
