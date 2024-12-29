@@ -11,21 +11,22 @@ StopColor::StopColor(std::string value)
 
 Gdiplus::Color StopColor::getStopColor()
 {
-    return Gdiplus::Color();
+    return color;
 }
 
 Attribute *StopColor::clone()
 {
-    return nullptr;
+    return new StopColor();
 }
 
 Attribute *StopColor::clone(std::string value)
 {
-    return nullptr;
+    return new StopColor(value);
 }
 
 void StopColor::mergeData(Attribute *attribute)
 {
+    //nothing
 }
 
 StopColor::~StopColor()

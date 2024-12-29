@@ -59,9 +59,9 @@ void FigureDraw::loadSVGFile(const std::string &filename)
         {
             figures.push_back(new MyFigure::Group(node, graphics));
         }
-        else if (element == "def")
+        else if (element == "defs")
         {
-            // implement here
+            Defs::getInstance()->setDefsNode(node);
         }
     }
 }

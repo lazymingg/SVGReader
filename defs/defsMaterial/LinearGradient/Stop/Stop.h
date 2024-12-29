@@ -9,8 +9,10 @@ private:
     SVGAttributes attributes;
 public:
     Stop(rapidxml::xml_node<> *stopNode);
-    float GetOffSet();
-    Gdiplus::Color GetStopColor();
+    // float GetOffSet();
+    // Gdiplus::Color GetStopColor();
+    SVGAttributes getAttributes();
+    // std::string toString();
     ~Stop();
 };
 

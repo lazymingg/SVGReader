@@ -2,7 +2,7 @@
 
 DefsTagFactory::DefsTagFactory()
 {
-    registerTag("linearGradient", new LinearGradient());
+    registerTag("linearGradient", new LinearGradient(nullptr));
 }
 
 DefsTag *DefsTagFactory::createTag(std::string tagName, rapidxml::xml_node<> *tagData)
@@ -15,3 +15,17 @@ DefsTag *DefsTagFactory::createTag(std::string tagName, rapidxml::xml_node<> *ta
     return tagMap[tagName]->clone(tagData);
 }
 
+void DefsTagFactory::registerTag(std::string tagName, DefsTag *tag)
+{
+    tagMap[tagName] = tag;
+}
+
+DefsTagFactory::~DefsTagFactory()
+{
+    for (auto &tag : tagMap)
+    {
+        delete tag.second;
+    }
+
+    tagMap.clear();
+}

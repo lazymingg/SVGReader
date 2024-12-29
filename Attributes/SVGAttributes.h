@@ -53,6 +53,7 @@ class SVGAttributes
 private:
     std::map<std::string, Attribute*> Attributes;
 public:
+    SVGAttributes();
     SVGAttributes(xml_node<> *shapeNode);
     SVGAttributes(const SVGAttributes &attributes);
     Attribute* getAttributes(std::string name);

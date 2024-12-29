@@ -13,9 +13,15 @@ class DefsTag
         rapidxml::xml_node<> *shapeNode;
         SVGAttributes attributes;
     public:
+        DefsTag() {}
         DefsTag(rapidxml::xml_node<> *constructorData) : shapeNode(constructorData), attributes(constructorData) {}
-        virtual DefsTag* clone() = 0;
+        // virtual DefsTag* clone() = 0;
         virtual DefsTag* clone(rapidxml::xml_node<> *constructorData) = 0;
+        SVGAttributes getAttributes()
+        {
+            return attributes;
+        }
+        virtual std::string toString() = 0;
         virtual ~DefsTag() {}
 };
 

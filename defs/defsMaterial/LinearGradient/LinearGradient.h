@@ -8,10 +8,13 @@ class LinearGradient : public DefsTag
     private:
         std::vector<Stop*> stops;
     public:
-        LinearGradient();
+        // LinearGradient();
         LinearGradient(rapidxml::xml_node<> *constructorData);
-        DefsTag* clone() override;
+        // DefsTag* clone() override;
         DefsTag* clone(rapidxml::xml_node<> *constructorData) override;
+        //get stop
+        std::string toString() override;
+        std::vector<Stop*> getStops();
         ~LinearGradient();
 };
 

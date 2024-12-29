@@ -1,7 +1,16 @@
 ﻿#include "SVGAttributes.h"
 
+SVGAttributes::SVGAttributes()
+{
+
+}
+
 SVGAttributes::SVGAttributes(xml_node<> *shapeNode)
 {
+	if (shapeNode == nullptr)
+	{
+		return;
+	}
     for (xml_attribute<> *attr = shapeNode->first_attribute(); attr; attr = attr->next_attribute())
     {
 		// get instance of attribute factory
@@ -13,9 +22,12 @@ SVGAttributes::SVGAttributes(xml_node<> *shapeNode)
 		{
 			cout << "invalid attribute: " << name << endl;
 		}
+		else
+		{
 		// add attribute to map
 		Attributes[name] = attribute;
-    }
+		}
+	}
 }
 
 SVGAttributes::SVGAttributes(const SVGAttributes &attributes)
