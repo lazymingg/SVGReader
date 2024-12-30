@@ -19,6 +19,11 @@ SVGAttributes Stop::getAttributes()
     return attributes;
 }
 
+void Stop::printOffSet()
+{
+    cout << "offset: " << static_cast<OffSet *>(attributes.getAttributes("offset"))->getOffSet() << endl;
+}
+
 Stop::~Stop()
 {
 }

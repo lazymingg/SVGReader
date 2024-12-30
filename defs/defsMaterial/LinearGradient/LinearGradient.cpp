@@ -19,7 +19,9 @@ LinearGradient::LinearGradient(rapidxml::xml_node<> *constructorData) : DefsTag(
     rapidxml::xml_node<> *stopNode = constructorData->first_node("stop");
     while (stopNode != nullptr)
     {
+        cout << "=======push stop" << endl;
         stops.push_back(new Stop(stopNode));
+        cout << "=======push stop done" << endl;
         stopNode = stopNode->next_sibling("stop");
     }
 }
@@ -40,11 +42,7 @@ std::string LinearGradient::toString()
     std::string result = "LinearGradient\n";
     for (auto &stop : stops)
     {
-        result += "Stop\n";
-        Attribute *offset = stop->getAttributes().getAttributes("offset");
-        Attribute *stopColor = stop->getAttributes().getAttributes("stop-color");
-        result += "offset: " + std::to_string(static_cast<OffSet *>(offset)->getOffSet()) + " ";
-        // result += "stop-color: " + static_cast<StopColor *>(stopColor)->getStopColor().ToString() + "\n";
+        stop->printOffSet();
     }
     return result;
 }
