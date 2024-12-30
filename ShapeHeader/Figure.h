@@ -4,6 +4,7 @@
 #include "../extendLib/rapid_xml/rapidxml.hpp"
 #include "../Attributes/SVGAttributes.h"
 #include "../StringHandling/StringHandling.h"
+#include "../PenRender/PenRender.h"
 #include <windows.h>
 #include <gdiplus.h>
 #include <objidl.h>
@@ -16,6 +17,7 @@ using namespace rapidxml;
 class Figure
 {
 protected:
+    PenRender penRender;
     xml_node<> *shapeNode;
     SVGAttributes attributes; // no default constructor must be initilized
     Gdiplus::Graphics &graphics;

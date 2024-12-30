@@ -1,15 +1,14 @@
 #include "PenRender.h"
 
-PenRender::PenRender(SVGAttributes attributes)
+PenRender::PenRender()
 {
-    this->attributes = attributes;
 }
 
 PenRender::~PenRender()
 {
 }
 
-Gdiplus::SolidBrush *PenRender::getSolidBrush()
+Gdiplus::SolidBrush *PenRender::getSolidBrush(SVGAttributes &attributes)
 {
     Gdiplus::Color fillColor = static_cast<Fill *>(attributes.getAttributes("fill"))->getFill();
     int fillOpacity = static_cast<FillOpacity *>(attributes.getAttributes("fill-opacity"))->getFillOpacity() * fillColor.GetA();
@@ -17,7 +16,7 @@ Gdiplus::SolidBrush *PenRender::getSolidBrush()
     return new Gdiplus::SolidBrush(fillColor);
 }
 
-Gdiplus::Pen *PenRender::getSolidPen()
+Gdiplus::Pen *PenRender::getSolidPen(SVGAttributes &attributes)
 {
     Gdiplus::Color strokeColor = static_cast<Stroke *>(attributes.getAttributes("stroke"))->getStroke();
     int strokeOpacity = static_cast<StrokeOpacity *>(attributes.getAttributes("stroke-opacity"))->getStrokeOpacity() * strokeColor.GetA();
@@ -25,14 +24,21 @@ Gdiplus::Pen *PenRender::getSolidPen()
     return new Gdiplus::Pen(strokeColor, static_cast<StrokeWidth *>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
 }
 
-Gdiplus::Pen *PenRender::getPenLinear(std::string ID)
+Gdiplus::Pen *PenRender::getPenLinear(std::string ID, SVGAttributes &attributes)
 {
-    // Take the data from the linear Gradient to create a pen
-
+    if (ID == "")
+    {
+        return nullptr;
+    }
     // Get the linearGradient by the ID
-    DefsTag *linearGradient = Defs::getInstance()->findLinearGradient(ID);
-    // Get the stops
-    std::vector<Stop *> stops = static_cast<LinearGradient *>(linearGradient)->getStops();
+    DefsTag *linearGradientTag = Defs::getInstance()->findLinearGradient(ID);
+    if (!linearGradientTag)
+    {
+        return nullptr;
+    }
+
+    LinearGradient *linearGradient = static_cast<LinearGradient *>(linearGradientTag);
+    std::vector<Stop *> stops = linearGradient->getStops();
     if (stops.size() == 0)
     {
         return nullptr;
@@ -46,8 +52,7 @@ Gdiplus::Pen *PenRender::getPenLinear(std::string ID)
     float y2 = static_cast<float>(static_cast<Y2 *>(attributes.getAttributes("y2"))->getValue());
 
     Gdiplus::PointF startPoint(x1, y1); // Gdiplus::PointF startPoint
-    Gdiplus::PointF endPoint(x2, y2); 
-    
+    Gdiplus::PointF endPoint(x2, y2);
 
     // Create a LinearGradientBrush
     Gdiplus::LinearGradientBrush *brush = new Gdiplus::LinearGradientBrush(startPoint, endPoint, Gdiplus::Color::Black, Gdiplus::Color::White);

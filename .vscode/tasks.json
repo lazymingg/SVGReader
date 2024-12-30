@@ -16,6 +16,7 @@
                 "Defs/DefsMaterial/*.cpp",
                 "Defs/DefsMaterial/LinearGradient/*.cpp",
                 "Defs/DefsMaterial/LinearGradient/Stop/*.cpp",
+                "PenRender/*.cpp",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe",
                 "-lgdiplus",

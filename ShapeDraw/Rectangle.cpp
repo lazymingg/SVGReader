@@ -32,20 +32,14 @@ void MyFigure::Rectangle::draw()
 	// Lấy giá trị `viewBox` scale từ `graphics`
     Gdiplus::Matrix currentMatrix;
     graphics.GetTransform(&currentMatrix);
-	Color fillColor = static_cast<Fill *>(attributes.getAttributes("fill"))->getFill();
-	// ajust opacity
-	int opacity = static_cast<FillOpacity *>(attributes.getAttributes("fill-opacity"))->getFillOpacity() * fillColor.GetA();
-	fillColor = Color(opacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
-	SolidBrush *brush= new SolidBrush(fillColor);
 
-	// draw stroke
-	// if (attributes.getStroke() != "none")
-	// {
-	Color strokeColor = static_cast<Stroke *>(attributes.getAttributes("stroke"))->getStroke();
-	// ajust opacity
-	opacity = static_cast<StrokeOpacity *>(attributes.getAttributes("stroke-opacity"))->getStrokeOpacity() * strokeColor.GetA();
-	strokeColor = Color(opacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
-	Pen *pen = new Pen(strokeColor, static_cast<StrokeWidth *>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
+	//Create brushes and pen by penRender
+	Brush *brush = penRender.getSolidBrush(attributes);
+	Pen *pen = penRender.getSolidPen(attributes);
+
+	bool isPenLinear = false;
+	Pen *penLinear = penRender.getPenLinear(static_cast<Fill *>(attributes.getAttributes("fill"))->getId(), attributes);
+	
 	// print color
 	graphics.SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeAntiAlias);
 	Gdiplus::Matrix a;
@@ -60,7 +54,14 @@ void MyFigure::Rectangle::draw()
 	graphics.DrawRectangle(pen, point.getX(), point.getY(), width, height);
 	graphics.FillRectangle(brush, point.getX(), point.getY(), width, height);
 
+	//Use penLinear
+	if (penLinear != nullptr)
+		graphics.DrawRectangle(penLinear, point.getX(), point.getY(), width, height);
+	
+
 	graphics.SetTransform(&currentMatrix);
 	delete pen;
 	delete brush;
+	if (penLinear != nullptr)
+		delete penLinear;
 }

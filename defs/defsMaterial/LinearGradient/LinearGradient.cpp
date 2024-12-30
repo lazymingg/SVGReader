@@ -54,7 +54,7 @@ std::string LinearGradient::getId()
     return static_cast<Id *>(attributes.getAttributes("id"))->getId();
 }
 
-std::vector<Stop *> LinearGradient::getStops()
+std::vector<Stop *> &LinearGradient::getStops()
 {
     return stops;
 }

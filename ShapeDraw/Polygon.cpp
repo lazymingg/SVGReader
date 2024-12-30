@@ -43,19 +43,9 @@ void MyFigure::Polygon::draw()
     // Lấy giá trị `viewBox` scale từ `graphics`
     Gdiplus::Matrix currentMatrix;
     graphics.GetTransform(&currentMatrix);
-    // Fill color
-    Color fillColor = static_cast<Fill *>(attributes.getAttributes("fill"))->getFill();
-    int fillOpacity = static_cast<FillOpacity *>(attributes.getAttributes("fill-opacity"))->getFillOpacity() * fillColor.GetA();
-
-    fillColor = Color(fillOpacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
-    SolidBrush *brush = new SolidBrush(fillColor);
-
-    // Stroke color
-    Color strokeColor = static_cast<Stroke *>(attributes.getAttributes("stroke"))->getStroke();
-    int strokeOpacity = static_cast<StrokeOpacity *>(attributes.getAttributes("stroke-opacity"))->getStrokeOpacity() * strokeColor.GetA();
-
-    strokeColor = Color(strokeOpacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
-    Pen *pen = new Pen(strokeColor, static_cast<StrokeWidth *>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
+    Brush *brush = penRender.getSolidBrush(attributes);
+    Pen *pen = penRender.getSolidPen(attributes);
+    Pen *penLinear = penRender.getPenLinear(static_cast<Fill *>(attributes.getAttributes("fill"))->getId(), attributes);
     // Prepare points
     std::vector<Point> pointArray(points.size());
     for (size_t i = 0; i < points.size(); i++)
@@ -79,9 +69,13 @@ void MyFigure::Polygon::draw()
     // Draw polygon outline
     cout << "Draw polygon";
     graphics.DrawPolygon(pen, pointArray.data(), pointArray.size());
+    if (penLinear != nullptr)
+        graphics.DrawPolygon(penLinear, pointArray.data(), pointArray.size());
 
     // Restore original matrix
     graphics.SetTransform(&currentMatrix);
     delete pen;
     delete brush;
+    if (penLinear != nullptr)
+        delete penLinear;
 }

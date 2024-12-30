@@ -15,7 +15,7 @@ class LinearGradient : public DefsTag
         //get stop
         std::string toString() override;
         std::string getId() override;
-        std::vector<Stop*> getStops();
+        std::vector<Stop*> &getStops();
         ~LinearGradient();
 };
 

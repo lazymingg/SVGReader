@@ -5,11 +5,17 @@
 Fill::Fill()
 {
     color = Gdiplus::Color();
+    id = "";
 }
 
 // Constructor with value
 Fill::Fill(std::string value)
 {
+    if (value.find("url") != std::string::npos)
+    {
+        id = value;
+    }
+    
     color = getColor(value);
 }
 
@@ -17,6 +23,11 @@ Fill::Fill(std::string value)
 Gdiplus::Color Fill::getFill()
 {
     return color;
+}
+
+std::string Fill::getId()
+{
+    return id;
 }
 
 // Clone method
