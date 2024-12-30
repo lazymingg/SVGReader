@@ -47,7 +47,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, PSTR cmdline, INT iCmdShow)
     // Khởi tạo GDI+
     GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
 
-    svgFile = "svg-01.svg";
+    svgFile = "testSVG/svg-01.svg";
     if (cmdline != nullptr && strlen(cmdline) > 0) svgFile = cmdline;
     cout << svgFile << endl;
 
