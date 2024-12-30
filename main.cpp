@@ -24,7 +24,7 @@ VOID OnPaint(HDC hdc)
         std::cout << tag.first << std::endl;
         for (auto &defsTag : tag.second)
         {
-            defsTag->toString();
+            std::cout << defsTag->toString() << std::endl;
         }
     }
 

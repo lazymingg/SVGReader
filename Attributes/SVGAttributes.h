@@ -56,6 +56,8 @@ public:
     SVGAttributes();
     SVGAttributes(xml_node<> *shapeNode);
     SVGAttributes(const SVGAttributes &attributes);
+    //operator = 
+    SVGAttributes &operator=(const SVGAttributes &attributes);
     Attribute* getAttributes(std::string name);
     void mergeAttributes(SVGAttributes &attributes);
     ~SVGAttributes();

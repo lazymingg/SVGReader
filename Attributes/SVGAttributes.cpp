@@ -30,6 +30,7 @@ SVGAttributes::SVGAttributes(xml_node<> *shapeNode)
 	}
 }
 
+
 SVGAttributes::SVGAttributes(const SVGAttributes &attributes)
 {
 	for (auto &attr : attributes.Attributes)
@@ -38,6 +39,23 @@ SVGAttributes::SVGAttributes(const SVGAttributes &attributes)
 	}
 }
 
+SVGAttributes &SVGAttributes::operator=(const SVGAttributes &attributes)
+{
+	if (this == &attributes)
+	{
+		return *this;
+	}
+	for (auto &attr : Attributes)
+	{
+		delete attr.second;
+	}
+	Attributes.clear();
+	for (auto &attr : attributes.Attributes)
+	{
+		Attributes[attr.first] = attr.second->clone();
+	}
+	return *this;
+}
 
 Attribute *SVGAttributes::getAttributes(std::string name)
 {
