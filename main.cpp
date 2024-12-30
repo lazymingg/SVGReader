@@ -7,6 +7,7 @@ using namespace Gdiplus;
 // khởi tạo singleton của AttributeFactory
 AttributeFactory *AttributeFactory::instance = nullptr;
 Defs *Defs::instance = nullptr;
+
 VOID OnPaint(HDC hdc)
 {
     Graphics graphics(hdc);
@@ -16,11 +17,15 @@ VOID OnPaint(HDC hdc)
     // test load defs
     //get instance
     Defs *defs = Defs::getInstance();
-    std::map<std::string, DefsTag *> defsMap = defs->getDefsMap();
+    //print defs
+    std::map<std::string, vector<DefsTag *>> defsMap = defs->getDefsMap();
     for (auto &tag : defsMap)
     {
         std::cout << tag.first << std::endl;
-        cout << tag.second->toString() << endl;
+        for (auto &defsTag : tag.second)
+        {
+            defsTag->toString();
+        }
     }
 
 }

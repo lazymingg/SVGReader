@@ -2,6 +2,7 @@
 
 OffSet::OffSet()
 {
+    this->offSet = 0.0f;
 }
 
 OffSet::OffSet(std::string value)
@@ -26,11 +27,13 @@ OffSet::OffSet(std::string value)
     {
         offSet = 0.0f;
     }
+
+    std::cout << "OffSet: " << offSet << std::endl;
 }
 
 float OffSet::getOffSet()
 {
-    return offSet;
+    return this->offSet;
 }
 
 Attribute *OffSet::clone()
