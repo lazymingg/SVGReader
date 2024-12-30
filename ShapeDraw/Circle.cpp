@@ -9,9 +9,8 @@ MyFigure::Circle::Circle(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : El
         return;
     }
     // Thiết lập bán kính cho Circle
-    rx = stod(rootNode->first_attribute("r")->value());
+    rx = ry = stod(rootNode->first_attribute("r")->value());
     cout << "Circle radius: " << rx << endl;
-    ry = rx;
 }
 
 void MyFigure::Circle::draw()
