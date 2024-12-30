@@ -90,5 +90,21 @@ void Dx::mergeData(Attribute* attribute)
     // Don't need to do anything because dx is a single attribute
 }
 
+string Dx::toString()
+{
+    int len = dxValues.size();
+    string s = "Dx values: ";
+    if (len == 0)
+        return s + "empty";
+        
+    for (int i = 0; i < len; ++i)
+    {
+        s += dxValues[i];
+        if (i != len - 1)
+            s += ", ";
+    }
+    return s;
+}
+
 // Destructor
 Dx::~Dx() {}

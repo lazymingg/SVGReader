@@ -57,5 +57,36 @@ void MyFontStyle::mergeData(Attribute *attribute)
     // Don't need to do anything because font style is a single attribute
 }
 
+string MyFontStyle::toString()
+{
+    string s = "Font style: ";
+    switch (fontStyle)
+    {
+    case 0:
+        s += "Regular";
+        break;
+    case 1:
+        s += "Bold";
+        break;
+    case 2: 
+        s += "Italic";
+        break;
+    case 3:
+        s += "Bold Italic";
+        break;
+    case 4:
+        s += "Underline";
+        break;
+    case 8:
+        s += "Strikeout";
+        break;
+    default:
+        s += "None";
+        break;
+    }
+
+    return s;
+}
+
 // Destructor
 MyFontStyle::~MyFontStyle() {}

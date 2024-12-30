@@ -18,6 +18,7 @@ public:
     Attribute* clone() override;
     Attribute* clone(string value) override;
     void mergeData(Attribute* attribute) override;
+    string toString() override;
     ~X2();
 };
 

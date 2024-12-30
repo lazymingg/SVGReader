@@ -36,5 +36,10 @@ void Fill::mergeData(Attribute *attribute)
     //don't need to do anything because fill is a single attribute
 }
 
+string Fill::toString()
+{
+    return "Fill color: (" + color.GetA() + ',' + color.GetR() + ',' + color.GetG() + ',' + color.GetB() + ')';
+}
+
 // Destructor
 Fill::~Fill() {}

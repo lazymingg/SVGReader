@@ -89,5 +89,21 @@ void Dy::mergeData(Attribute* attribute)
     // Don't need to do anything because dy is a single attribute
 }
 
+string Dy::toString()
+{
+    int len = dyValues.size();
+    string s = "Dy values: ";
+    if (len == 0)
+        return s + "empty";
+        
+    for (int i = 0; i < len; ++i)
+    {
+        s += dyValues[i];
+        if (i != len - 1)
+            s += ", ";
+    }
+    return s;
+}
+
 // Destructor
 Dy::~Dy() {}

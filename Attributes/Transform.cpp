@@ -112,3 +112,20 @@ void Transform::mergeData(Attribute *attribute)
         addStragetry(*transform);
     }
 }
+
+string Transform::toString()
+{
+    string s = "Transforms:\n";
+	int len = stragetry.size();
+
+	if (len == 0)
+		return s + "Empty";
+	for (int i = 0; i < len; ++i)
+	{
+		s += stragetry[i]->toString();
+		if (i != len - 1)
+			s += "; ";
+	}
+
+	return s;
+}

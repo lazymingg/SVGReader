@@ -24,8 +24,8 @@ SVGAttributes::SVGAttributes(xml_node<> *shapeNode)
 		}
 		else
 		{
-		// add attribute to map
-		Attributes[name] = attribute;
+			// add attribute to map
+			Attributes[name] = attribute;
 		}
 	}
 }

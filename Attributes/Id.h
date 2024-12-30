@@ -13,6 +13,7 @@ public:
     Attribute* clone(std::string value) override;
     Attribute* clone() override;
     void mergeData(Attribute* attribute) override;
+    string toString() override;
     ~Id();
 };
 

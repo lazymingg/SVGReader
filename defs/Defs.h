@@ -15,13 +15,13 @@ private:
     Defs();
     Defs(const Defs&) = delete;
     Defs& operator=(const Defs&) = delete;
-    std::map<std::string, DefsTag*> defsMap;
+    std::map<std::string, vector<DefsTag*>> defsMap;
     rapidxml::xml_node<> *defsNode;
 public:
     static Defs* getInstance();
     void setDefsNode(rapidxml::xml_node<> *defsNode);
-    DefsTag* getDefsTag(std::string tagName);
-    std::map<std::string, DefsTag*> getDefsMap();
+    vector<DefsTag*> getDefsTag(std::string tagName);
+    std::map<std::string, vector<DefsTag*>> getDefsMap();
     void printDefs();
     ~Defs();
 };

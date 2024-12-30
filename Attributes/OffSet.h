@@ -11,12 +11,11 @@ private:
 public:
     OffSet();
     OffSet(std::string value);
-    float getX();
-    float getY();
     float getOffSet();
     Attribute* clone() override;
     Attribute* clone(std::string value) override;
     void mergeData(Attribute* attribute) override;
+    string toString() override;
     ~OffSet();
 };
 #endif

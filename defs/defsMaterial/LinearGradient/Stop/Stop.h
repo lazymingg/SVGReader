@@ -6,13 +6,13 @@ class Stop
 {
 private:
     rapidxml::xml_node<> *stopNode;
-    SVGAttributes attributes;
 public:
+    SVGAttributes attributes;
     Stop(rapidxml::xml_node<> *stopNode);
     // float GetOffSet();
     // Gdiplus::Color GetStopColor();
     SVGAttributes getAttributes();
-    // std::string toString();
+    void printOffSet();
     ~Stop();
 };
 
