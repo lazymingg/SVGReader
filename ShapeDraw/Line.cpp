@@ -33,11 +33,8 @@ void MyFigure::Line::draw()
     // Draw the line
 
     // Get fill color and adjust opacity
-    Color strokeColor = static_cast<Stroke *>(attributes.getAttributes("stroke"))->getStroke();
-    // ajust opacity
-    int opacity = static_cast<StrokeOpacity *>(attributes.getAttributes("stroke-opacity"))->getStrokeOpacity() * strokeColor.GetA();
-    strokeColor = Color(opacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
-    Pen pen(strokeColor, static_cast<StrokeWidth *>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
+    Pen* pen = penRender.getSolidPen(attributes);
+    Pen* penLinear = penRender.getPenLinear(static_cast<Fill *>(attributes.getAttributes("fill"))->getId(), attributes);
     graphics.SetSmoothingMode(SmoothingMode::SmoothingModeAntiAlias);
     
     Gdiplus::Matrix a;
@@ -46,7 +43,12 @@ void MyFigure::Line::draw()
     // Gdiplus::Matrix originalMatrix;
     // graphics.GetTransform(&originalMatrix);
     // graphics.SetTransform(&a);
-    graphics.DrawLine(&pen, start.getX(), start.getY(), end.getX(), end.getY());
+    graphics.DrawLine(pen, start.getX(), start.getY(), end.getX(), end.getY());
+    if (penLinear != nullptr)
+        graphics.DrawLine(penLinear, start.getX(), start.getY(), end.getX(), end.getY());
     
     graphics.SetTransform(&currentMatrix);
+    delete pen;
+    if (penLinear != nullptr)
+        delete penLinear;
 }

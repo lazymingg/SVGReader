@@ -21,6 +21,8 @@
 #include "MyFontStyle.h"
 #include "Ocopacity.h"
 #include "TextAnchor.h"
+#include "X.h"
+#include "Y.h"
 #include "Dx.h"
 #include "Dy.h"
 #include "X.h"

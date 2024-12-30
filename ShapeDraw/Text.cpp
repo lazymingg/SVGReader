@@ -34,25 +34,17 @@ void MyFigure::Text::draw()
     Gdiplus::Matrix currentMatrix;
     graphics.GetTransform(&currentMatrix);
     // Get fill color and adjust opacity
-    Color fillColor = static_cast<Fill *>(attributes.getAttributes("fill"))->getFill();
-    int fillOpacity = static_cast<int>(static_cast<FillOpacity *>(attributes.getAttributes("fill-opacity"))->getFillOpacity() * fillColor.GetA());
-    fillColor = Color(fillOpacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
-    SolidBrush *brush = new SolidBrush(fillColor);
-
-    // Get stroke color and adjust opacity
-    Color strokeColor = static_cast<Stroke *>(attributes.getAttributes("stroke"))->getStroke();
-    int strokeOpacity = static_cast<int>(static_cast<StrokeOpacity *>(attributes.getAttributes("stroke-opacity"))->getStrokeOpacity() * strokeColor.GetA());
- 
-    strokeColor = Color(strokeOpacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
-    Pen* pen = new Pen(strokeColor, static_cast<StrokeWidth *>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
-
+    SolidBrush *brush = penRender.getSolidBrush(attributes);
+    Pen *pen = penRender.getSolidPen(attributes);
+    Pen *penLinear = penRender.getPenLinear(static_cast<Fill *>(attributes.getAttributes("fill"))->getId(), attributes);
     // Get font size, family, and style
     float fontSize = static_cast<FontSize *>(attributes.getAttributes("font-size"))->getFontSize();
     Gdiplus::FontFamily *fontFamily = static_cast<MyFontFamily *>(attributes.getAttributes("font-family"))->getFontFamily();
     Gdiplus::FontStyle fontStyle = static_cast<MyFontStyle *>(attributes.getAttributes("font-style"))->getFontStyle();
     // Get font weight
     std::string fontWeightStr = static_cast<string>(static_cast<FontWeight *>(attributes.getAttributes("font-weight"))->getFontWeight());
-    if (fontWeightStr == "bold" || fontWeightStr == "bolder" || fontWeightStr == "700" || fontWeightStr == "800" || fontWeightStr == "900") {
+    if (fontWeightStr == "bold" || fontWeightStr == "bolder" || fontWeightStr == "700" || fontWeightStr == "800" || fontWeightStr == "900")
+    {
         fontStyle = static_cast<Gdiplus::FontStyle>(fontStyle | Gdiplus::FontStyleBold);
     }
 
@@ -115,6 +107,9 @@ void MyFigure::Text::draw()
 
     graphics.FillPath(brush, &textToPath);
     graphics.DrawPath(pen, &textToPath);
+    // Use penLinear
+    if (penLinear != nullptr)
+        graphics.DrawPath(penLinear, &textToPath);
 
     // Restore the original transform
     graphics.SetTransform(&currentMatrix);
@@ -126,4 +121,6 @@ void MyFigure::Text::draw()
     }
     delete pen;
     delete brush;
+    if (penLinear != nullptr)
+        delete penLinear;
 }

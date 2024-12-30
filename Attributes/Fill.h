@@ -11,11 +11,13 @@ class Fill : public Attribute
 {
 private:
     Gdiplus::Color color;
+    std::string id;
     
 public:
     Fill();
     Fill(std::string value);
     Gdiplus::Color getFill();
+    std::string getId();
     Attribute* clone() override;
     Attribute* clone(string value) override;
     void mergeData(Attribute* attribute) override;

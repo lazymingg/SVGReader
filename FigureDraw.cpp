@@ -54,11 +54,7 @@ void FigureDraw::loadSVGFile(const std::string &filename)
     }
     else
     {
-<<<<<<< HEAD
-        svgWidth = 0; // Giá trị mặc định nếu không tìm thấy
-=======
         svgWidth = 300; // Giá trị mặc định nếu không tìm thấy
->>>>>>> 760fbedb998ea1c0329ef530163987ae912c75ba
     }
 
     if (rootNode->first_attribute("height"))
@@ -67,11 +63,7 @@ void FigureDraw::loadSVGFile(const std::string &filename)
     }
     else
     {
-<<<<<<< HEAD
-        svgHeight = 0; // Giá trị mặc định nếu không tìm thấy
-=======
         svgHeight = 150; // Giá trị mặc định nếu không tìm thấy
->>>>>>> 760fbedb998ea1c0329ef530163987ae912c75ba
     }
 
     // Đọc thuộc tính viewBox
@@ -144,33 +136,6 @@ void FigureDraw::loadSVGFile(const std::string &filename)
 
 void FigureDraw::draw()
 {
-<<<<<<< HEAD
-    if (svgViewBox.empty()) {
-        std::cerr << "No viewBox defined. Skipping scaling.\n";
-        return;
-    }
-
-    // Tách các giá trị từ viewBox
-    float viewBoxMinX = 0, viewBoxMinY = 0, viewBoxWidth = 0, viewBoxHeight = 0;
-    std::sscanf(svgViewBox.c_str(), "%f %f %f %f", &viewBoxMinX, &viewBoxMinY, &viewBoxWidth, &viewBoxHeight);
-
-    // Tính tỷ lệ scaleX và scaleY
-    float scaleX = svgWidth / viewBoxWidth;
-    float scaleY = svgHeight / viewBoxHeight;
-
-    // Chọn tỷ lệ nhỏ hơn để đảm bảo giữ nguyên tỷ lệ aspect ratio
-    float scale = std::min(scaleX, scaleY);
-
-    // Tính toán offset để căn giữa viewBox bên trong viewport (nếu cần)
-    float offsetX = (svgWidth - viewBoxWidth * scale) / 2;
-    float offsetY = (svgHeight - viewBoxHeight * scale) / 2;
-
-    // Thiết lập ma trận transform tổng quát
-    graphics.TranslateTransform(offsetX, offsetY);                  // Dịch chuyển căn giữa
-    graphics.ScaleTransform(scale, scale);                         // Thu nhỏ/phóng to theo tỷ lệ
-    graphics.TranslateTransform(-viewBoxMinX, -viewBoxMinY);       // Đặt gốc viewBox về (0, 0)
-
-=======
     if (!svgViewBox.empty()) {
     // Tách các giá trị từ viewBox
         float viewBoxMinX = 0, viewBoxMinY = 0, viewBoxWidth = 0, viewBoxHeight = 0;
@@ -193,7 +158,6 @@ void FigureDraw::draw()
         graphics.TranslateTransform(-viewBoxMinX, -viewBoxMinY);       // Đặt gốc viewBox về (0, 0)
     }
 
->>>>>>> 760fbedb998ea1c0329ef530163987ae912c75ba
     // Vẽ các hình
     for (Figure *figure : figures)
     {

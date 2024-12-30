@@ -27,13 +27,8 @@ void Defs::setDefsNode(rapidxml::xml_node<>* defsNode)
         if (tag != nullptr)
         {
             cout << " find 1 tag in def " << nodeName << endl;
-<<<<<<< HEAD
-            cout << " tag value " << nodeValue << endl;
-            defsMap[nodeName] = tag;
-=======
             // cout << " tag value " << nodeValue << endl;
             defsMap[nodeName].push_back(tag);
->>>>>>> 9f58e739bd1c7710911cdd5c0fae11f869a25df6
         }
         else
         {
@@ -56,6 +51,21 @@ vector<DefsTag*> Defs::getDefsTag(std::string tagName)
 std::map<std::string,vector<DefsTag*>> Defs::getDefsMap()
 {
     return defsMap;
+}
+
+DefsTag *Defs::findLinearGradient(std::string ID)
+{
+    if (defsMap.find("linearGradient") != defsMap.end())
+    {
+        for (auto &tag : defsMap["linearGradient"])
+        {
+            if (tag->getId() == ID)
+            {
+                return tag;
+            }
+        }
+    }
+    return nullptr;
 }
 
 void Defs::printDefs()

@@ -50,5 +50,11 @@ void FontWeight::mergeData(Attribute* attribute)
     // Don't need to do anything because font weight is a single attribute
 }
 
+std::string FontWeight::toString()
+{
+    //to String
+    return weight; 
+}
+
 // Destructor
 FontWeight::~FontWeight() {}

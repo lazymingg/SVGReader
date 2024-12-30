@@ -18,6 +18,7 @@ public:
     Attribute* clone() override;
     Attribute* clone(std::string value) override;
     void mergeData(Attribute* attribute) override;
+    std::string toString() override;
     ~FontWeight();
 };
 

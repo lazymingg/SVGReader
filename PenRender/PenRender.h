@@ -1,15 +1,19 @@
 #ifndef _PenRender_H_
 #define _PenRender_H_
 
+#include "../Attributes/SVGAttributes.h"
+#include "../defs/Defs.h"
+
 //this class will based on the SVGAttributes class
 class PenRender
 {
-private:
-    // SVGAttributes attributes;
 public:
-    //render the margin pen
-    //render the fill pen
-    
+    //Get a solidBrush, a solidPen and a pen from linearGradient
+    PenRender();
+    ~PenRender();
+    Gdiplus::SolidBrush *getSolidBrush(SVGAttributes &attributes);
+    Gdiplus::Pen *getSolidPen(SVGAttributes &attributes);
+    Gdiplus::Pen *getPenLinear(std::string ID, SVGAttributes &attributes);
 };
 
 #endif
