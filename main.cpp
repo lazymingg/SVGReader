@@ -13,8 +13,12 @@ VOID OnPaint(HDC hdc, string filePath)
 {
     Graphics graphics(hdc);
     FigureDraw FigureDraw(graphics);
+<<<<<<< HEAD
     ///FigureDraw.loadSVGFile("testSVG/sample.svg");
     FigureDraw.loadSVGFile(filePath.c_str());
+=======
+    FigureDraw.loadSVGFile("testSVG/sample.svg");
+>>>>>>> main
     FigureDraw.draw();
     // test load defs
     //get instance
@@ -52,7 +56,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, PSTR cmdline, INT iCmdShow)
     // Khởi tạo GDI+
     GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
 
-    svgFile = "testSVG/svg-01.svg";
+    svgFile = "testSVG/svg-02.svg";
     if (cmdline != nullptr && strlen(cmdline) > 0) svgFile = cmdline;
     cout << svgFile << endl;
 

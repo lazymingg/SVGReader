@@ -6,7 +6,9 @@
 #include <Windows.h>
 #include <gdiplus.h>
 #include <objidl.h>
-#include <string>
+#include "..\ShapeHeader\Point.h"
+#include "..\StringHandling\StringHandling.h"
+
 using namespace std;
 
 #define M_PI 3.14159265358979323846
@@ -51,6 +53,7 @@ class Rotate : public TransformStragetry
 {
 private:
     double angle;
+    MyPoint::Point point;
 
 public:
     Rotate(string str);

@@ -2,8 +2,15 @@
 
 MyFigure::Ellipse::Ellipse(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure(rootNode, graphics)
 {
-    center.setX(stof(rootNode->first_attribute("cx")->value()));
-    center.setY(stof(rootNode->first_attribute("cy")->value()));
+    if (!rootNode->first_attribute("cx"))
+        center.setX(0);
+    else
+        center.setX(stof(rootNode->first_attribute("cx")->value()));
+
+    if (!rootNode->first_attribute("cy"))
+        center.setY(0);
+    else
+        center.setY(stof(rootNode->first_attribute("cy")->value()));
 
     if (rootNode->first_attribute("rx") && rootNode->first_attribute("ry"))
     {
