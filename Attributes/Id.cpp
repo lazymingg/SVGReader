@@ -25,6 +25,11 @@ void Id::mergeData(Attribute *attribute)
     //nothing to do
 }
 
+string Id::toString()
+{
+    return "Id: " + id;
+}
+
 Id::~Id()
 {
     //nothing

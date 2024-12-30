@@ -22,6 +22,7 @@ public:
     virtual Attribute* clone(string value) = 0;
     virtual ~Attribute() = default;
     virtual void mergeData(Attribute* attribute) = 0;
+    virtual string toString() = 0;
 };
 
 

@@ -51,6 +51,11 @@ void OffSet::mergeData(Attribute *attribute)
     //nothing to do
 }
 
+string OffSet::toString()
+{
+    return "OffSet: " + to_string(offSet);
+}
+
 OffSet::~OffSet()
 {
 }

@@ -71,5 +71,10 @@ void FontSize::mergeData(Attribute *attribute)
     // Don't need to do anything because font size is a single attribute
 }
 
+string FontSize::toString()
+{
+    return "Fontsize: " + to_string(size);
+}
+
 // Destructor
 FontSize::~FontSize() {}

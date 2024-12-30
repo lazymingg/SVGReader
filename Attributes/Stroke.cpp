@@ -35,5 +35,10 @@ void Stroke::mergeData(Attribute *attribute)
     // do nothing
 }
 
+string Stroke::toString()
+{
+    return "Stroke color: " + color.GetA() + ',' + color.GetR() + ',' + color.GetG() + ',' + color.GetB() + ')';
+}
+
 // Destructor
 Stroke::~Stroke() {}

@@ -54,6 +54,7 @@ void MyFigure::Ellipse::drawEllipse(Graphics &graphics)
     graphics.DrawEllipse(strokePen, center.getX() - rx, center.getY() - ry, rx * 2, ry * 2);
 
     graphics.SetTransform(&currentMatrix);
+
     delete fillBrush;
     delete strokePen;
 }

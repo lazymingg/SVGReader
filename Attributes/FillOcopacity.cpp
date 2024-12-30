@@ -48,5 +48,10 @@ void FillOpacity::mergeData(Attribute *attribute)
     }
 }
 
+string FillOpacity::toString()
+{
+    return "Fill opacity: " + to_string(value);
+}
+
 // Destructor
 FillOpacity::~FillOpacity() {}

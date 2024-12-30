@@ -18,6 +18,7 @@ public:
 
     virtual TransformStragetry *clone() = 0;
     virtual void print() = 0;
+    virtual string toString() = 0;
 };
 
 class Translate : public TransformStragetry
@@ -30,6 +31,7 @@ public:
     void transform(Gdiplus::Matrix &matrix) override;
     TransformStragetry *clone() override;
     void print() override;
+    string toString() override;
 };
 
 class Scale : public TransformStragetry
@@ -42,6 +44,7 @@ public:
     void transform(Gdiplus::Matrix &matrix) override;
     TransformStragetry *clone() override;
     void print() override;
+    string toString() override;
 };
 
 class Rotate : public TransformStragetry
@@ -54,6 +57,7 @@ public:
     void transform(Gdiplus::Matrix &matrix) override;
     TransformStragetry *clone() override;
     void print() override;
+    string toString() override;
 };
 
 #endif
