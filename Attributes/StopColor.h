@@ -13,6 +13,7 @@ public:
     Attribute* clone() override;
     Attribute* clone(std::string value) override;
     void mergeData(Attribute* attribute) override;
+    string toString() override;
     ~StopColor();
 };
 

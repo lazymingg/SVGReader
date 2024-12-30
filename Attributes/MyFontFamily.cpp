@@ -44,6 +44,13 @@ void MyFontFamily::mergeData(Attribute *attribute)
     // Don't need to do anything because font family is a single attribute
 }
 
+string MyFontFamily::toString()
+{
+    WCHAR familyName[LF_FACESIZE];
+    fontFamily->GetFamilyName(familyName);
+    return "Font Family: ";
+}
+
 // Destructor
 MyFontFamily::~MyFontFamily()
 {

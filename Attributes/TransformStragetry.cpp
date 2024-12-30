@@ -32,6 +32,11 @@ void Translate::print()
     std::cout << "Translate: " << dx << " " << dy << std::endl;
 }
 
+string Translate::toString()
+{
+    return "Translate: " + to_string(dx) +  ", " + to_string(dy);
+}
+
 Scale::Scale(string str)
 {
     size_t openBracket = str.find("(");
@@ -61,6 +66,11 @@ void Scale::print()
     std::cout << "Scale: " << sx << " " << sy << std::endl;
 }
 
+string Scale::toString()
+{
+    return "Scale: " + to_string(sx) + ", " + to_string(sy);
+}
+
 Rotate::Rotate(string str)
 {
     size_t openBracket = str.find("(");
@@ -81,4 +91,9 @@ TransformStragetry *Rotate::clone()
 void Rotate::print()
 {
     std::cout << "Rotate: " << angle << std::endl;
+}
+
+string Rotate::toString()
+{
+    return "Rotate: (" + to_string(angle) + ")";
 }
