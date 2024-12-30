@@ -22,6 +22,7 @@ public:
     void setDefsNode(rapidxml::xml_node<> *defsNode);
     vector<DefsTag*> getDefsTag(std::string tagName);
     std::map<std::string, vector<DefsTag*>> getDefsMap();
+    DefsTag* findLinearGradient(std::string ID);
     void printDefs();
     ~Defs();
 };

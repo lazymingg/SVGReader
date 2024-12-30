@@ -53,6 +53,21 @@ std::map<std::string,vector<DefsTag*>> Defs::getDefsMap()
     return defsMap;
 }
 
+DefsTag *Defs::findLinearGradient(std::string ID)
+{
+    if (defsMap.find("linearGradient") != defsMap.end())
+    {
+        for (auto &tag : defsMap["linearGradient"])
+        {
+            if (tag->getId() == ID)
+            {
+                return tag;
+            }
+        }
+    }
+    return nullptr;
+}
+
 void Defs::printDefs()
 {
     for (auto &tag : defsMap)

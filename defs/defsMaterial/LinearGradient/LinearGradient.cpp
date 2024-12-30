@@ -48,6 +48,12 @@ std::string LinearGradient::toString()
     return result;
 }
 
+std::string LinearGradient::getId()
+{
+    //Get the ID from the attributes
+    return static_cast<Id *>(attributes.getAttributes("id"))->getId();
+}
+
 std::vector<Stop *> LinearGradient::getStops()
 {
     return stops;

@@ -14,6 +14,7 @@ class LinearGradient : public DefsTag
         DefsTag* clone(rapidxml::xml_node<> *constructorData) override;
         //get stop
         std::string toString() override;
+        std::string getId() override;
         std::vector<Stop*> getStops();
         ~LinearGradient();
 };
