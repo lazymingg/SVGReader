@@ -108,7 +108,7 @@ Rotate::Rotate(string str)
 
 void Rotate::transform(Gdiplus::Matrix &matrix)
 {
-    matrix.Rotate(angle);
+    matrix.RotateAt(angle, {point.getX(), point.getY()});
 }
 
 TransformStragetry *Rotate::clone()
