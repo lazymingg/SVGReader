@@ -66,5 +66,21 @@ void Y::mergeData(Attribute* attribute)
     // Don't need to do anything because y is a single attribute
 }
 
+string Y::toString()
+{
+    int len = yValues.size();
+    string s = "Y values: ";
+    if (len == 0)
+        return s + "empty";
+        
+    for (int i = 0; i < len; ++i)
+    {
+        s += yValues[i];
+        if (i != len - 1)
+            s += ", ";
+    }
+    return s;
+}
+
 // Destructor
 Y::~Y() {}

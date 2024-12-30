@@ -46,5 +46,10 @@ void X2::mergeData(Attribute* attribute)
     // Don't need to do anything because x2 is a single attribute
 }
 
+string X2::toString()
+{
+    return "X2: " + to_string(value);
+}
+
 // Destructor
 X2::~X2() {}

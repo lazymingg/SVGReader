@@ -66,5 +66,20 @@ void X::mergeData(Attribute* attribute)
     // Don't need to do anything because x is a single attribute
 }
 
+string X::toString()
+{
+    int len = xValues.size();
+    string s = "X values: ";
+    if (len == 0)
+        return s + "empty";
+        
+    for (int i = 0; i < len; ++i)
+    {
+        s += xValues[i];
+        if (i != len - 1)
+            s += ", ";
+    }
+    return s;}
+
 // Destructor
 X::~X() {}

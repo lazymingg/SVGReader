@@ -6,7 +6,9 @@
 #include <Windows.h>
 #include <gdiplus.h>
 #include <objidl.h>
-#include <string>
+#include "..\ShapeHeader\Point.h"
+#include "..\StringHandling\StringHandling.h"
+
 using namespace std;
 
 #define M_PI 3.14159265358979323846
@@ -18,6 +20,7 @@ public:
 
     virtual TransformStragetry *clone() = 0;
     virtual void print() = 0;
+    virtual string toString() = 0;
 };
 
 class Translate : public TransformStragetry
@@ -30,6 +33,7 @@ public:
     void transform(Gdiplus::Matrix &matrix) override;
     TransformStragetry *clone() override;
     void print() override;
+    string toString() override;
 };
 
 class Scale : public TransformStragetry
@@ -42,18 +46,21 @@ public:
     void transform(Gdiplus::Matrix &matrix) override;
     TransformStragetry *clone() override;
     void print() override;
+    string toString() override;
 };
 
 class Rotate : public TransformStragetry
 {
 private:
     double angle;
+    MyPoint::Point point;
 
 public:
     Rotate(string str);
     void transform(Gdiplus::Matrix &matrix) override;
     TransformStragetry *clone() override;
     void print() override;
+    string toString() override;
 };
 
 #endif

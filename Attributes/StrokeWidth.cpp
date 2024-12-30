@@ -28,6 +28,11 @@ void StrokeWidth::mergeData(Attribute *attribute)
     // do nothing
 }
 
+string StrokeWidth::toString()
+{
+    return "Stroke width: " + to_string(width);
+}
+
 Attribute *StrokeWidth::clone(string value)
 {
     return new StrokeWidth(value);

@@ -29,5 +29,10 @@ void TextAnchor::mergeData(Attribute* attribute) {
     }
 }
 
+string TextAnchor::toString()
+{
+    return "Text anchor: " + anchor;
+}
+
 // Destructor
 TextAnchor::~TextAnchor() {}

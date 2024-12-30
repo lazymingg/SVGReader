@@ -48,5 +48,10 @@ void StrokeOpacity::mergeData(Attribute *attribute)
     }
 }
 
+string StrokeOpacity::toString()
+{
+    return "Stroke Opacity: " + to_string(value);
+}
+
 // Destructor
 StrokeOpacity::~StrokeOpacity() {}

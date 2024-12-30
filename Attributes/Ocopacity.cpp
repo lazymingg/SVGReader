@@ -48,5 +48,10 @@ void Ocopacity::mergeData(Attribute *attribute)
     }
 }
 
+string Ocopacity::toString()
+{
+    return "Opacity: " + to_string(value);
+}
+
 // Destructor
 Ocopacity::~Ocopacity() {}

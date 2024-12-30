@@ -29,6 +29,11 @@ void StopColor::mergeData(Attribute *attribute)
     //nothing
 }
 
+string StopColor::toString()
+{
+    return "Stop color: " + color.GetA() + ',' + color.GetR() + ',' + color.GetG() + ',' + color.GetB() + ')';
+}
+
 StopColor::~StopColor()
 {
 }

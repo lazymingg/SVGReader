@@ -23,32 +23,37 @@ void Defs::setDefsNode(rapidxml::xml_node<>* defsNode)
         //using defsFactory to create tag
         DefsTagFactory defsFactory;
         DefsTag* tag = defsFactory.createTag(nodeName, childNode);
+        
         if (tag != nullptr)
         {
             cout << " find 1 tag in def " << nodeName << endl;
+<<<<<<< HEAD
             cout << " tag value " << nodeValue << endl;
             defsMap[nodeName] = tag;
+=======
+            // cout << " tag value " << nodeValue << endl;
+            defsMap[nodeName].push_back(tag);
+>>>>>>> 4534dd95f8ba05792504bc87df0fbb7afea6e574
         }
         else
         {
             std::cout << "invalid Defs: " << nodeName << std::endl;
         }
         childNode = childNode->next_sibling();
-
     }
 }
 
-DefsTag* Defs::getDefsTag(std::string tagName)
+vector<DefsTag*> Defs::getDefsTag(std::string tagName)
 {
     if (defsMap.find(tagName) == defsMap.end())
     {
         std::cout << "Tag not found: " << tagName << std::endl;
-        return nullptr;
+        return {};
     }
     return defsMap[tagName];
 }
 
-std::map<std::string,DefsTag*> Defs::getDefsMap()
+std::map<std::string,vector<DefsTag*>> Defs::getDefsMap()
 {
     return defsMap;
 }
@@ -65,11 +70,14 @@ Defs::~Defs()
 {
     for (auto &tag : defsMap)
     {
-        delete tag.second;
+        for (auto &tagItem : tag.second)
+        {
+            delete tagItem;
+        }
     }
-
     defsMap.clear();
     delete instance;
+    instance = nullptr;
 }
 
 Defs::Defs()
