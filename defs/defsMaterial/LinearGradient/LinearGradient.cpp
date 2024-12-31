@@ -37,7 +37,10 @@ DefsTag *LinearGradient::clone(rapidxml::xml_node<> *constructorData)
 std::string LinearGradient::toString()
 {
     // print all stops
-    std::string result = "LinearGradient\n";
+    std::string result = "=======LinearGradient\n";
+    // put all attrbute of the linearGradient
+    result += attributes.toString();
+
     for (auto &stop : stops)
     {
         SVGAttributes attr = stop->getAttributes();

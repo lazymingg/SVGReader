@@ -2,6 +2,7 @@
 
 StopColor::StopColor()
 {
+    color = Gdiplus::Color::Black;
 }
 
 StopColor::StopColor(std::string value)
@@ -16,7 +17,7 @@ Gdiplus::Color StopColor::getStopColor()
 
 Attribute *StopColor::clone()
 {
-    return new StopColor();
+    return new StopColor(*this);
 }
 
 Attribute *StopColor::clone(std::string value)

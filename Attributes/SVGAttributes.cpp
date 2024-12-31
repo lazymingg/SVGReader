@@ -85,6 +85,16 @@ void SVGAttributes::mergeAttributes(SVGAttributes &attributes)
 	}
 }
 
+string SVGAttributes::toString()
+{
+	string result = "";
+	for (auto &attr : Attributes)
+	{
+		result += attr.first + ": " + attr.second->toString() + "\n";
+	}
+	return result;
+}
+
 SVGAttributes::~SVGAttributes()
 {
 	for (auto &attr : Attributes)

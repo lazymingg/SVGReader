@@ -65,6 +65,7 @@ public:
     SVGAttributes &operator=(const SVGAttributes &attributes);
     Attribute* getAttributes(std::string name);
     void mergeAttributes(SVGAttributes &attributes);
+    string toString();
     ~SVGAttributes();
 };
 
