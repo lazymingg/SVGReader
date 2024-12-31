@@ -18,25 +18,14 @@ MyFigure::Polyline::Polyline(xml_node<> *rootNode, Gdiplus::Graphics &graphics) 
         y = extractNumber(points, i);
         this->points.push_back(MyPoint::Point(x, y));
     }
-    
-    // stringstream ss(points);
-    // string point;
-    // while (getline(ss, point, ' '))
-    // {
-    //     stringstream ssPoint(point);
-    //     string x, y;
-    //     getline(ssPoint, x, ',');
-    //     getline(ssPoint, y, ',');
-    //     this->points.push_back(MyPoint::Point(stof(x), stof(y)));
-    // }
 }
 
 void MyFigure::Polyline::printInfomation()
 {
-//     cout << "Polyline:" << endl;
-//     for (int i = 0; i < points.size(); i++)
-//         points[i].print();
-//     attributes.printAttributes();
+    //     cout << "Polyline:" << endl;
+    //     for (int i = 0; i < points.size(); i++)
+    //         points[i].print();
+    //     attributes.printAttributes();
 }
 
 void MyFigure::Polyline::draw()
@@ -67,7 +56,7 @@ void MyFigure::Polyline::draw()
     delete[] pointArray;
     // }
 
-    Pen* pen = penRender.getSolidPen(attributes);
+    Pen *pen = penRender.getSolidPen(attributes);
     LinearGradientManager *temp = penRender.getPenLinear(static_cast<Fill *>(attributes.getAttributes("fill"))->getId(), attributes);
     Gdiplus::Pen *penLinear = nullptr;
     if (temp != nullptr)
@@ -97,8 +86,30 @@ void MyFigure::Polyline::draw()
 
     // Use penLinear
     if (penLinear != nullptr)
-        graphics.DrawLines(penLinear, pointArray, numPoints);
-    
+    {
+        // Transform coordinates if gradientUnits is objectBoundingBox
+        if (!temp->getIsUserSpaceOnUse())
+        {
+            // Calculate the bounding box of the polyline
+            float minX = points[0].getX(), minY = points[0].getY();
+            float maxX = points[0].getX(), maxY = points[0].getY();
+            for (const auto &point : points)
+            {
+                if (point.getX() < minX)
+                    minX = point.getX();
+                if (point.getY() < minY)
+                    minY = point.getY();
+                if (point.getX() > maxX)
+                    maxX = point.getX();
+                if (point.getY() > maxY)
+                    maxY = point.getY();
+            }
+            Gdiplus::RectF bbox(minX, minY, maxX - minX, maxY - minY);
+            temp->transformCoordinates(bbox);
+        }
+        LinearGradientBrush *brushLinear = temp->getBrush();
+        graphics.FillPolygon(brushLinear, pointArray, numPoints);
+    }
     graphics.SetTransform(&currentMatrix);
 
     // free memory

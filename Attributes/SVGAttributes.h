@@ -35,6 +35,8 @@
 #include "OffSet.h"
 #include "StopColor.h"
 #include "FontWeight.h"
+#include "GradientUnits.h"
+#include "SpreadMethod.h"
 using namespace rapidxml;
 
 // singleton class for creating attributes

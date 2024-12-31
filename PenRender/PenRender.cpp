@@ -54,21 +54,6 @@ LinearGradientManager *PenRender::getPenLinear(std::string ID, SVGAttributes &at
     Gdiplus::PointF startPoint(x1, y1); // Gdiplus::PointF startPoint
     Gdiplus::PointF endPoint(x2, y2);
 
-    // // Create a LinearGradientBrush
-    // Gdiplus::LinearGradientBrush *brush = new Gdiplus::LinearGradientBrush(startPoint, endPoint, Gdiplus::Color::Black, Gdiplus::Color::White);
-
-    // // Set the gradient stops directly
-    // for (size_t i = 0; i < stops.size(); ++i)
-    // {
-    //     float offset = static_cast<OffSet *>(stops[i]->getAttributes().getAttributes("offset"))->getOffSet();
-    //     Gdiplus::Color color = static_cast<StopColor *>(stops[i]->getAttributes().getAttributes("stop-color"))->getStopColor();
-    //     brush->SetInterpolationColors(&color, &offset, 1);
-    // }
-
-    // // Create a Pen using the LinearGradientBrush
-    // Gdiplus::Pen *pen = new Gdiplus::Pen(brush, static_cast<StrokeWidth *>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
-
-    // return pen;
     // Create the LinearGradientBrush
     Gdiplus::LinearGradientBrush *brush = new Gdiplus::LinearGradientBrush(startPoint, endPoint, Gdiplus::Color::Black, Gdiplus::Color::White);
 
@@ -92,12 +77,11 @@ LinearGradientManager *PenRender::getPenLinear(std::string ID, SVGAttributes &at
         cout << "Color: " << int(colors[i].GetR()) << ", " << int(colors[i].GetG()) << ", " << int(colors[i].GetB()) << ", " << int(colors[i].GetA()) << " - Offset: " << offsets[i] << endl;
     }
 
-    // Convert to GDI+ compatible arrays
-    // brush->SetInterpolationColors(colors.data(), offsets.data(), colors.size());
-
     // Get the stroke width
     float strokeWidth = static_cast<StrokeWidth *>(attributes.getAttributes("stroke-width"))->getStrokeWidth();
+    std::string gradientUnits = static_cast<GradientUnits *>(attributesLinear.getAttributes("gradientUnits"))->getUnits();
+    std::string spreadMethod = static_cast<SpreadMethod *>(attributesLinear.getAttributes("spreadMethod"))->getMethod();
 
     // Create the LinearGradientManager
-    return new LinearGradientManager(startPoint, endPoint, colors, offsets, strokeWidth);
+    return new LinearGradientManager(startPoint, endPoint, colors, offsets, strokeWidth, gradientUnits, spreadMethod);
 }

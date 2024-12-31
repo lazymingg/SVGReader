@@ -33,7 +33,7 @@ void MyFigure::Line::draw()
     // Draw the line
 
     // Get fill color and adjust opacity
-    Pen* pen = penRender.getSolidPen(attributes);
+    Pen *pen = penRender.getSolidPen(attributes);
     LinearGradientManager *temp = penRender.getPenLinear(static_cast<Fill *>(attributes.getAttributes("fill"))->getId(), attributes);
     Gdiplus::Pen *penLinear = nullptr;
     if (temp != nullptr)
@@ -41,17 +41,32 @@ void MyFigure::Line::draw()
         penLinear = temp->getPen();
     }
     graphics.SetSmoothingMode(SmoothingMode::SmoothingModeAntiAlias);
-    
+
     Gdiplus::Matrix a;
     static_cast<Transform *>(attributes.getAttributes("transform"))->transform(a);
     graphics.MultiplyTransform(&a);
-    // Gdiplus::Matrix originalMatrix;
-    // graphics.GetTransform(&originalMatrix);
-    // graphics.SetTransform(&a);
+
     graphics.DrawLine(pen, start.getX(), start.getY(), end.getX(), end.getY());
+
+    // Use penLinear
     if (penLinear != nullptr)
+    {
+        // Transform coordinates if gradientUnits is objectBoundingBox
+        if (!temp->getIsUserSpaceOnUse())
+        {
+            // Retrieve the bounding box of the line
+            float minX = min(start.getX(), end.getX());
+            float minY = min(start.getY(), end.getY());
+            float maxX = max(start.getX(), end.getX());
+            float maxY = max(start.getY(), end.getY());
+            Gdiplus::RectF bbox(minX, minY, maxX - minX, maxY - minY);
+            temp->transformCoordinates(bbox);
+        }
+        delete penLinear;
+        penLinear = temp->getPen();
         graphics.DrawLine(penLinear, start.getX(), start.getY(), end.getX(), end.getY());
-    
+    }
+
     graphics.SetTransform(&currentMatrix);
     delete pen;
     if (penLinear != nullptr)

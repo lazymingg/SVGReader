@@ -128,6 +128,8 @@ AttributeFactory::AttributeFactory()
 	registerAttribute("offset", new OffSet());
 	registerAttribute("stop-color", new StopColor());
 	registerAttribute("font-weight", new FontWeight());
+	registerAttribute("gradientUnits", new GradientUnits());
+	registerAttribute("spreadMethod", new SpreadMethod());
 }
 
 AttributeFactory *AttributeFactory::getInstance()

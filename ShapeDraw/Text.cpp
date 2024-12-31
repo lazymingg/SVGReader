@@ -7,14 +7,14 @@ using namespace rapidxml;
 MyFigure::Text::Text(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure(rootNode, graphics)
 {
     text = rootNode->value();
-    xValues = static_cast<vector<float>>(static_cast<X*>(attributes.getAttributes("x"))->getXValues(1));
-    yValues = static_cast<vector<float>>(static_cast<Y*>(attributes.getAttributes("y"))->getYValues(1));
+    xValues = static_cast<vector<float>>(static_cast<X *>(attributes.getAttributes("x"))->getXValues(1));
+    yValues = static_cast<vector<float>>(static_cast<Y *>(attributes.getAttributes("y"))->getYValues(1));
 
     this->point.setX(xValues[0]);
     this->point.setY(yValues[0]);
 
-    vector <float> dxValues = static_cast<vector<float>> (static_cast<Dx *>(attributes.getAttributes("dx"))->getDxValues(1));
-    vector <float> dyValues = static_cast<vector<float>> (static_cast<Dy *>(attributes.getAttributes("dy"))->getDyValues(1));
+    vector<float> dxValues = static_cast<vector<float>>(static_cast<Dx *>(attributes.getAttributes("dx"))->getDxValues(1));
+    vector<float> dyValues = static_cast<vector<float>>(static_cast<Dy *>(attributes.getAttributes("dy"))->getDyValues(1));
 
     dx = dxValues[0];
     dy = dyValues[0];
@@ -74,7 +74,6 @@ void MyFigure::Text::draw()
     // Create a StringFormat object
     StringFormat format;
 
-    
     // Handle text-anchor attribute
     std::string textAnchor = static_cast<TextAnchor *>(attributes.getAttributes("text-anchor"))->getTextAnchor();
     if (textAnchor == "middle")
@@ -114,7 +113,9 @@ void MyFigure::Text::draw()
     graphics.DrawPath(pen, &textToPath);
     // Use penLinear
     if (penLinear != nullptr)
+    {
         graphics.DrawPath(penLinear, &textToPath);
+    }
 
     // Restore the original transform
     graphics.SetTransform(&currentMatrix);

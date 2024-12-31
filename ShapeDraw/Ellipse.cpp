@@ -47,18 +47,19 @@ void MyFigure::Ellipse::drawEllipse(Graphics &graphics)
     static_cast<Transform *>(attributes.getAttributes("transform"))->transform(a);
     graphics.MultiplyTransform(&a);
 
-    // Gdiplus::Matrix originalMatrix;
-    // graphics.GetTransform(&originalMatrix);
-    // graphics.SetTransform(&a);
-
     graphics.FillEllipse(fillBrush, center.getX() - rx, center.getY() - ry, rx * 2, ry * 2);
     graphics.DrawEllipse(strokePen, center.getX() - rx, center.getY() - ry, rx * 2, ry * 2);
 
     if (penLinear != nullptr)
     {
         temp->printColor();
-        Gdiplus::LinearGradientBrush *brush = temp->getBrush();
+        
         Gdiplus::RectF rect(center.getX() - rx, center.getY() - ry, rx * 2, ry * 2);
+        // Transform coordinates if gradientUnits is objectBoundingBox
+        if (!temp->getIsUserSpaceOnUse())
+            temp->transformCoordinates(rect);
+
+        Gdiplus::LinearGradientBrush *brush = temp->getBrush();
         graphics.FillEllipse(brush, rect);
     }
 

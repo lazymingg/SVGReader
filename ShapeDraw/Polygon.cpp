@@ -17,16 +17,6 @@ MyFigure::Polygon::Polygon(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : 
         y = extractNumber(points, i);
         this->points.push_back(MyPoint::Point(x, y));
     }
-
-    // stringstream ss(points);
-    // string point;
-    // while (getline(ss, point, ' '))
-    // {
-    //     stringstream ssPoint(point);
-    //     string x, y;
-    //     getline(ssPoint, x, ',');
-    //     getline(ssPoint, y, ',');
-    // }
 }
 
 void MyFigure::Polygon::printInfomation()
@@ -63,10 +53,6 @@ void MyFigure::Polygon::draw()
     static_cast<Transform *>(attributes.getAttributes("transform"))->transform(transformMatrix);
     graphics.MultiplyTransform(&transformMatrix);
 
-    // Gdiplus::Matrix originalMatrix;
-    // graphics.GetTransform(&originalMatrix);
-    // graphics.SetTransform(&transformMatrix);
-
     // Draw filled polygon
     graphics.SetSmoothingMode(SmoothingMode::SmoothingModeAntiAlias);
     graphics.FillPolygon(brush, pointArray.data(), pointArray.size());
@@ -75,7 +61,29 @@ void MyFigure::Polygon::draw()
     cout << "Draw polygon";
     graphics.DrawPolygon(pen, pointArray.data(), pointArray.size());
     if (penLinear != nullptr)
-        graphics.DrawPolygon(penLinear, pointArray.data(), pointArray.size());
+    {
+        if (!temp->getIsUserSpaceOnUse())
+        {
+            // Calculate the bounding box of the polygon
+            float minX = points[0].getX(), minY = points[0].getY();
+            float maxX = points[0].getX(), maxY = points[0].getY();
+            for (const auto &point : points)
+            {
+                if (point.getX() < minX)
+                    minX = point.getX();
+                if (point.getY() < minY)
+                    minY = point.getY();
+                if (point.getX() > maxX)
+                    maxX = point.getX();
+                if (point.getY() > maxY)
+                    maxY = point.getY();
+            }
+            Gdiplus::RectF bbox(minX, minY, maxX - minX, maxY - minY);
+            temp->transformCoordinates(bbox);
+        }
+        LinearGradientBrush *brushLinear = temp->getBrush();
+        graphics.FillPolygon(brushLinear, pointArray.data(), pointArray.size());
+    }
 
     // Restore original matrix
     graphics.SetTransform(&currentMatrix);
