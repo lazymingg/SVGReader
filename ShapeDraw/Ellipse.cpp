@@ -46,35 +46,45 @@ void MyFigure::Ellipse::drawEllipse(Graphics &graphics)
     // Lấy giá trị `viewBox` scale từ `graphics`
     Gdiplus::Matrix currentMatrix;
     graphics.GetTransform(&currentMatrix);
-    Color fillColor = static_cast<Fill*>(attributes.getAttributes("fill"))->getFill();
-    int fillOpacity = static_cast<FillOpacity*>(attributes.getAttributes("fill-opacity"))->getFillOpacity() * fillColor.GetA();
 
-    // if (fillColor.GetA() == 0 && fillColor.GetR() == 0 && fillColor.GetG() == 0 && fillColor.GetB() == 0)
-    // {
-    //     fillOpacity = 0;
-    // }
-    fillColor = Color(fillOpacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
-    SolidBrush fillBrush(fillColor);
-
-    Color strokeColor = static_cast<Stroke*>(attributes.getAttributes("stroke"))->getStroke();
-    int strokeOpacity = static_cast<StrokeOpacity*>(attributes.getAttributes("stroke-opacity"))->getStrokeOpacity() * strokeColor.GetA();
-
-    strokeColor = Color(strokeOpacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
-    Pen strokePen(strokeColor, static_cast<StrokeWidth*>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
+    Brush *fillBrush = penRender.getSolidBrush(attributes);
+    Pen *strokePen = penRender.getSolidPen(attributes);
+    LinearGradientManager *temp = penRender.getPenLinear(static_cast<Fill *>(attributes.getAttributes("fill"))->getId(), attributes);
+    Gdiplus::Pen *penLinear = nullptr;
+    if (temp != nullptr)
+    {
+        penLinear = temp->getPen();
+    }
     
     std::cout << "rx = " << rx << ", ry = " << ry << std::endl;
     Gdiplus::Matrix a;
-    static_cast<Transform*>(attributes.getAttributes("transform"))->transform(a);
+    static_cast<Transform *>(attributes.getAttributes("transform"))->transform(a);
     graphics.MultiplyTransform(&a);
 
-    // Gdiplus::Matrix originalMatrix;
-    // graphics.GetTransform(&originalMatrix);
-    // graphics.SetTransform(&a);
+    graphics.FillEllipse(fillBrush, center.getX() - rx, center.getY() - ry, rx * 2, ry * 2);
+    graphics.DrawEllipse(strokePen, center.getX() - rx, center.getY() - ry, rx * 2, ry * 2);
 
-    graphics.FillEllipse(&fillBrush, center.getX() - rx, center.getY() - ry, rx * 2, ry * 2);
-    graphics.DrawEllipse(&strokePen, center.getX() - rx, center.getY() - ry, rx * 2, ry * 2);
+    if (penLinear != nullptr)
+    {
+        temp->printColor();
+        
+        Gdiplus::RectF rect(center.getX() - rx, center.getY() - ry, rx * 2, ry * 2);
+        // Transform coordinates if gradientUnits is objectBoundingBox
+        if (!temp->getIsUserSpaceOnUse())
+            temp->transformCoordinates(rect);
+
+        Gdiplus::LinearGradientBrush *brush = temp->getBrush();
+        graphics.FillEllipse(brush, rect);
+    }
 
     graphics.SetTransform(&currentMatrix);
+
+    delete fillBrush;
+    delete strokePen;
+    if (penLinear != nullptr)
+        delete penLinear;
+    if (temp != nullptr)
+        delete temp;
 }
 
 void MyFigure::Ellipse::draw()

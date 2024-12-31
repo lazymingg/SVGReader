@@ -21,8 +21,12 @@
 #include "MyFontStyle.h"
 #include "Ocopacity.h"
 #include "TextAnchor.h"
+#include "X.h"
+#include "Y.h"
 #include "Dx.h"
 #include "Dy.h"
+#include "X.h"
+#include "Y.h"
 #include "X1.h"
 #include "X2.h"
 #include "Y1.h"
@@ -30,6 +34,9 @@
 #include "Id.h"
 #include "OffSet.h"
 #include "StopColor.h"
+#include "FontWeight.h"
+#include "GradientUnits.h"
+#include "SpreadMethod.h"
 using namespace rapidxml;
 
 // singleton class for creating attributes
@@ -56,8 +63,11 @@ public:
     SVGAttributes();
     SVGAttributes(xml_node<> *shapeNode);
     SVGAttributes(const SVGAttributes &attributes);
+    //operator = 
+    SVGAttributes &operator=(const SVGAttributes &attributes);
     Attribute* getAttributes(std::string name);
     void mergeAttributes(SVGAttributes &attributes);
+    string toString();
     ~SVGAttributes();
 };
 

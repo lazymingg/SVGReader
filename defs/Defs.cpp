@@ -53,6 +53,32 @@ std::map<std::string,vector<DefsTag*>> Defs::getDefsMap()
     return defsMap;
 }
 
+DefsTag *Defs::findLinearGradient(std::string ID)
+{
+    //url(#fill0)" sepearete to fill0
+    std::regex reg("url\\(#(\\w+)\\)");
+    std::smatch match;
+    if (std::regex_search(ID, match, reg))
+    {
+        ID = match[1];
+    }
+    cout << "ID: " << ID << endl;
+
+    if (defsMap.find("linearGradient") == defsMap.end())
+    {
+        std::cout << "Tag not found: linearGradient" << std::endl;
+        return nullptr;
+    }
+    for (auto &tag : defsMap["linearGradient"])
+    {
+        if (tag->getId() == ID)
+        {
+            return tag;
+        }
+    }
+    return nullptr;
+}
+
 void Defs::printDefs()
 {
     for (auto &tag : defsMap)

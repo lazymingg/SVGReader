@@ -3,7 +3,6 @@
 
 #include <iostream>
 using namespace std;
-// define my point class
 
 namespace MyPoint
 {
@@ -12,15 +11,17 @@ namespace MyPoint
     private:
         float x;
         float y;
+
     public:
         Point();
         Point(float x, float y);
         ~Point();
         void setX(float x);
         void setY(float y);
-        float getY();
-        float getX();
-        void print();
+        float getX() const;
+        float getY() const;
+        void print() const;
     };
 }
+
 #endif

@@ -13,8 +13,12 @@ VOID OnPaint(HDC hdc, string filePath)
 {
     Graphics graphics(hdc);
     FigureDraw FigureDraw(graphics);
+<<<<<<< HEAD
     ///FigureDraw.loadSVGFile("testSVG/sample.svg");
     FigureDraw.loadSVGFile(filePath.c_str());
+=======
+    FigureDraw.loadSVGFile("testSVG/svg-01.svg");
+>>>>>>> AnhTRis
     FigureDraw.draw();
     // test load defs
     //get instance
@@ -26,7 +30,7 @@ VOID OnPaint(HDC hdc, string filePath)
         std::cout << tag.first << std::endl;
         for (auto &defsTag : tag.second)
         {
-            defsTag->toString();
+            std::cout << defsTag->toString() << std::endl;
         }
     }
 
@@ -52,7 +56,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, PSTR cmdline, INT iCmdShow)
     // Khởi tạo GDI+
     GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
 
-    svgFile = "testSVG/svg-02.svg";
+    svgFile = "testSVG/svg-01.svg";
     if (cmdline != nullptr && strlen(cmdline) > 0) svgFile = cmdline;
     cout << svgFile << endl;
 

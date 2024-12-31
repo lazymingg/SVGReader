@@ -30,6 +30,7 @@ SVGAttributes::SVGAttributes(xml_node<> *shapeNode)
 	}
 }
 
+
 SVGAttributes::SVGAttributes(const SVGAttributes &attributes)
 {
 	for (auto &attr : attributes.Attributes)
@@ -38,6 +39,23 @@ SVGAttributes::SVGAttributes(const SVGAttributes &attributes)
 	}
 }
 
+SVGAttributes &SVGAttributes::operator=(const SVGAttributes &attributes)
+{
+	if (this == &attributes)
+	{
+		return *this;
+	}
+	for (auto &attr : Attributes)
+	{
+		delete attr.second;
+	}
+	Attributes.clear();
+	for (auto &attr : attributes.Attributes)
+	{
+		Attributes[attr.first] = attr.second->clone();
+	}
+	return *this;
+}
 
 Attribute *SVGAttributes::getAttributes(std::string name)
 {
@@ -67,6 +85,16 @@ void SVGAttributes::mergeAttributes(SVGAttributes &attributes)
 	}
 }
 
+string SVGAttributes::toString()
+{
+	string result = "";
+	for (auto &attr : Attributes)
+	{
+		result += attr.first + ": " + attr.second->toString() + "\n";
+	}
+	return result;
+}
+
 SVGAttributes::~SVGAttributes()
 {
 	for (auto &attr : Attributes)
@@ -90,6 +118,8 @@ AttributeFactory::AttributeFactory()
 	registerAttribute("text-anchor", new TextAnchor());
 	registerAttribute("dx", new Dx());
 	registerAttribute("dy", new Dy());
+	registerAttribute("x", new X());
+	registerAttribute("y", new Y());
 	registerAttribute("x1", new X1());
 	registerAttribute("x2", new X2());
 	registerAttribute("y1", new Y1());
@@ -97,6 +127,9 @@ AttributeFactory::AttributeFactory()
 	registerAttribute("id", new Id());
 	registerAttribute("offset", new OffSet());
 	registerAttribute("stop-color", new StopColor());
+	registerAttribute("font-weight", new FontWeight());
+	registerAttribute("gradientUnits", new GradientUnits());
+	registerAttribute("spreadMethod", new SpreadMethod());
 }
 
 AttributeFactory *AttributeFactory::getInstance()

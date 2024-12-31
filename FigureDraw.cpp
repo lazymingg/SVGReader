@@ -56,7 +56,11 @@ void FigureDraw::loadSVGFile(const std::string &filename)
     }
     else
     {
+<<<<<<< HEAD
         svgWidth = 0; // Giá trị mặc định nếu không tìm thấy
+=======
+        svgWidth = 300; // Giá trị mặc định nếu không tìm thấy
+>>>>>>> AnhTRis
     }
 
     if (rootNode->first_attribute("height"))
@@ -67,7 +71,11 @@ void FigureDraw::loadSVGFile(const std::string &filename)
     }
     else
     {
+<<<<<<< HEAD
         svgHeight = 0; // Giá trị mặc định nếu không tìm thấy
+=======
+        svgHeight = 150; // Giá trị mặc định nếu không tìm thấy
+>>>>>>> AnhTRis
     }
 
     // Đọc thuộc tính viewBox

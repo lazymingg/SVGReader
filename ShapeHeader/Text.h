@@ -17,6 +17,8 @@ namespace MyFigure
 	private:
 		MyPoint::Point point;
 		string text;
+		vector <float> xValues;
+		vector <float> yValues;
 		float dx;
 		float dy;
 	public:

@@ -21,7 +21,10 @@ MyFigure::Polygon::Polygon(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : 
             ++i;
         --i;
     }
+<<<<<<< HEAD
     cout << endl;
+=======
+>>>>>>> AnhTRis
 }
 
 void MyFigure::Polygon::printInfomation()
@@ -36,19 +39,14 @@ void MyFigure::Polygon::draw()
     // Lấy giá trị `viewBox` scale từ `graphics`
     Gdiplus::Matrix currentMatrix;
     graphics.GetTransform(&currentMatrix);
-    // Fill color
-    Color fillColor = static_cast<Fill *>(attributes.getAttributes("fill"))->getFill();
-    int fillOpacity = static_cast<FillOpacity *>(attributes.getAttributes("fill-opacity"))->getFillOpacity() * fillColor.GetA();
-
-    fillColor = Color(fillOpacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
-    SolidBrush *brush = new SolidBrush(fillColor);
-
-    // Stroke color
-    Color strokeColor = static_cast<Stroke *>(attributes.getAttributes("stroke"))->getStroke();
-    int strokeOpacity = static_cast<StrokeOpacity *>(attributes.getAttributes("stroke-opacity"))->getStrokeOpacity() * strokeColor.GetA();
-
-    strokeColor = Color(strokeOpacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
-    Pen *pen = new Pen(strokeColor, static_cast<StrokeWidth *>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
+    Brush *brush = penRender.getSolidBrush(attributes);
+    Pen *pen = penRender.getSolidPen(attributes);
+    LinearGradientManager *temp = penRender.getPenLinear(static_cast<Fill *>(attributes.getAttributes("fill"))->getId(), attributes);
+    Gdiplus::Pen *penLinear = nullptr;
+    if (temp != nullptr)
+    {
+        penLinear = temp->getPen();
+    }
     // Prepare points
     std::vector<Point> pointArray(points.size());
     for (size_t i = 0; i < points.size(); i++)
@@ -61,10 +59,6 @@ void MyFigure::Polygon::draw()
     static_cast<Transform *>(attributes.getAttributes("transform"))->transform(transformMatrix);
     graphics.MultiplyTransform(&transformMatrix);
 
-    // Gdiplus::Matrix originalMatrix;
-    // graphics.GetTransform(&originalMatrix);
-    // graphics.SetTransform(&transformMatrix);
-
     // Draw filled polygon
     graphics.SetSmoothingMode(SmoothingMode::SmoothingModeAntiAlias);
     graphics.FillPolygon(brush, pointArray.data(), pointArray.size());
@@ -72,9 +66,37 @@ void MyFigure::Polygon::draw()
     // Draw polygon outline
     cout << "Draw polygon";
     graphics.DrawPolygon(pen, pointArray.data(), pointArray.size());
+    if (penLinear != nullptr)
+    {
+        if (!temp->getIsUserSpaceOnUse())
+        {
+            // Calculate the bounding box of the polygon
+            float minX = points[0].getX(), minY = points[0].getY();
+            float maxX = points[0].getX(), maxY = points[0].getY();
+            for (const auto &point : points)
+            {
+                if (point.getX() < minX)
+                    minX = point.getX();
+                if (point.getY() < minY)
+                    minY = point.getY();
+                if (point.getX() > maxX)
+                    maxX = point.getX();
+                if (point.getY() > maxY)
+                    maxY = point.getY();
+            }
+            Gdiplus::RectF bbox(minX, minY, maxX - minX, maxY - minY);
+            temp->transformCoordinates(bbox);
+        }
+        LinearGradientBrush *brushLinear = temp->getBrush();
+        graphics.FillPolygon(brushLinear, pointArray.data(), pointArray.size());
+    }
 
     // Restore original matrix
     graphics.SetTransform(&currentMatrix);
     delete pen;
     delete brush;
+    if (penLinear != nullptr)
+        delete penLinear;
+    if (penLinear != nullptr)
+        delete penLinear;
 }

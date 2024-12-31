@@ -22,15 +22,18 @@ MyFigure::Polyline::Polyline(xml_node<> *rootNode, Gdiplus::Graphics &graphics) 
             ++i;
         --i;
     }
+<<<<<<< HEAD
     cout << endl;
+=======
+>>>>>>> AnhTRis
 }
 
 void MyFigure::Polyline::printInfomation()
 {
-//     cout << "Polyline:" << endl;
-//     for (int i = 0; i < points.size(); i++)
-//         points[i].print();
-//     attributes.printAttributes();
+    //     cout << "Polyline:" << endl;
+    //     for (int i = 0; i < points.size(); i++)
+    //         points[i].print();
+    //     attributes.printAttributes();
 }
 
 void MyFigure::Polyline::draw()
@@ -41,12 +44,7 @@ void MyFigure::Polyline::draw()
     // draw polygon here
     // draw fill polygon first
 
-    Color fillColor = static_cast<Fill *>(attributes.getAttributes("fill"))->getFill();
-    // adjust opacity
-    int opacity = static_cast<FillOpacity *>(attributes.getAttributes("fill-opacity"))->getFillOpacity() * fillColor.GetA();
-
-    fillColor = Color(opacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
-    SolidBrush *brush = new SolidBrush(fillColor);
+    SolidBrush *brush = penRender.getSolidBrush(attributes);
 
     // create point array
     int numPoints = points.size();
@@ -66,13 +64,13 @@ void MyFigure::Polyline::draw()
     delete[] pointArray;
     // }
 
-    // draw stroke
-    Color strokeColor = static_cast<Stroke *>(attributes.getAttributes("stroke"))->getStroke();
-    // adjust opacity
-    opacity = static_cast<StrokeOpacity *>(attributes.getAttributes("stroke-opacity"))->getStrokeOpacity() * strokeColor.GetA();
-
-    strokeColor = Color(opacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
-    Pen *pen = new Pen(strokeColor, static_cast<StrokeWidth *>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
+    Pen *pen = penRender.getSolidPen(attributes);
+    LinearGradientManager *temp = penRender.getPenLinear(static_cast<Fill *>(attributes.getAttributes("fill"))->getId(), attributes);
+    Gdiplus::Pen *penLinear = nullptr;
+    if (temp != nullptr)
+    {
+        penLinear = temp->getPen();
+    }
     // create point array
     numPoints = points.size();
     pointArray = new Point[numPoints];
@@ -93,6 +91,33 @@ void MyFigure::Polyline::draw()
     // graphics.SetTransform(&a);
 
     graphics.DrawLines(pen, pointArray, numPoints);
+
+    // Use penLinear
+    if (penLinear != nullptr)
+    {
+        // Transform coordinates if gradientUnits is objectBoundingBox
+        if (!temp->getIsUserSpaceOnUse())
+        {
+            // Calculate the bounding box of the polyline
+            float minX = points[0].getX(), minY = points[0].getY();
+            float maxX = points[0].getX(), maxY = points[0].getY();
+            for (const auto &point : points)
+            {
+                if (point.getX() < minX)
+                    minX = point.getX();
+                if (point.getY() < minY)
+                    minY = point.getY();
+                if (point.getX() > maxX)
+                    maxX = point.getX();
+                if (point.getY() > maxY)
+                    maxY = point.getY();
+            }
+            Gdiplus::RectF bbox(minX, minY, maxX - minX, maxY - minY);
+            temp->transformCoordinates(bbox);
+        }
+        LinearGradientBrush *brushLinear = temp->getBrush();
+        graphics.FillPolygon(brushLinear, pointArray, numPoints);
+    }
     graphics.SetTransform(&currentMatrix);
 
     // free memory
@@ -100,4 +125,8 @@ void MyFigure::Polyline::draw()
     // }
     delete pen;
     delete brush;
+    if (penLinear != nullptr)
+        delete penLinear;
+    if (temp != nullptr)
+        delete temp;
 }

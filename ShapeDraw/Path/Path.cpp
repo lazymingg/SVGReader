@@ -130,19 +130,14 @@ void MyFigure::Path::draw()
     // cout << int(attributes.getFillColor().GetAlpha()) << ", " << int(attributes.getFillColor().GetRed()) << ", " << int(attributes.getFillColor().GetGreen()) << ", " << int(attributes.getFillColor().GetBlue()) << endl;
     // cout << int(attributes.getStrokeColor().GetAlpha()) << ", " << int(attributes.getStrokeColor().GetRed()) << ", " << int(attributes.getStrokeColor().GetGreen()) << ", " << int(attributes.getStrokeColor().GetBlue()) << endl;
     
-    Color fillColor = static_cast<Fill*>(attributes.getAttributes("fill"))->getFill();
-    int fillOpacity = static_cast<FillOpacity*>(attributes.getAttributes("fill-opacity"))->getFillOpacity() * fillColor.GetA();
-
-    fillColor = Color(fillOpacity, fillColor.GetR(), fillColor.GetG(), fillColor.GetB());
-    SolidBrush *fillBrush = new SolidBrush(fillColor);
-
-    Color strokeColor = static_cast<Stroke*>(attributes.getAttributes("stroke"))->getStroke();
-    int strokeOpacity = static_cast<StrokeOpacity*>(attributes.getAttributes("stroke-opacity"))->getStrokeOpacity() * strokeColor.GetA();
-    strokeColor = Color(strokeOpacity, strokeColor.GetR(), strokeColor.GetG(), strokeColor.GetB());
-    Pen *strokePen = new Pen(strokeColor, static_cast<StrokeWidth*>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
-
-    graphics.SetSmoothingMode(SmoothingModeAntiAlias);
-
+    Gdiplus::SolidBrush *fillBrush = penRender.getSolidBrush(attributes);
+    Gdiplus::Pen *strokePen = penRender.getSolidPen(attributes);
+    LinearGradientManager *temp = penRender.getPenLinear(static_cast<Fill *>(attributes.getAttributes("fill"))->getId(), attributes);
+    Gdiplus::Pen *penLinear = nullptr;
+    if (temp != nullptr)
+    {
+        penLinear = temp->getPen();
+    }
     Gdiplus::Matrix a;
     static_cast<Transform*>(attributes.getAttributes("transform"))->transform(a);
 
@@ -150,13 +145,24 @@ void MyFigure::Path::draw()
     graphics.GetTransform(&originalMatrix);
     graphics.SetTransform(&a);
 
-    graphics.FillPath(fillBrush, &path);
-
+    if (temp != nullptr)
+    {
+        graphics.FillPath(temp->getBrush(), &path);
+        temp->printColor();
+    }
+    else
+        graphics.FillPath(fillBrush, &path);
     graphics.DrawPath(strokePen, &path);
+    if (penLinear != nullptr)
+        graphics.DrawPath(penLinear, &path);
     graphics.SetTransform(&originalMatrix);
 
     delete[] points;
     delete[] pathTypes;
     delete fillBrush;
     delete strokePen;
+    if (penLinear != nullptr)
+        delete penLinear;
+    if (temp != nullptr)
+        delete temp;
 }
