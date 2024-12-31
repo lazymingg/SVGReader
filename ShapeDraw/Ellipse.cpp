@@ -51,7 +51,7 @@ void MyFigure::Ellipse::drawEllipse(Graphics &graphics)
     // graphics.GetTransform(&originalMatrix);
     // graphics.SetTransform(&a);
 
-    // graphics.FillEllipse(fillBrush, center.getX() - rx, center.getY() - ry, rx * 2, ry * 2);
+    graphics.FillEllipse(fillBrush, center.getX() - rx, center.getY() - ry, rx * 2, ry * 2);
     graphics.DrawEllipse(strokePen, center.getX() - rx, center.getY() - ry, rx * 2, ry * 2);
 
     if (penLinear != nullptr)
