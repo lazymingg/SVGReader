@@ -45,7 +45,12 @@ void MyFigure::Polygon::draw()
     graphics.GetTransform(&currentMatrix);
     Brush *brush = penRender.getSolidBrush(attributes);
     Pen *pen = penRender.getSolidPen(attributes);
-    Pen *penLinear = penRender.getPenLinear(static_cast<Fill *>(attributes.getAttributes("fill"))->getId(), attributes);
+    LinearGradientManager *temp = penRender.getPenLinear(static_cast<Fill *>(attributes.getAttributes("fill"))->getId(), attributes);
+    Gdiplus::Pen *penLinear = nullptr;
+    if (temp != nullptr)
+    {
+        penLinear = temp->getPen();
+    }
     // Prepare points
     std::vector<Point> pointArray(points.size());
     for (size_t i = 0; i < points.size(); i++)
@@ -76,6 +81,8 @@ void MyFigure::Polygon::draw()
     graphics.SetTransform(&currentMatrix);
     delete pen;
     delete brush;
+    if (penLinear != nullptr)
+        delete penLinear;
     if (penLinear != nullptr)
         delete penLinear;
 }

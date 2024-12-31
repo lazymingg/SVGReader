@@ -3,6 +3,7 @@
 
 #include "../Attributes/SVGAttributes.h"
 #include "../defs/Defs.h"
+#include "PenLinear.h"  
 
 //this class will based on the SVGAttributes class
 class PenRender
@@ -13,7 +14,7 @@ public:
     ~PenRender();
     Gdiplus::SolidBrush *getSolidBrush(SVGAttributes &attributes);
     Gdiplus::Pen *getSolidPen(SVGAttributes &attributes);
-    Gdiplus::Pen *getPenLinear(std::string ID, SVGAttributes &attributes);
+    LinearGradientManager *getPenLinear(std::string ID, SVGAttributes &attributes);
 };
 
 #endif

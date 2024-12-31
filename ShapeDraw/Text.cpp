@@ -35,8 +35,13 @@ void MyFigure::Text::draw()
     graphics.GetTransform(&currentMatrix);
     // Get fill color and adjust opacity
     SolidBrush *brush = penRender.getSolidBrush(attributes);
-    Pen *pen = penRender.getSolidPen(attributes);
-    Pen *penLinear = penRender.getPenLinear(static_cast<Fill *>(attributes.getAttributes("fill"))->getId(), attributes);
+    Gdiplus::Pen *pen = penRender.getSolidPen(attributes);
+    LinearGradientManager *temp = penRender.getPenLinear(static_cast<Fill *>(attributes.getAttributes("fill"))->getId(), attributes);
+    Gdiplus::Pen *penLinear = nullptr;
+    if (temp != nullptr)
+    {
+        penLinear = temp->getPen();
+    }
     // Get font size, family, and style
     float fontSize = static_cast<FontSize *>(attributes.getAttributes("font-size"))->getFontSize();
     Gdiplus::FontFamily *fontFamily = static_cast<MyFontFamily *>(attributes.getAttributes("font-family"))->getFontFamily();
@@ -123,4 +128,6 @@ void MyFigure::Text::draw()
     delete brush;
     if (penLinear != nullptr)
         delete penLinear;
+    if (temp != nullptr)
+        delete temp;
 }

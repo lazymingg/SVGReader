@@ -24,7 +24,7 @@ Gdiplus::Pen *PenRender::getSolidPen(SVGAttributes &attributes)
     return new Gdiplus::Pen(strokeColor, static_cast<StrokeWidth *>(attributes.getAttributes("stroke-width"))->getStrokeWidth());
 }
 
-Gdiplus::Pen *PenRender::getPenLinear(std::string ID, SVGAttributes &attributes)
+LinearGradientManager *PenRender::getPenLinear(std::string ID, SVGAttributes &attributes)
 {
     if (ID == "")
     {
@@ -93,12 +93,11 @@ Gdiplus::Pen *PenRender::getPenLinear(std::string ID, SVGAttributes &attributes)
     }
 
     // Convert to GDI+ compatible arrays
-    brush->SetInterpolationColors(colors.data(), offsets.data(), colors.size());
+    // brush->SetInterpolationColors(colors.data(), offsets.data(), colors.size());
 
     // Get the stroke width
     float strokeWidth = static_cast<StrokeWidth *>(attributes.getAttributes("stroke-width"))->getStrokeWidth();
-    // Create the Pen
-    Gdiplus::Pen *pen = new Gdiplus::Pen(brush, strokeWidth);
 
-    return pen;
+    // Create the LinearGradientManager
+    return new LinearGradientManager(startPoint, endPoint, colors, offsets, strokeWidth);
 }

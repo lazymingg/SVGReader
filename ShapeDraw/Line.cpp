@@ -34,7 +34,12 @@ void MyFigure::Line::draw()
 
     // Get fill color and adjust opacity
     Pen* pen = penRender.getSolidPen(attributes);
-    Pen* penLinear = penRender.getPenLinear(static_cast<Fill *>(attributes.getAttributes("fill"))->getId(), attributes);
+    LinearGradientManager *temp = penRender.getPenLinear(static_cast<Fill *>(attributes.getAttributes("fill"))->getId(), attributes);
+    Gdiplus::Pen *penLinear = nullptr;
+    if (temp != nullptr)
+    {
+        penLinear = temp->getPen();
+    }
     graphics.SetSmoothingMode(SmoothingMode::SmoothingModeAntiAlias);
     
     Gdiplus::Matrix a;
@@ -51,4 +56,6 @@ void MyFigure::Line::draw()
     delete pen;
     if (penLinear != nullptr)
         delete penLinear;
+    if (temp != nullptr)
+        delete temp;
 }

@@ -130,9 +130,12 @@ void MyFigure::Path::draw()
     
     Gdiplus::SolidBrush *fillBrush = penRender.getSolidBrush(attributes);
     Gdiplus::Pen *strokePen = penRender.getSolidPen(attributes);
-    Gdiplus::Pen *penLinear = penRender.getPenLinear(static_cast<Fill *>(attributes.getAttributes("fill"))->getId(), attributes);
-    graphics.SetSmoothingMode(SmoothingModeAntiAlias);
-
+    LinearGradientManager *temp = penRender.getPenLinear(static_cast<Fill *>(attributes.getAttributes("fill"))->getId(), attributes);
+    Gdiplus::Pen *penLinear = nullptr;
+    if (temp != nullptr)
+    {
+        penLinear = temp->getPen();
+    }
     Gdiplus::Matrix a;
     static_cast<Transform*>(attributes.getAttributes("transform"))->transform(a);
 
@@ -140,8 +143,13 @@ void MyFigure::Path::draw()
     graphics.GetTransform(&originalMatrix);
     graphics.SetTransform(&a);
 
-    graphics.FillPath(fillBrush, &path);
-
+    if (temp != nullptr)
+    {
+        graphics.FillPath(temp->getBrush(), &path);
+        temp->printColor();
+    }
+    else
+        graphics.FillPath(fillBrush, &path);
     graphics.DrawPath(strokePen, &path);
     if (penLinear != nullptr)
         graphics.DrawPath(penLinear, &path);
@@ -153,4 +161,6 @@ void MyFigure::Path::draw()
     delete strokePen;
     if (penLinear != nullptr)
         delete penLinear;
+    if (temp != nullptr)
+        delete temp;
 }

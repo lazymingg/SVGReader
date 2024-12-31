@@ -39,8 +39,12 @@ void MyFigure::Rectangle::draw()
 	Pen *pen = penRender.getSolidPen(attributes);
 
 	bool isPenLinear = false;
-	Pen *penLinear = penRender.getPenLinear(static_cast<Fill *>(attributes.getAttributes("fill"))->getId(), attributes);
-	
+	LinearGradientManager *temp = penRender.getPenLinear(static_cast<Fill *>(attributes.getAttributes("fill"))->getId(), attributes);
+    Gdiplus::Pen *penLinear = nullptr;
+    if (temp != nullptr)
+    {
+        penLinear = temp->getPen();
+    }
 	// print color
 	graphics.SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeAntiAlias);
 	Gdiplus::Matrix a;
@@ -65,4 +69,6 @@ void MyFigure::Rectangle::draw()
 	delete brush;
 	if (penLinear != nullptr)
 		delete penLinear;
+	if (temp != nullptr)
+		delete temp;
 }
