@@ -10,29 +10,22 @@ MyFigure::Polygon::Polygon(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : 
     string points = rootNode->first_attribute("points")->value();
     float x, y;
     int len = points.length(), i = 0;
-
+    cout << points << "end" << endl;
     for (i; i < len; ++i)
     {
         x = extractNumber(points, i);
         y = extractNumber(points, i);
         this->points.push_back(MyPoint::Point(x, y));
+        cout << x << "," << y << " ";
+        while (i < len && (points[i] == ' ' || points[i] == ',' || points[i] == '\n' || points[i] == '\t'))
+            ++i;
+        --i;
     }
-
-    // stringstream ss(points);
-    // string point;
-    // while (getline(ss, point, ' '))
-    // {
-    //     stringstream ssPoint(point);
-    //     string x, y;
-    //     getline(ssPoint, x, ',');
-    //     getline(ssPoint, y, ',');
-    // }
+    cout << endl;
 }
 
 void MyFigure::Polygon::printInfomation()
 {
-    // cout << "polygon" << endl;
-    // attributes.printAttributes();
     for (int i = 0; i < points.size(); i++)
     {
         points[i].print();

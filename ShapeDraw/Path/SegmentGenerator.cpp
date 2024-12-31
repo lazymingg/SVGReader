@@ -69,7 +69,7 @@ Segment* SegmentGenerator::generateSegment(const char &prevCommand, const char &
         case 'a':
         {
             EllipticalArcCurveSegment *segment = new EllipticalArcCurveSegment();
-            segment->setSegment(curCommand, data, index, start, point1);
+            start = segment->setSegment(curCommand, data, index, start, point1);
             return segment;
         }
 

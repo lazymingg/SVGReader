@@ -15,6 +15,7 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
     {
         if (isAlpha(data[i]) || isDigit(data[i]) || data[i] == '-'|| data[i] == '+')
         {
+
             if (isalpha(data[i]))
                 curCommand = data[i++];
             
@@ -29,8 +30,7 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
             while (i < len && (data[i] == ' ' || data[i] == '\n'))
                 ++i;
 
-            cout << "Current command: " << curCommand << " - prev command: " << prevCommand << endl;
-
+            cout << curCommand << ", ";
             switch (curCommand)
             {
                 // Move-to commands
@@ -88,7 +88,7 @@ void MyFigure::Path::draw()
         return;
     }
 
-    Gdiplus::Point *points = new Gdiplus::Point[pointCount];
+    Gdiplus::PointF *points = new Gdiplus::PointF[pointCount];
     path.GetPathPoints(points, pointCount);
     BYTE *pathTypes = new BYTE[pointCount];
     path.GetPathTypes(pathTypes, pointCount);
@@ -96,34 +96,36 @@ void MyFigure::Path::draw()
     std::cout << "Path Points and Path Types:" << std::endl;
     for (int i = 0; i < pointCount; ++i)
     {
-        std::cout << "Point " << i + 1 << ": ("
-                  << points[i].X << ", "
-                  << points[i].Y << ") - Type: ";
+        cout << "(" << points[i].X << "," << points[i].Y << "); ";
+        // std::cout << "Point " << i + 1 << ": ("
+        //           << points[i].X << ", "
+        //           << points[i].Y << ") - Type: ";
 
-        // Giải thích loại đường (Path Type)
-        switch (pathTypes[i] & PathPointType::PathPointTypePathTypeMask)
-        {
-        case Gdiplus::PathPointTypeStart:
-            std::cout << "Start Point";
-            break;
-        case Gdiplus::PathPointTypeLine:
-            std::cout << "Line Segment";
-            break;
-        case Gdiplus::PathPointTypeBezier:
-            std::cout << "Bezier Curve";
-            break;
-        default:
-            std::cout << "Unknown Type";
-            break;
-        }
+        // // Giải thích loại đường (Path Type)
+        // switch (pathTypes[i] & PathPointType::PathPointTypePathTypeMask)
+        // {
+        // case Gdiplus::PathPointTypeStart:
+        //     std::cout << "Start Point";
+        //     break;
+        // case Gdiplus::PathPointTypeLine:
+        //     std::cout << "Line Segment";
+        //     break;
+        // case Gdiplus::PathPointTypeBezier:
+        //     std::cout << "Bezier Curve";
+        //     break;
+        // default:
+        //     std::cout << "Unknown Type";
+        //     break;
+        // }
 
-        if (pathTypes[i] & Gdiplus::PathPointTypeCloseSubpath)
-        {
-            std::cout << " (Closed Subpath)";
-        }
+        // if (pathTypes[i] & Gdiplus::PathPointTypeCloseSubpath)
+        // {
+        //     std::cout << " (Closed Subpath)";
+        // }
 
-        std::cout << std::endl;
+        // std::cout << std::endl;
     }
+    cout << endl;
 
     // cout << int(attributes.getFillColor().GetAlpha()) << ", " << int(attributes.getFillColor().GetRed()) << ", " << int(attributes.getFillColor().GetGreen()) << ", " << int(attributes.getFillColor().GetBlue()) << endl;
     // cout << int(attributes.getStrokeColor().GetAlpha()) << ", " << int(attributes.getStrokeColor().GetRed()) << ", " << int(attributes.getStrokeColor().GetGreen()) << ", " << int(attributes.getStrokeColor().GetBlue()) << endl;

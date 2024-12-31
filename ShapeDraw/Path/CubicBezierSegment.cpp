@@ -21,7 +21,7 @@ MyPoint::Point SmoothCubicBezierSegment::setSegment(const char &curCommand, cons
 {
     if (prevCommand == 'C' || prevCommand == 'c' ||
         prevCommand == 'S' || prevCommand == 's')
-        point1 = {2 * point3.getX() - point2.getX(), 2 * point3.getY() - point2.getY()};
+        point1 = {2 * start.getX() - point2.getX(), 2 * start.getY() - point2.getY()};
     else
         point1 = start;
 

@@ -18,6 +18,7 @@ MyPoint::Point EllipticalArcCurveSegment::setSegment(const char &curCommand, con
     float rotation = extractNumber(data, index);
     bool largeArcFlag = bool(extractNumber(data, index));
     bool sweepFlag = bool(extractNumber(data, index));
+
     
     // End point
     point1 = toAbsolute(curCommand, data, index, start);
@@ -77,7 +78,7 @@ MyPoint::Point EllipticalArcCurveSegment::setSegment(const char &curCommand, con
         float delta = dTheta / segments;
         float t = 8.0 / 3.0 * sin(delta / 4.0) * sin(delta / 4.0) / sin(delta / 2.0);
 
-        for (int i = 0; i < segments; ++index)
+        for (int i = 0; i < segments; ++i)
         {
             float cosTheta1 = cos(theta1);
             float sinTheta1 = sin(theta1);
