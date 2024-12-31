@@ -2,10 +2,12 @@
 
 MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure(rootNode, graphics)
 {
-    if (!rootNode) return;
+    if (!rootNode)
+        return;
 
     std::string data = rootNode->first_attribute("d")->value();
-    if (data == "none") return;
+    if (data == "none")
+        return;
 
     MyPoint::Point currentPoint, startPoint, point1, point2, point3;
     char curCommand, prevCommand = '\0';
@@ -13,12 +15,12 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
     int len = data.length();
     for (int i = 0; i < len; ++i)
     {
-        if (isAlpha(data[i]) || isDigit(data[i]) || data[i] == '-'|| data[i] == '+')
+        if (isAlpha(data[i]) || isDigit(data[i]) || data[i] == '-' || data[i] == '+')
         {
 
             if (isalpha(data[i]))
                 curCommand = data[i++];
-            
+
             if (curCommand == prevCommand)
             {
                 if (prevCommand == 'M')
@@ -33,42 +35,42 @@ MyFigure::Path::Path(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
             cout << curCommand << ", ";
             switch (curCommand)
             {
-                // Move-to commands
-                case 'M':
-                {
+            // Move-to commands
+            case 'M':
+            {
+                startPoint = currentPoint = {extractNumber(data, i), extractNumber(data, i)};
+                break;
+            }
+
+            case 'm':
+            {
+                if (prevCommand == '\0')
                     startPoint = currentPoint = {extractNumber(data, i), extractNumber(data, i)};
-                    break;
-                }
-            
-                case 'm':
-                {
-                    if (prevCommand == '\0')
-                        startPoint = currentPoint = {extractNumber(data, i), extractNumber(data, i)};
-                    else
-                        startPoint = currentPoint = {currentPoint.getX() + extractNumber(data, i), currentPoint.getY() + extractNumber(data, i)};
-                    break;
-                }
+                else
+                    startPoint = currentPoint = {currentPoint.getX() + extractNumber(data, i), currentPoint.getY() + extractNumber(data, i)};
+                break;
+            }
 
-                // Close-path commands
-                case 'Z':
-                case 'z':
-                {
-                    path.CloseFigure();
-                    currentPoint = startPoint;
-                    break;
-                }
+            // Close-path commands
+            case 'Z':
+            case 'z':
+            {
+                path.CloseFigure();
+                currentPoint = startPoint;
+                break;
+            }
 
-                default:
-                {
-                    Segment *segment = generator.generateSegment(prevCommand, curCommand, data, i, currentPoint, point1, point2, point3);
-                    path.AddPath(&segment->getSegment(), true);
-                    break;
-                }
+            default:
+            {
+                Segment *segment = generator.generateSegment(prevCommand, curCommand, data, i, currentPoint, point1, point2, point3);
+                path.AddPath(&segment->getSegment(), true);
+                break;
+            }
             }
 
             while (i < len && (data[i] == ',' || data[i] == ' ' || data[i] == '\n'))
                 ++i;
-            
+
             --i;
 
             prevCommand = curCommand;
@@ -129,7 +131,7 @@ void MyFigure::Path::draw()
 
     // cout << int(attributes.getFillColor().GetAlpha()) << ", " << int(attributes.getFillColor().GetRed()) << ", " << int(attributes.getFillColor().GetGreen()) << ", " << int(attributes.getFillColor().GetBlue()) << endl;
     // cout << int(attributes.getStrokeColor().GetAlpha()) << ", " << int(attributes.getStrokeColor().GetRed()) << ", " << int(attributes.getStrokeColor().GetGreen()) << ", " << int(attributes.getStrokeColor().GetBlue()) << endl;
-    
+
     Gdiplus::SolidBrush *fillBrush = penRender.getSolidBrush(attributes);
     Gdiplus::Pen *strokePen = penRender.getSolidPen(attributes);
     LinearGradientManager *temp = penRender.getPenLinear(static_cast<Fill *>(attributes.getAttributes("fill"))->getId(), attributes);
@@ -139,7 +141,7 @@ void MyFigure::Path::draw()
         penLinear = temp->getPen();
     }
     Gdiplus::Matrix a;
-    static_cast<Transform*>(attributes.getAttributes("transform"))->transform(a);
+    static_cast<Transform *>(attributes.getAttributes("transform"))->transform(a);
 
     Gdiplus::Matrix originalMatrix;
     graphics.GetTransform(&originalMatrix);
@@ -153,8 +155,22 @@ void MyFigure::Path::draw()
     else
         graphics.FillPath(fillBrush, &path);
     graphics.DrawPath(strokePen, &path);
+
     if (penLinear != nullptr)
-        graphics.DrawPath(penLinear, &path);
+    {
+        RectF bbox;
+        path.GetBounds(&bbox);
+
+        // Transform coordinates if gradientUnits is objectBoundingBox
+        if (!temp->getBrush())
+        {
+            temp->transformCoordinates(bbox);
+        }
+
+        Gdiplus::LinearGradientBrush *linearBrush = temp->getBrush();
+        graphics.FillPath(linearBrush, &path);
+    }
+
     graphics.SetTransform(&originalMatrix);
 
     delete[] points;

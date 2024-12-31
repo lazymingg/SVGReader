@@ -21,10 +21,6 @@ MyFigure::Polygon::Polygon(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : 
             ++i;
         --i;
     }
-<<<<<<< HEAD
-    cout << endl;
-=======
->>>>>>> AnhTRis
 }
 
 void MyFigure::Polygon::printInfomation()

@@ -22,10 +22,6 @@ MyFigure::Polyline::Polyline(xml_node<> *rootNode, Gdiplus::Graphics &graphics) 
             ++i;
         --i;
     }
-<<<<<<< HEAD
-    cout << endl;
-=======
->>>>>>> AnhTRis
 }
 
 void MyFigure::Polyline::printInfomation()

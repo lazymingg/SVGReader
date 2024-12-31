@@ -65,35 +65,14 @@ void MyFigure::Text::draw()
     // Create the font
     Font fontDraw(fontFamily, fontSize, fontStyle, UnitPixel);
 
-<<<<<<< HEAD
-    // Get dx and dy values
-    std::vector<float> dxValues = static_cast<Dx *>(attributes.getAttributes("dx"))->getDxValues(text.length());
-
-    std::vector<float> dyValues = static_cast<Dy *>(attributes.getAttributes("dy"))->getDyValues(text.length());
-   
-    // Ensure dx and dy vectors are correctly sized
-    if (dxValues.size() == 1)
-    {
-        dxValues.resize(text.length(), dxValues[0]);
-    }
-    if (dyValues.size() == 1)
-    {
-        dyValues.resize(text.length(), dyValues[0]);
-    }
-
-    // Initial position
-    float x = static_cast<float>(point.getX());
-    float y = static_cast<float>(point.getY());
-=======
     // Convert text content to wide string
     std::wstring wideText(text.begin(), text.end());
 
     // Adjust the Y coordinate to move the text up
     PointF pointF(static_cast<float>(point.getX()), static_cast<float>(point.getY()));
->>>>>>> AnhTRis
 
     // Create a StringFormat object
-    StringFormat format;
+    Gdiplus::StringFormat format;
 
     // Handle text-anchor attribute
     std::string textAnchor = static_cast<TextAnchor *>(attributes.getAttributes("text-anchor"))->getTextAnchor();
@@ -123,33 +102,6 @@ void MyFigure::Text::draw()
     static_cast<Transform *>(attributes.getAttributes("transform"))->transform(transformMatrix);
     graphics.MultiplyTransform(&transformMatrix);
 
-    // Matrix originalMatrix;
-    // graphics.GetTransform(&originalMatrix);
-    // graphics.SetTransform(&transformMatrix);
-<<<<<<< HEAD
-    
-    for (size_t i = 0; i < text.length(); ++i)
-    {
-        // Update x and y positions based on dx and dy values
-        if (i > 0)
-        {
-            x += dxValues[i];
-            y += dyValues[i];
-        }
-
-        std::cout << "dx[" << i << "]: " << dxValues[i] << ", dy[" << i << "]: " << dyValues[i] << std::endl;
-
-        PointF pointF(x, y);
-        std::wstring glyph(1, text[i]);
-
-        textToPath.Reset();
-        textToPath.AddString(glyph.c_str(), static_cast<INT>(glyph.length()),
-                             fontFamily, fontStyle, fontSize, pointF, &format);
-        graphics.FillPath(brush, &textToPath);
-        graphics.DrawPath(pen, &textToPath);
-
-=======
-
     textToPath.AddString(wideText.c_str(), static_cast<INT>(wideText.length()),
                          fontFamily, fontStyle, fontSize, pointF, &format);
 
@@ -158,8 +110,15 @@ void MyFigure::Text::draw()
     // Use penLinear
     if (penLinear != nullptr)
     {
-        graphics.DrawPath(penLinear, &textToPath);
->>>>>>> AnhTRis
+        RectF bbox;
+        textToPath.GetBounds(&bbox);
+        if (!temp->getIsUserSpaceOnUse())
+        {
+            temp->transformCoordinates(bbox);
+        }
+
+        Gdiplus::LinearGradientBrush *linearBrush = temp->getBrush();
+        graphics.FillPath(linearBrush, &textToPath);
     }
 
     // Restore the original transform
