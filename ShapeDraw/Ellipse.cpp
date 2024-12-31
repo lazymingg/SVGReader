@@ -57,58 +57,9 @@ void MyFigure::Ellipse::drawEllipse(Graphics &graphics)
     if (penLinear != nullptr)
     {
         temp->printColor();
-        
-        //     // Tạo các điểm đầu và cuối cho LinearGradientBrush
-        // Gdiplus::PointF startPoint(50.0f, 50.0f); // Điểm bắt đầu của gradient
-        // Gdiplus::PointF endPoint(200.0f, 50.0f);  // Điểm kết thúc của gradient
-
-        // // Màu sắc và các offset cho gradient
-        // std::vector<Gdiplus::Color> colors = {Gdiplus::Color::Red, Gdiplus::Color::Yellow, Gdiplus::Color::Blue};
-        // std::vector<Gdiplus::REAL> offsets = {0.0f, 0.5f, 1.0f};
-
-        // // Tạo LinearGradientBrush
-        // Gdiplus::LinearGradientBrush brush(startPoint, endPoint, Gdiplus::Color::Black, Gdiplus::Color::White);
-        // brush.SetInterpolationColors(colors.data(), offsets.data(), colors.size());
-
-        // // Vẽ một ellipse với LinearGradientBrush (fill ellipse)
-        // Gdiplus::RectF rect(50.0f, 50.0f, 150.0f, 100.0f);
-        // // graphics.FillEllipse(&brush, rect);
-
-        Gdiplus::PointF startPoint = temp->getStartPoint();
-        Gdiplus::PointF endPoint = temp->getEndPoint();
-
-        // mau sac  
-        std::vector<Gdiplus::Color> colors = temp->getColors();
-        std::vector<Gdiplus::REAL> offsets = temp->getOffsets();
-
-        // convert to Gdiplus::Color
-        Gdiplus::Color* color = new Gdiplus::Color[colors.size()];
-        for (size_t i = 0; i < colors.size(); ++i)
-        {
-            color[i] = colors[i];
-        }
-        Gdiplus::REAL* offset = new Gdiplus::REAL[offsets.size()];
-        for (size_t i = 0; i < offsets.size(); ++i)
-        {
-            offset[i] = offsets[i];
-        }
-        // Create a LinearGradientBrush
-        Gdiplus::LinearGradientBrush brush(startPoint, endPoint, Gdiplus::Color::Black, Gdiplus::Color::White);
-        brush.SetInterpolationColors(color, offset, colors.size());
-
-        //print all brush data
-        cout << "=====Brush data\n";
-        for (size_t i = 0; i < colors.size(); ++i)
-        {
-            cout << "Color: " << int(colors[i].GetR()) << ", " << int(colors[i].GetG()) << ", " << int(colors[i].GetB()) << ", " << int(colors[i].GetA()) << " - Offset: " << offsets[i] << endl;
-        }
-        // start point and end point
-        cout << "Start point: " << startPoint.X << ", " << startPoint.Y << endl;
-        cout << "End point: " << endPoint.X << ", " << endPoint.Y << endl;
-        
-        // Draw an ellipse with LinearGradientBrush (fill ellipse)
+        Gdiplus::LinearGradientBrush *brush = temp->getBrush();
         Gdiplus::RectF rect(center.getX() - rx, center.getY() - ry, rx * 2, ry * 2);
-        graphics.FillEllipse(&brush, rect);
+        graphics.FillEllipse(brush, rect);
     }
 
     graphics.SetTransform(&currentMatrix);

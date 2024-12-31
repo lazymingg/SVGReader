@@ -26,6 +26,12 @@ public:
         this->endPoint = endPoint;
         // Tạo LinearGradientBrush với các điểm bắt đầu và kết thúc
         this->brush_ = new Gdiplus::LinearGradientBrush(this->startPoint, this->endPoint, Gdiplus::Color::Black, Gdiplus::Color::White);
+        // we need to set the the stop at 0 and 1
+        // the 0 will be the start color and 1 will be the end color
+        this->offsets_.insert(this->offsets_.begin(), 0.0f);
+        this->offsets_.push_back(1.0f);
+        this->colors_.insert(this->colors_.begin(), this->colors_[0]);
+        this->colors_.push_back(this->colors_[this->colors_.size() - 1]);
         // Thiết lập các điểm dừng (gradient stops)
         this->brush_->SetInterpolationColors(colors_.data(), offsets_.data(), colors_.size());
     }
