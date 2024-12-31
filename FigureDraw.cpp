@@ -50,20 +50,24 @@ void FigureDraw::loadSVGFile(const std::string &filename)
     //
     if (rootNode->first_attribute("width"))
     {
-        svgWidth = std::stod(rootNode->first_attribute("width")->value());
+        string tmpWidth = rootNode->first_attribute("width")->value();
+        double unit = formatUnit(tmpWidth);
+        svgWidth = stod(tmpWidth) * unit;
     }
     else
     {
-        svgWidth = 300; // Giá trị mặc định nếu không tìm thấy
+        svgWidth = 0; // Giá trị mặc định nếu không tìm thấy
     }
 
     if (rootNode->first_attribute("height"))
     {
-        svgHeight = std::stod(rootNode->first_attribute("height")->value());
+        string tmpHeight = rootNode->first_attribute("height")->value();
+        double unit = formatUnit(tmpHeight);
+        svgHeight = stod(tmpHeight) * unit;
     }
     else
     {
-        svgHeight = 150; // Giá trị mặc định nếu không tìm thấy
+        svgHeight = 0; // Giá trị mặc định nếu không tìm thấy
     }
 
     // Đọc thuộc tính viewBox

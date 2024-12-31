@@ -7,7 +7,7 @@
 #include <windows.h>
 #include <gdiplus.h>
 #include <objidl.h>
-
+#include "../formatUnit.h"
 #pragma comment(lib, "Gdiplus.lib")
 
 // using namespace std;
