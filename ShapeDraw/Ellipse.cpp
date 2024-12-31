@@ -5,12 +5,20 @@ MyFigure::Ellipse::Ellipse(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : 
     if (!rootNode->first_attribute("cx"))
         center.setX(0);
     else
-        center.setX(stof(rootNode->first_attribute("cx")->value()));
+    {
+        string tmpCx = rootNode->first_attribute("cx")->value();
+        double unit = formatUnit(tmpCx);
+        center.setX(stof(tmpCx) * unit);
+    }
 
     if (!rootNode->first_attribute("cy"))
         center.setY(0);
     else
-        center.setY(stof(rootNode->first_attribute("cy")->value()));
+    {
+        string tmpCy = rootNode->first_attribute("cy")->value();
+        double unit = formatUnit(tmpCy);
+        center.setY(stof(tmpCy) * unit);
+    }
 
     if (rootNode->first_attribute("rx") && rootNode->first_attribute("ry"))
     {

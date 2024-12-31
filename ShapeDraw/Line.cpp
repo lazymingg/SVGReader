@@ -12,10 +12,15 @@ MyFigure::Line::Line(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure
     string getX2 = rootNode->first_attribute("x2")->value();
     string getY2 = rootNode->first_attribute("y2")->value();
 
-    this->start.setX(stof(getX1));
-    this->start.setY(stof(getY1));
-    this->end.setX(stof(getX2));
-    this->end.setY(stof(getY2));
+    double unit1 = formatUnit(getX1);
+    double unit2 = formatUnit(getY1);
+    double unit3 = formatUnit(getX2);
+    double unit4 = formatUnit(getY2);
+
+    this->start.setX(stof(getX1) * unit1);
+    this->start.setY(stof(getY1) * unit2);
+    this->end.setX(stof(getX2) * unit3);
+    this->end.setY(stof(getY2) * unit4);
 }
 
 void MyFigure::Line::printInfomation()

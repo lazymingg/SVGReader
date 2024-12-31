@@ -7,16 +7,38 @@ using namespace rapidxml;
 MyFigure::Rectangle::Rectangle(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : Figure(rootNode, graphics)
 {
 	// Đặt các điểm từ thuộc tính "points"
-	string getX = rootNode->first_attribute("x")->value();
-	string getY = rootNode->first_attribute("y")->value();
+	string getX, getY;
+	if(rootNode->first_attribute("x"))
+	{
+		getX = rootNode->first_attribute("x")->value();
+	}
+	else 
+	{
+		getX = "0";
+	}
+	
+	if(rootNode->first_attribute("y"))
+	{
+		getY = rootNode->first_attribute("y")->value();
+	}
+	else
+	{
+		getY = "0";
+	}
+	
 	string getWidth = rootNode->first_attribute("width")->value();
 	string getHeight = rootNode->first_attribute("height")->value();
 
-	this->point.setX(stof(getX));
-	this->point.setY(stof(getY));
+	double unit1 = formatUnit(getX);
+	double unit2 = formatUnit(getY);
+	double unit3 = formatUnit(getWidth);
+	double unit4 = formatUnit(getHeight);
 
-	this->height = stof(getHeight);
-	this->width = stof(getWidth);
+	this->point.setX(stof(getX) * unit1);
+	this->point.setY(stof(getY) * unit2);
+
+	this->width = stof(getWidth) * unit3;
+	this->height = stof(getHeight) * unit4;
 }
 
 void MyFigure::Rectangle::printInfomation()
