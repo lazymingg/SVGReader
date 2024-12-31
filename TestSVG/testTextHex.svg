@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- Hình chữ nhật với màu hex -->
+  <rect x="10" y="10" width="50" height="50" fill="#FF5733" stroke="#000000" stroke-width="2" />
+
+  <!-- Hình tròn với màu hex -->
+  <circle cx="100" cy="50" r="25" fill="#33FF57" stroke="#123456" stroke-width="3" />
+
+  <!-- Đường với màu hex -->
+  <line x1="10" y1="100" x2="150" y2="100" stroke="#FF33FF" stroke-width="4" />
+
+  <!-- Văn bản với màu hex -->
+  <text x="10" y="150" fill="#00FFFF" font-size="16">Test Colors</text>
+</svg>

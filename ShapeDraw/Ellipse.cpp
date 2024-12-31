@@ -22,8 +22,14 @@ MyFigure::Ellipse::Ellipse(xml_node<> *rootNode, Gdiplus::Graphics &graphics) : 
 
     if (rootNode->first_attribute("rx") && rootNode->first_attribute("ry"))
     {
-        rx = stof(rootNode->first_attribute("rx")->value());
-        ry = stof(rootNode->first_attribute("ry")->value());
+        string tmpRx = rootNode->first_attribute("rx")->value();
+        string tmpRy = rootNode->first_attribute("ry")->value();
+
+        double unit1 = formatUnit(tmpRx);
+        double unit2 = formatUnit(tmpRy);
+
+        rx = stof(tmpRx) * unit1;
+        ry = stof(tmpRy) * unit2;
         cout << "Ellipse rx: " << rx << ", ry: " << ry << endl;
     }
     else

@@ -56,8 +56,9 @@ void MyFigure::Text::draw()
 
     // Get dx and dy values
     std::vector<float> dxValues = static_cast<Dx *>(attributes.getAttributes("dx"))->getDxValues(text.length());
-    std::vector<float> dyValues = static_cast<Dy *>(attributes.getAttributes("dy"))->getDyValues(text.length());
 
+    std::vector<float> dyValues = static_cast<Dy *>(attributes.getAttributes("dy"))->getDyValues(text.length());
+   
     // Ensure dx and dy vectors are correctly sized
     if (dxValues.size() == 1)
     {
@@ -102,13 +103,18 @@ void MyFigure::Text::draw()
     // Matrix originalMatrix;
     // graphics.GetTransform(&originalMatrix);
     // graphics.SetTransform(&transformMatrix);
-
+    
     for (size_t i = 0; i < text.length(); ++i)
     {
         // Update x and y positions based on dx and dy values
-        x += dxValues[i];
-        y += dyValues[i];
-        
+        if (i > 0)
+        {
+            x += dxValues[i];
+            y += dyValues[i];
+        }
+
+        std::cout << "dx[" << i << "]: " << dxValues[i] << ", dy[" << i << "]: " << dyValues[i] << std::endl;
+
         PointF pointF(x, y);
         std::wstring glyph(1, text[i]);
 
